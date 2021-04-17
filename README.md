@@ -1,4 +1,4 @@
-# home-maintenance-api
+# home-monthly-maintenance
 
 Statistics for monthly home maintenance
 
