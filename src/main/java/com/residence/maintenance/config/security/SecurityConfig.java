@@ -1,7 +1,7 @@
 package com.residence.maintenance.config.security;
 
-import com.residence.maintenance.config.JwtAuthenticationEntryPoint;
-import com.residence.maintenance.config.JwtAuthenticationFilter;
+import com.residence.maintenance.config.jwt.JwtAuthenticationEntryPoint;
+import com.residence.maintenance.config.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
