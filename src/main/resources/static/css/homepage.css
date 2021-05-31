@@ -1,0 +1,19 @@
+#home-section {
+  display: flex;
+  text-align: center;
+  margin: auto;
+}
+
+#home-section .card .container .justify-content-center {
+  background-color: lavender;
+  border-radius: 50px;
+}
+
+.feature {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  width: 4rem;
+  font-size: 2rem;
+}
