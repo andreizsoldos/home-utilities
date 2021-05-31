@@ -3,11 +3,10 @@
   margin: auto;
   min-width: 415px;
   min-height: 540px;
-  font-family: "Helvetica Neue";
   align-items: center;
 }
 
-#login-section .card {
+#login-section div.card {
   width: 100%;
   max-width: 330px;
   min-width: 235px;
@@ -84,8 +83,13 @@
 }
 
 #login-section .no-select {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
-  text-align: center;
 }
 
 #login-section .btn {
