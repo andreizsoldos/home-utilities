@@ -1,0 +1,29 @@
+body {
+  display: flex;
+  min-height: 100vh;
+}
+
+#sidebar div ul li:hover, #sidebar div.languages a img:hover {
+  transform: scale(1.05);
+}
+
+#sidebar div.d-flex {
+  height: 100%;
+  width: 280px;
+}
+
+#sidebar div.languages {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#sidebar div.languages a img {
+  cursor: pointer;
+}
+
+footer div small {
+  user-select: none;
+}
