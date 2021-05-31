@@ -11,22 +11,17 @@
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="home-section" id="home-section">
     <div class="card">
-        <div class="container px-5">
-            <div class="row gx-5 mt-3 justify-content-center">
-                <div class="col">
-                    <div class="text-center my-2">
-                        <p class="fs-3 lead text-black-50 mt-3 mb-3" th:text="#{homepage.content.h1.p1.label}">Monthly utilities consumption are too high ?</p>
-                        <p class="fs-3 lead text-black-50 mb-3" th:text="#{homepage.content.h1.p2.label}">Bills are getting higher ?</p>
-                        <p class="fs-3 lead text-black-50 mb-3" th:text="#{homepage.content.h1.p3.label}">Don't loose track of your utilities consumption. You might save some money.</p>
-                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mb-5" sec:authorize="isAnonymous()">
-                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#" th:href="@{/login}" th:text="#{homepage.button.getStarted}">Get Started</a>
-                        </div>
-                    </div>
+        <div class="px-5 mx-5" sec:authorize="isAnonymous()">
+            <div class="col text-center fit-content">
+                <p class="fs-3 lead text-black-50 pt-3 mb-3" th:text="#{homepage.content.h1.p1.label}">Don't loose track of your utilities consumption.</p>
+                <p class="fs-3 lead text-black-50 mb-3" th:text="#{homepage.content.h1.p2.label}">You might save some money.</p>
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    <a class="btn btn-primary btn-lg px-4 me-sm-3 mb-3" href="#" th:href="@{/login}" th:text="#{homepage.button.getStarted}">Get Started</a>
                 </div>
             </div>
         </div>
-        <section class="mt-3 pt-4  border-bottom text-start" id="features">
-            <div class="container px-5 mt-4">
+        <section class="mt-3 pt-4 border-bottom text-start" id="features">
+            <div class="container px-5 mt-4 mb-4">
                 <div class="row gx-5">
                     <div class="col-lg-4 mb-3 mb-lg-0">
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-lightning"></i></div>
