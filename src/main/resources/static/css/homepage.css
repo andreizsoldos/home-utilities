@@ -2,11 +2,17 @@
   display: flex;
   text-align: center;
   margin: auto;
+  padding: 50px;
 }
 
-#home-section .card .container .justify-content-center {
+#home-section div.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#home-section div.card div.fit-content {
   background-color: lavender;
-  border-radius: 50px;
+  border-radius: 10px;
+  margin-top: 45px;
 }
 
 .feature {
