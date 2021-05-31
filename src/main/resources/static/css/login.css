@@ -1,0 +1,118 @@
+#login-section {
+  display: flex;
+  margin: auto;
+  min-width: 415px;
+  min-height: 540px;
+  font-family: "Helvetica Neue";
+  align-items: center;
+}
+
+#login-section .card {
+  width: 100%;
+  max-width: 330px;
+  min-width: 235px;
+  margin: auto;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
+
+#login-section .input-group {
+  display: flex;
+  align-items: center;
+}
+
+#login-section .input-group-text {
+  font-size: 35px;
+  background-color: #e0e0e0;
+}
+
+#login-section label {
+  width: calc(100% - 6px);
+  height: auto;
+  opacity: 1;
+  background-color: white;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  margin-left: 5px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+#login-section input::placeholder {
+  color: rgba(0,0,0,50%);
+}
+
+#login-section input[type="password"]::-ms-reveal, #login-section input[type="password"]::-ms-clear {
+  display: none;
+}
+
+#login-section input#email.form-control, #login-section input#password.form-control {
+  height: 48px;
+  font-size: 20px;
+}
+
+#login-section .form-floating>.form-control, #login-section .form-floating>.form-select {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+#login-section .form-control:focus {
+  box-shadow: 0 0 0 1px blue;
+}
+
+#login-section .form-floating>.form-control:focus~label, #login-section .form-floating>.form-control:not(:placeholder-shown)~label, #login-section .form-floating>.form-select~label {
+  transform: scale(.85) translateY(-28px) translateX(.15rem);
+  color: rgba(0,0,0,65%);
+  width: auto;
+}
+
+#login-section #togglePassword {
+  display: none;
+  text-align: center;
+  font-size: 30px;
+  height: 44px;
+  line-height: 48px;
+  cursor: pointer;
+}
+
+#login-section #togglePassword:hover {
+  color: blue;
+}
+
+#login-section .no-select {
+  user-select: none;
+  text-align: center;
+}
+
+#login-section .btn {
+  font-size: 20px;
+  line-height: 20px;
+  width: 100%;
+}
+
+#login-section a small {
+  font-size: 15px;
+}
+
+#login-section .errors {
+  text-align: center;
+  color: red;
+  font-size: 15px;
+  padding: 0;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+#login-section .card-img-top {
+  margin: auto;
+  min-width: 256px;
+  width: 256px;
+}
+
+#login-section .scaleHover:hover {
+  transform: scale(1.05);
+}
