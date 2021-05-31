@@ -57,3 +57,8 @@ Once started, the local application will be available at:
      http://localhost:8080/
 
 ---
+
+- ### Running application hosted on Heroku client
+
+      https://homeutilities.herokuapp.com/
+      
