@@ -1,10 +1,10 @@
-package com.residence.maintenance;
+package com.home.utilities;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MaintenanceApplicationTests {
+class UtilitiesApplicationTests {
 
 	@Test
 	void contextLoads() {
