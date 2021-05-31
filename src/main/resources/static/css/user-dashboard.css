@@ -1,0 +1,25 @@
+#dashboard-section {
+  display: flex;
+  margin: auto;
+}
+
+#dashboard-section div.card-group .card {
+  max-width: 256px;
+  margin: 20px;
+  border-top-left-radius: 128px;
+  border-top-right-radius: 128px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
+ }
+
+#dashboard-section .no-select {
+  user-select: none;
+}
+
+#dashboard-section div.card-group {
+  height: max-content;
+}
+
+#dashboard-section div.card-group .card:hover {
+  transform: scale(1.05);
+}
