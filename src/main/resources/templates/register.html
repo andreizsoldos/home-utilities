@@ -11,7 +11,7 @@
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="register-section" id="register-section">
     <div class="card">
-        <h1 class="pb-3 text-center no-select" th:text="#{register.content.title}">Create account</h1>
+        <h1 class="py-2 text-center no-select" th:text="#{register.content.title}">Create account</h1>
         <form th:action="@{/register}" class="row card" th:method="post" id="registerForm" th:object="${userRegisterRequest}">
             <div class="col-md-4 mx-3">
                 <label for="email" th:text="#{register.email.label}">EM</label>
