@@ -38,6 +38,9 @@ public class RegisterRequest {
     @NotNull(message = "{message.field.empty}")
     private Gender gender;
 
-    @AssertTrue(message = "{message.terms.empty}")
+    @AssertTrue(message = "{message.agree.empty}")
     private Boolean terms;
+
+    @AssertTrue(message = "{message.agree.empty}")
+    private Boolean gdpr;
 }
