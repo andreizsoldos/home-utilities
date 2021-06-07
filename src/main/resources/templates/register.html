@@ -2,42 +2,46 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: title(#{register.title}, ~{::link})}"></head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
+<head th:replace="~{fragments/layout :: title(#{register.title}, ~{::link})}">
     <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}" href="../static/css/register.css">
+</head>
+
 <body>
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="register-section" id="register-section">
     <div class="card">
         <h1 class="py-2 text-center no-select" th:text="#{register.content.title}">Create account</h1>
-        <form th:action="@{/register}" class="row card" th:method="post" id="registerForm" th:object="${userRegisterRequest}">
+        <form class="row card" th:action="@{/register}" th:method="post" id="registerForm" th:object="${userRegisterRequest}">
             <div class="col-md-4 mx-3">
                 <label for="email" th:text="#{register.email.label}">EM</label>
                 <input type="text" class="form-control" id="email" placeholder="name@email.com" th:placeholder="#{email.placeholder}" th:field="*{email}" autofocus/>
                 <div class="alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">* Eroare</div>
             </div>
+
             <div class="col-md-3 mx-3">
                 <label for="password" th:text="#{register.password.label}">PW</label>
                 <input type="password" class="form-control" id="password" placeholder="********" th:placeholder="#{password.placeholder}" th:field="*{password}"/>
                 <div class="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">* Eroare</div>
             </div>
+
             <div class="col-md-3 mx-3">
                 <label for="repeatPassword" th:text="#{register.repeatPassword.label}">CPW</label>
                 <input type="password" class="form-control" id="repeatPassword" placeholder="********" th:placeholder="#{password.placeholder}" th:field="*{repeatPassword}"/>
                 <div class="alert" th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">* Eroare</div>
             </div>
+
             <div class="col-md-4 mx-3">
                 <label for="firstName" th:text="#{register.firstName.label}">FN</label>
                 <input type="text" class="form-control" id="firstName" placeholder="John" th:field="*{firstName}"/>
                 <div class="alert" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">* Eroare</div>
             </div>
+
             <div class="col-md-4 mx-3">
                 <label for="lastName" th:text="#{register.lastName.label}">LN</label>
                 <input type="text" class="form-control" id="lastName" placeholder="Doe" th:field="*{lastName}"/>
                 <div class="alert" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">* Eroare</div>
             </div>
+
             <div class="row">
                 <label class="form-check-label mb-2" th:text="#{register.gender.label}">GEN</label>
                 <div class="col-md-3">
@@ -63,11 +67,23 @@
                 <div class="alert" th:if="${#fields.hasErrors('terms')}" th:errors="*{terms}">* Eroare</div>
             </div>
 
+            <div class="col mt-2 mb-3 mx-3">
+                <input type="checkbox" class="form-check-input" th:name="gdpr" id="gdpr" th:field="*{gdpr}"/>
+                <label class="form-check-label" for="gdpr" th:text="#{register.gdpr.label}">GDPR</label>
+                <div class="alert" th:if="${#fields.hasErrors('gdpr')}" th:errors="*{gdpr}">* Eroare</div>
+            </div>
+
             <div class="mb-2 d-block text-center">
+                <a href="#" th:href="@{/login}" class="btn btn-secondary text-decoration-none scaleHover" th:text="#{register.cancel.value}">Cancel</a>
                 <button type="submit" class="btn btn-primary scaleHover" th:text="#{register.submit.value}">Submit</button>
             </div>
+
             <div class="d-block text-center scaleHover">
                 <a href="#" th:href="@{/terms-and-conditions}" class="text-decoration-none" th:text="#{register.submit.terms.label}">Terms and conditions</a>
+            </div>
+
+            <div class="d-block text-center scaleHover">
+                <a href="#" th:href="@{/privacy-policy}" class="text-decoration-none" th:text="#{register.submit.gdpr.label}">Privacy policy</a>
             </div>
         </form>
     </div>
