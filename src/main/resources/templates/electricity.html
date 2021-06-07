@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: title(#{electricity.title}, ~{::link})}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/electricity.css}" href="../static/css/electricity.css">
+</head>
+
+<body>
+<header th:replace="~{fragments/layout :: sidebar}"></header>
+<section th:id="electricity-section" id="electricity-section">
+    <div class="mb-3 d-block">
+        <a href="#" th:href="@{/user/dashboard/electricity/client-code}" class="btn btn-primary text-decoration-none scaleHover" th:text="#{electricity.addClientCode.label}">Add client code</a>
+    </div>
+    <div class="card-group">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="d-grid nav-link" id="nav-1-tab" th:each="client : ${clientCodeList}" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'active':''" th:id="'nav' + ${client.getId()} + 'tab'" data-bs-toggle="tab" data-bs-target="#nav-1" th:data-bs-target="'#nav' + ${client.getId()}" type="button" role="tab" aria-controls="nav-1" th:aria-controls="'nav' + ${client.getId()}" aria-selected="true">
+                    <span th:text="${client.getClientNumber()}">client-code</span>
+                    <span th:text="${client.getClientName()}">client-name</span>
+                </button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-1" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'show active':''" th:each="client : ${clientCodeList}" th:id="'nav' + ${client.getId()}" role="tabpanel" aria-labelledby="nav-1-tab" th:aria-labelledby="'nav' + ${client.getId()} + 'tab'">
+                <div class="row">
+                    <div class="col-md-6 justify-content-md-center">
+                        <div class="card col clientsInfo" id="clientInfo" th:id="'clientInfo' + ${client.getId()}">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover table-bordered text-center align-middle">
+                                    <tbody>
+                                        <tr>
+                                            <th th:text="#{electricity.consumptionNumber.title}">Number</th>
+                                            <td th:text="${client.getConsumptionLocationNumber()}">Number</td>
+                                        </tr>
+                                        <tr>
+                                            <th th:text="#{electricity.consumptionAddress.title}">Address</th>
+                                            <td th:text="${client.getConsumptionAddress()}">Address</td>
+                                        </tr>
+                                        <tr>
+                                            <th th:text="#{electricity.contractSince.title}">Contract since</th>
+                                            <td th:text="${#temporals.format(client.getContractDate(), 'dd-MM-yyyy')}">Contract since</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <a class="mb-3 btn btn-primary text-decoration-none scaleHover" href="#" th:href="@{/user/dashboard/electricity/client-code/__${client.getId()}__/index}" th:text="#{electricity.addIndex.label}">Add new index</a>
+                        </div>
+
+                        <div class="card col clientsIndex" id="clientIndex" th:id="'clientIndex' + ${client.getId()}">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover table-bordered text-center align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th th:text="#{electricity.indexDate.title}">Date</th>
+                                            <th th:text="#{electricity.index.title}">Index</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="index : ${indexList}" th:if="${client.getId() == index.getClientId()}">
+                                            <td th:text="${#temporals.format(index.getModifiedAt(), 'dd-MM-yyyy HH:mm:ss')}">Index date</td>
+                                            <td th:text="${index.getValue()}">Index value</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 justify-content-md-center charts">
+                        <div class="card col-md-auto" id="clientWeekGraph" th:id="'clientWeekGraph' + ${client.getId()}">
+                            <canvas id="weekChart" th:id="'weekChart' + ${client.getId()}"></canvas>
+                        </div>
+                        <div class="card col-md-auto" id="clientMonthGraph" th:id="'clientMonthGraph' + ${client.getId()}">
+                            <canvas id="monthChart" th:id="'monthChart' + ${client.getId()}"></canvas>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript" th:inline="javascript">
+                        window.addEventListener("load", function() {
+                          generateChart('[[${client.getId()}]]');
+                        });
+                        var buttonId = document.getElementById('nav' + '[[${client.getId()}]]' + 'tab');
+                        buttonId.addEventListener('click', function () {
+                          generateChart('[[${client.getId()}]]');
+                        });
+
+                        function generateChart(id) {
+                          const weekContext = document.getElementById("weekChart".concat(id)).getContext('2d');
+                          const myWeekChart = new Chart(weekContext, {
+                            type: 'line',
+                            data: {
+                              labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                              datasets: [{
+                                label: 'Values / week',
+                                backgroundColor: 'rgba(161, 198, 247, 1)',
+                                borderColor: 'rgb(47, 128, 237)',
+                                data: [3000, 4000, 2000, 5000, 8000, 9000, 2000],
+                              }]
+                            },
+                            options: {
+                              scales: {
+                                yAxes: [{
+                                  ticks: {
+                                    beginAtZero: true,
+                                  }
+                                }]
+                              }
+                            },
+                          });
+
+                          const monthContext = document.getElementById("monthChart".concat(id)).getContext('2d');
+                          const myMonthChart = new Chart(monthContext, {
+                            type: 'line',
+                            data: {
+                              labels: ["Ian", "Feb", "Mar", "Apr", "Mai", "Iun", "Iul", "Aug", "Sep", "Oct", "Noi", "Dec"],
+                              datasets: [{
+                                label: 'Values / month',
+                                backgroundColor: 'rgba(120, 255, 120, 1)',
+                                borderColor: 'rgb(50, 150, 50)',
+                                data: [5000, 6500, 5350, 7000, 8000, 3500, 3800, 5500, 4000, 6000, 9000, 4500],
+                              }]
+                            },
+                            options: {
+                              scales: {
+                                yAxes: [{
+                                  ticks: {
+                                    beginAtZero: true,
+                                  }
+                                }]
+                              }
+                            },
+                          });
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
