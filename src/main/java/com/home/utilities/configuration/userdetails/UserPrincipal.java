@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -49,6 +50,11 @@ public class UserPrincipal implements UserDetails {
               .collect(Collectors.toSet());
         return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(),
               user.getFirstName(), user.getLastName(),user.getGender(), authorities);
+    }
+
+    public static UserPrincipal getCurrentUser() {
+        final var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (UserPrincipal) authentication.getPrincipal();
     }
 
     @Override
