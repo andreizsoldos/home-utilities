@@ -1,4 +1,4 @@
-package com.home.utilities.service.user;
+package com.home.utilities.service;
 
 import com.home.utilities.entities.Gender;
 import com.home.utilities.entities.User;

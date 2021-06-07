@@ -1,4 +1,4 @@
-package com.home.utilities.service.user;
+package com.home.utilities.service;
 
 import com.home.utilities.entities.AccountStatus;
 import com.home.utilities.entities.Gender;
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     public Optional<User> createAccount(final RegisterRequest request) {
         final var encodedPassword = passwordEncoder.encode(request.getPassword());
         final var user = new User(request.getEmail(), encodedPassword, request.getFirstName(), request.getLastName(),
-              request.getGender(), request.getTerms(), UserRole.USER, AccountStatus.ACTIVE);
+              request.getGender(), request.getTerms(), request.getGdpr(), UserRole.USER, AccountStatus.ACTIVE);
         return Optional.of(userRepository.save(user));
     }
 
