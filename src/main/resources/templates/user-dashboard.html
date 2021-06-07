@@ -11,41 +11,47 @@
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="dashboard-section" id="dashboard-section">
   <div class="card-group">
-    <div class="card">
-      <a href="#" th:href="@{/user/dashboard/electricity}">
-        <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png"
-             class="card-img-top" alt="" width="256" height="256">
-      </a>
-      <div class="card-body">
-        <h5 class="card-title">Electricity</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <a href="#" th:href="@{/user/dashboard/electricity}">
+      <div class="card">
+        <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png" class="card-img-top" alt="" width="256" height="256">
+        <div class="card-body">
+          <h5 class="card-title" th:text="#{user.dashboard.electricity.card.title}">Electricity</h5>
+          <p class="card-text" th:text="#{user.dashboard.card.p1}">Number of client codes: x</p>
+          <p class="card-text" th:text="#{user.dashboard.card.p2}">Last index inserted: xxxxxx</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted no-select" th:text="${electricityLastModifiedDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${electricityLastModifiedDate})}">Last updated 3 mins ago</small>
+        </div>
       </div>
-      <div class="card-footer">
-        <small class="text-muted no-select">Last updated 3 mins ago</small>
+    </a>
+
+    <a href="#" th:href="@{/user/dashboard/water}">
+      <div class="card">
+        <img th:src="@{/images/user-dashboard/water.png}" src="../static/images/user-dashboard/water.png" class="card-img-top" alt="" width="256" height="256">
+        <div class="card-body">
+          <h5 class="card-title" th:text="#{user.dashboard.water.card.title}">Water</h5>
+          <p class="card-text" th:text="#{user.dashboard.card.p1}">Number of client codes: 5</p>
+          <p class="card-text" th:text="#{user.dashboard.card.p2}">Last index inserted: xxxxxx</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted no-select" th:text="${waterLastModifiedDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${waterLastModifiedDate})}">Last updated 3 mins ago</small>
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <img th:src="@{/images/user-dashboard/water.png}" src="../static/images/user-dashboard/water.png"
-           class="card-img-top" alt="" width="256" height="256">
-      <div class="card-body">
-        <h5 class="card-title">Water</h5>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+    </a>
+
+    <a href="#" th:href="@{/user/dashboard/gas}">
+      <div class="card">
+        <img th:src="@{/images/user-dashboard/gaz.png}" src="../static/images/user-dashboard/gaz.png" class="card-img-top" alt="" width="256" height="256">
+        <div class="card-body">
+          <h5 class="card-title" th:text="#{user.dashboard.gas.card.title}">Gas</h5>
+          <p class="card-text" th:text="#{user.dashboard.card.p1}">Number of client codes: 5</p>
+          <p class="card-text" th:text="#{user.dashboard.card.p2}">Last index inserted: xxxxxx</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted no-select" th:text="${gasLastModifiedDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${gasLastModifiedDate})}">Last updated 3 mins ago</small>
+        </div>
       </div>
-      <div class="card-footer">
-        <small class="text-muted no-select">Last updated 3 mins ago</small>
-      </div>
-    </div>
-    <div class="card">
-      <img th:src="@{/images/user-dashboard/gaz.png}" src="../static/images/user-dashboard/gaz.png"
-           class="card-img-top" alt="" width="256" height="256">
-      <div class="card-body">
-        <h5 class="card-title">Gaz</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted no-select">Last updated 3 mins ago</small>
-      </div>
-    </div>
+    </a>
   </div>
 </section>
 

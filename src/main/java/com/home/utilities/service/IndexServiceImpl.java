@@ -11,6 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,5 +48,13 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public Optional<Long> getLastIndexValue(final Long clientId, final Branch branch, final Long userId) {
         return indexRepository.findLastIndexValue(clientId, branch, userId);
+    }
+
+    @Override
+    public Long getLastModifiedDate(final Branch branch, final Long userId) {
+        final var today = Instant.now();
+        final var lastDate = indexRepository.findLastModifiedDate(branch, userId)
+              .orElse(Instant.now().plus(1L, ChronoUnit.DAYS));
+        return Duration.between(lastDate, today).toDaysPart();
     }
 }
