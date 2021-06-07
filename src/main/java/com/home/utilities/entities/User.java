@@ -50,6 +50,9 @@ public class User extends BaseEntity {
     @Column(name = "terms")
     private Boolean terms;
 
+    @Column(name = "gdpr")
+    private Boolean gdpr;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private UserRole role;
