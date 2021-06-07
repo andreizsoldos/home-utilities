@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,4 +34,13 @@ public interface IndexRepository extends JpaRepository<Index, Long> {
               AND cc.branch = :branch)
           """)
     Optional<Long> findLastIndexValue(@Param("clientId") Long clientId, @Param("branch") Branch branch, @Param("userId") Long userId);
+
+    @Query("""
+          SELECT max(i.modifiedAt) from Index i
+              INNER JOIN i.clientCode cc
+              INNER JOIN cc.user u
+              ON u.id = :userId
+              AND cc.branch = :branch
+          """)
+    Optional<Instant> findLastModifiedDate(@Param("branch") Branch branch, @Param("userId") Long userId);
 }
