@@ -1,0 +1,79 @@
+#client-section {
+  display: flex;
+  margin: auto;
+  padding: 30px;
+}
+
+#client-section div.card {
+  width: 70%;
+  padding-top: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 30px;
+  margin: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
+
+#client-section form {
+  padding-top: 20px;
+  flex-direction: row;
+}
+
+#client-section .form-control {
+  margin-bottom: 3px;
+}
+
+#client-section input[type="text"], #client-section input[type="password"] {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+#client-section input[type="password"]::-ms-reveal, #client-section input[type="password"]::-ms-clear {
+  display: none;
+}
+
+#client-section input[type="text"]:focus, #client-section input[type="password"]:focus {
+  box-shadow: 0 3px 0 -2px blue;
+}
+
+#client-section .no-select {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#client-section div.row {
+  margin-left: 5px;
+}
+
+
+#client-section .alert {
+  color: red;
+  font-size: 15px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+#client-section .errors {
+  margin-top: 5px;
+  width: auto;
+}
+
+#client-section button.btn {
+  width: auto;
+}
+
+#client-section .scaleHover:hover {
+  transform: scale(1.05);
+}
+
+#client-section div a {
+  cursor: pointer;
+}
