@@ -3,7 +3,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/layout :: title(#{electricity.title}, ~{::link})}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" th:href="@{/css/electricity.css}" href="../static/css/electricity.css">
 </head>
 
@@ -11,6 +10,7 @@
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="electricity-section" id="electricity-section">
     <div class="mb-3 d-block">
+        <a href="#" th:href="@{/user/dashboard/}" class="btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
         <a href="#" th:href="@{/user/dashboard/electricity/client-code}" class="btn btn-primary text-decoration-none scaleHover" th:text="#{electricity.addClientCode.label}">Add client code</a>
     </div>
     <div class="card-group">
