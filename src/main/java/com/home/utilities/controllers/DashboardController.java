@@ -21,11 +21,14 @@ public class DashboardController {
     @GetMapping("/user/dashboard")
     public ModelAndView dashboardPage() {
         final var mav = new ModelAndView("user-dashboard");
+        final var userId = UserPrincipal.getCurrentUser().getId();
         List.of(Branch.values()).forEach(b -> {
-            mav.addObject(b.name().toLowerCase() + "LastModifiedDate",
-                  indexService.getLastModifiedDate(b, UserPrincipal.getCurrentUser().getId()));
             mav.addObject(b.name().toLowerCase() + "TotalClientCodes",
-                  clientCodeService.getTotalClientCodes(b, UserPrincipal.getCurrentUser().getId()));
+                  clientCodeService.getTotalClientCodes(b, userId));
+            mav.addObject(b.name().toLowerCase() + "LastIndex",
+                  indexService.getLastIndexValue(b, userId).orElse(0D));
+            mav.addObject(b.name().toLowerCase() + "LastModifiedDate",
+                  indexService.getLastModifiedDate(b, userId));
         });
         return mav;
     }

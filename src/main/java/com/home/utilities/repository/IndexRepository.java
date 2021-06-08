@@ -22,7 +22,6 @@ public interface IndexRepository extends JpaRepository<Index, Long> {
           """)
     List<Index> findIndexes(@Param("branch") Branch branch, @Param("userId") Long userId);
 
-
     @Query("""
           SELECT index.value FROM Index index
           WHERE index.id =
@@ -33,7 +32,18 @@ public interface IndexRepository extends JpaRepository<Index, Long> {
               ON u.id = :userId
               AND cc.branch = :branch)
           """)
-    Optional<Long> findLastIndexValue(@Param("clientId") Long clientId, @Param("branch") Branch branch, @Param("userId") Long userId);
+    Optional<Double> findLastIndexValue(@Param("clientId") Long clientId, @Param("branch") Branch branch, @Param("userId") Long userId);
+
+    @Query("""
+          SELECT index.value FROM Index index
+          WHERE index.id =
+              (SELECT max(i.id) from Index i
+              INNER JOIN i.clientCode cc
+              INNER JOIN cc.user u
+              ON u.id = :userId
+              AND cc.branch = :branch)
+          """)
+    Optional<Double> findLastIndexValue(@Param("branch") Branch branch, @Param("userId") Long userId);
 
     @Query("""
           SELECT max(i.modifiedAt) from Index i

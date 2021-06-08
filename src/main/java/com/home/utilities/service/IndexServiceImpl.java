@@ -14,8 +14,6 @@ import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,8 +44,13 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Optional<Long> getLastIndexValue(final Long clientId, final Branch branch, final Long userId) {
+    public Optional<Double> getLastIndexValue(final Long clientId, final Branch branch, final Long userId) {
         return indexRepository.findLastIndexValue(clientId, branch, userId);
+    }
+
+    @Override
+    public Optional<Double> getLastIndexValue(final Branch branch, final Long userId) {
+        return indexRepository.findLastIndexValue(branch, userId);
     }
 
     @Override
