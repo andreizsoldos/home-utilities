@@ -16,7 +16,7 @@
         <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.electricity.card.title}">Electricity</h5>
-          <p class="card-text" th:text="#{user.dashboard.card.p1}">Number of client codes: x</p>
+          <p class="card-text" th:text="#{user.dashboard.card.p1(${electricityTotalClientCodes})}">Number of client codes: x</p>
           <p class="card-text" th:text="#{user.dashboard.card.p2}">Last index inserted: xxxxxx</p>
         </div>
         <div class="card-footer">
@@ -30,7 +30,7 @@
         <img th:src="@{/images/user-dashboard/water.png}" src="../static/images/user-dashboard/water.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.water.card.title}">Water</h5>
-          <p class="card-text" th:text="#{user.dashboard.card.p1}">Number of client codes: 5</p>
+          <p class="card-text" th:text="#{user.dashboard.card.p1(${waterTotalClientCodes})}">Number of client codes: 5</p>
           <p class="card-text" th:text="#{user.dashboard.card.p2}">Last index inserted: xxxxxx</p>
         </div>
         <div class="card-footer">
@@ -44,7 +44,7 @@
         <img th:src="@{/images/user-dashboard/gaz.png}" src="../static/images/user-dashboard/gaz.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.gas.card.title}">Gas</h5>
-          <p class="card-text" th:text="#{user.dashboard.card.p1}">Number of client codes: 5</p>
+          <p class="card-text" th:text="#{user.dashboard.card.p1(${gasTotalClientCodes})}">Number of client codes: 5</p>
           <p class="card-text" th:text="#{user.dashboard.card.p2}">Last index inserted: xxxxxx</p>
         </div>
         <div class="card-footer">
