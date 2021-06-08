@@ -68,7 +68,7 @@ public class BranchController {
         mav.addObject("indexData", new IndexRequest());
         mav.addObject("branch", branch);
         mav.addObject("clientId", clientId);
-        mav.addObject("lastIndex", lastIndex.orElse(0L));
+        mav.addObject("lastIndex", lastIndex.orElse(0D));
         return mav;
     }
 
