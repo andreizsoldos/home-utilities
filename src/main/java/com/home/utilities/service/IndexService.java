@@ -14,7 +14,9 @@ public interface IndexService {
 
     List<IndexDetails> getIndexes(Branch branch, Long userId);
 
-    Optional<Long> getLastIndexValue(Long clientId, Branch branch, Long userId);
+    Optional<Double> getLastIndexValue(Long clientId, Branch branch, Long userId);
+
+    Optional<Double> getLastIndexValue(Branch branch, Long userId);
 
     Long getLastModifiedDate(Branch branch, Long userId);
 
