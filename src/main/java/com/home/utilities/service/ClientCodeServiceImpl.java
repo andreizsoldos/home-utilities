@@ -4,6 +4,7 @@ import com.home.utilities.entities.Branch;
 import com.home.utilities.entities.ClientCode;
 import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.dto.ClientCodeDetails;
+import com.home.utilities.payload.dto.TotalClientCodes;
 import com.home.utilities.payload.request.ClientCodeRequest;
 import com.home.utilities.repository.ClientCodeRepository;
 import com.home.utilities.repository.UserRepository;
@@ -45,5 +46,10 @@ public class ClientCodeServiceImpl implements ClientCodeService {
     @Override
     public Optional<ClientCodeDetails> findFirstClientCode(final List<Branch> branches, final Long userId) {
         return getClientCodes(branches, userId).stream().findFirst();
+    }
+
+    @Override
+    public Long getTotalClientCodes(final Branch branch, final Long userId) {
+        return clientCodeRepository.getTotalNumberOfClientCodes(branch, userId);
     }
 }

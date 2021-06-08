@@ -15,4 +15,6 @@ public interface ClientCodeService {
     List<ClientCodeDetails> getClientCodes(List<Branch> branches, Long userId);
 
     Optional<ClientCodeDetails> findFirstClientCode(List<Branch> branches, Long userId);
+
+    Long getTotalClientCodes(Branch branch, Long userId);
 }
