@@ -11,7 +11,7 @@
 <section th:id="client-section" id="client-section">
     <div class="card">
         <h1 class="py-2 text-center no-select" th:text="#{clientCode.content.title}">Client code</h1>
-        <form class="row card" th:action="@{/user/dashboard/__${branch}__/client-code/add}" th:method="post" th:id="clientCodeForm" id="clientCodeForm" th:object="${clientCodeData}">
+        <form class="row card" th:action="@{/user/dashboard/__${branch}__/client-code}" th:method="post" th:id="clientCodeForm" id="clientCodeForm" th:object="${clientCodeData}">
             <div class="col-md-3 mx-3">
                 <label for="clientNumber" th:text="#{clientCode.number.label}">Number</label>
                 <input type="text" class="form-control" id="clientNumber" placeholder="123456789" th:placeholder="#{clientCode.number.placeholder}" th:field="*{clientNumber}" autofocus/>

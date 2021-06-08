@@ -17,7 +17,7 @@
                     <h5 class="modal-title" id="staticBackdropLabel" th:text="#{index.title}">Add new index</h5>
                 </div>
                 <div class="modal-body">
-                    <form class="row card" id="indexForm" th:id="indexForm" th:action="@{/user/dashboard/__${branch}__/client-code/__${clientId}__/index/add}" th:method="post" th:object="${indexData}">
+                    <form class="row card" id="indexForm" th:id="indexForm" th:action="@{/user/dashboard/__${branch}__/client-code/__${clientId}__/index}" th:method="post" th:object="${indexData}">
                         <div class="col-md-4 mx-3">
                             <label for="oldIndex" th:text="#{index.oldIndex.label}">Old index</label>
                             <input type="text" class="form-control no-select" id="oldIndex" value="0" th:value="${lastIndex}" readonly/>
