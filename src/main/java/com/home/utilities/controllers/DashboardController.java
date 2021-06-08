@@ -27,6 +27,8 @@ public class DashboardController {
                   clientCodeService.getTotalClientCodes(b, userId));
             mav.addObject(b.name().toLowerCase() + "LastIndex",
                   indexService.getLastIndexValue(b, userId).orElse(0D));
+            mav.addObject(b.name().toLowerCase() + "ClientNameForLastIndex",
+                  clientCodeService.getClientCodeNameWhoInsertedLastIndex(b, userId).orElse(""));
             mav.addObject(b.name().toLowerCase() + "LastModifiedDate",
                   indexService.getLastModifiedDate(b, userId));
         });

@@ -32,6 +32,11 @@
   padding-bottom: 20px;
 }
 
+#dashboard-section div.card-group .card-body .card-text {
+  margin: 0;
+  padding-bottom: 20px;
+}
+
 #dashboard-section div.card-group .card-footer {
   text-align: center;
   font-weight: bold;
