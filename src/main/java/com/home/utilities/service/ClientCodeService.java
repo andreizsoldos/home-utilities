@@ -20,4 +20,6 @@ public interface ClientCodeService {
     Long getTotalClientCodes(Branch branch, Long userId);
 
     Optional<String> getClientCodeNameWhoInsertedLastIndex(@Param("branch") Branch branch, @Param("userId") Long userId);
+
+    int deleteClientCode(Branch branch, Long clientId, Long userId);
 }
