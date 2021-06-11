@@ -3,20 +3,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/layout :: title(#{electricity.title}, ~{::link})}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link type="text/css" rel="stylesheet" th:href="@{/css/electricity.css}" href="../static/css/electricity.css">
 </head>
 
 <body>
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="electricity-section" id="electricity-section">
-    <div class="mb-3 d-block">
-        <a href="#" th:href="@{/user/dashboard/}" class="btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
-        <a href="#" th:href="@{/user/dashboard/electricity/client-code}" class="btn btn-primary text-decoration-none scaleHover" th:text="#{electricity.addClientCode.label}">Add client code</a>
+    <div class="noClient" th:if="${clientCodeList.size == 0}">
+        <a href="#" th:href="@{/user/dashboard/}" class="goBack btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
+        <div class="d-flex-inline">
+            <p class="" th:text="#{electricity.addFirstClientCode.label}">Add first client code</p>
+            <a href="#" th:href="@{/user/dashboard/electricity/client-code}" class="noClientData text-decoration-none bi bi-person-plus"></a>
+        </div>
     </div>
-    <div class="card-group">
+    <div class="card-group" th:unless="${clientCodeList.size == 0}">
+        <div class="mb-3 d-block">
+            <a href="#" th:href="@{/user/dashboard/}" class="btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
+            <a href="#" th:href="@{/user/dashboard/electricity/client-code}" class="btn btn-primary text-decoration-none scaleHover" th:text="#{electricity.addClientCode.label}">Add client code</a>
+        </div>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="d-grid nav-link" id="nav-1-tab" th:each="client : ${clientCodeList}" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'active':''" th:id="'nav' + ${client.getId()} + 'tab'" data-bs-toggle="tab" data-bs-target="#nav-1" th:data-bs-target="'#nav' + ${client.getId()}" type="button" role="tab" aria-controls="nav-1" th:aria-controls="'nav' + ${client.getId()}" aria-selected="true">
+                    <a id="1" th:id="${client.getId()}" class="btn-primary text-decoration-none scaleHover bi bi-trash"></a>
                     <span th:text="${client.getClientNumber()}">client-code</span>
                     <span th:text="${client.getClientName()}">client-name</span>
                 </button>
@@ -143,11 +153,32 @@
     </div>
 </section>
 
+<div class="modal fade" id="staticBackdrop" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel" th:text="#{electricity.deleteConfirmation.title}">Delete?</h5>
+            </div>
+            <div class="modal-body">
+                <p class="modal-text" th:text="#{electricity.deleteConfirmation.content}">Confirm delete</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <a class="btn btn-secondary scaleHover" data-bs-dismiss="modal" href="#" th:href="@{/user/dashboard/__${branch}__}" th:text="#{electricity.deleteConfirmation.cancel.label}">Cancel</a>
+                <a href="#" id="setDelete" th:id="setDelete" class="btn btn-primary scaleHover" th:text="#{electricity.deleteConfirmation.submit.label}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
+
+<script th:src="@{/scripts/electricity.js}" src="../static/scripts/electricity.js"></script>
 
 </body>
 </html>
