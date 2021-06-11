@@ -54,7 +54,7 @@
   user-select: none;
 }
 
-.modalPopUp .scaleHover:hover {
+.scaleHover:hover {
   transform: scale(1.05);
 }
 
