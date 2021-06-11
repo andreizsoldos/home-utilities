@@ -6,6 +6,44 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+#electricity-section div.noClient {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 30px;
+  color: #0d6efd;
+}
+
+#electricity-section div.noClient .goBack {
+  align-self: baseline;
+}
+
+#electricity-section div.noClient .d-flex-inline {
+  width: 100%;
+}
+
+#electricity-section a.noClientData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  font-size: 50px;
+  text-align: center;
+  border-radius: 100px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#electricity-section a.noClientData:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  background-color: rgba(230, 230, 230, 0.5);
+}
+
 #electricity-section .card-group {
   display: block;
   margin: auto;
@@ -30,7 +68,7 @@
 }
 
 #electricity-section .clientsIndex.card {
-  max-height: 280px;
+  max-height: 260px;
   overflow-y: auto;
   padding-top: 20px;
   padding-left: 20px;
@@ -83,10 +121,27 @@
   user-select: none;
 }
 
-#electricity-section .scaleHover:hover {
+.scaleHover:hover {
   transform: scale(1.05);
 }
 
 #electricity-section div a {
   cursor: pointer;
+}
+
+#electricity-section #nav-tab button a {
+  display: none;
+  cursor: pointer;
+  color: red;
+  margin: auto;
+  background: none;
+}
+
+#electricity-section .modal-content {
+  background: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#electricity-section .modal-footer {
+  margin: auto;
 }
