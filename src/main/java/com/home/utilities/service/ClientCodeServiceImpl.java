@@ -56,4 +56,9 @@ public class ClientCodeServiceImpl implements ClientCodeService {
     public Optional<String> getClientCodeNameWhoInsertedLastIndex(final Branch branch, final Long userId) {
         return clientCodeRepository.getClientCodeNameWhoInsertedLastIndex(branch, userId);
     }
+
+    @Override
+    public int deleteClientCode(final Branch branch, final Long clientId, Long userId) {
+        return clientCodeRepository.deleteByBranchAndIdAndUserId(branch, clientId, userId);
+    }
 }
