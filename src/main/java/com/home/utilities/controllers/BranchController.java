@@ -11,10 +11,12 @@ import com.home.utilities.service.IndexService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -23,6 +25,8 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class BranchController {
+
+    private static final String REDIRECT_USER_DASHBOARD = "redirect:/user/dashboard/";
 
     private final ClientCodeService clientCodeService;
     private final IndexService indexService;
@@ -55,16 +59,25 @@ public class BranchController {
         if (bindingResult.hasErrors()) {
             return "client-code";
         }
-        return clientCodeService.createClientCode(clientCodeRequest, Branch.valueOf(branch.toUpperCase()), UserPrincipal.getCurrentUser().getId())
-              .map(c -> "redirect:/user/dashboard/" + branch)
+        final var userId = UserPrincipal.getCurrentUser().getId();
+        return clientCodeService.createClientCode(clientCodeRequest, Branch.valueOf(branch.toUpperCase()), userId)
+              .map(c -> REDIRECT_USER_DASHBOARD + branch)
               .orElseThrow(() -> new NotFoundException("Client code", "number", clientCodeRequest.getClientNumber()));
+    }
+
+    @DeleteMapping("/user/dashboard/{branch}/client-code/{clientId}")
+    public @ResponseBody Integer deleteClientCode(@PathVariable(value = "branch") final String branch,
+                             @PathVariable(value = "clientId") final Long clientId) {
+        final var userId = UserPrincipal.getCurrentUser().getId();
+        return clientCodeService.deleteClientCode(Branch.valueOf(branch.toUpperCase()), clientId, userId);
     }
 
     @GetMapping("/user/dashboard/{branch}/client-code/{clientId}/index")
     public ModelAndView displayIndexPage(@PathVariable(value = "branch") final String branch,
                                          @PathVariable(value = "clientId") final Long clientId) {
         final var mav = new ModelAndView("index");
-        final var lastIndex = indexService.getLastIndexValue(clientId, Branch.valueOf(branch.toUpperCase()), UserPrincipal.getCurrentUser().getId());
+        final var userId = UserPrincipal.getCurrentUser().getId();
+        final var lastIndex = indexService.getLastIndexValue(clientId, Branch.valueOf(branch.toUpperCase()), userId);
         mav.addObject("indexData", new IndexRequest());
         mav.addObject("branch", branch);
         mav.addObject("clientId", clientId);
@@ -80,8 +93,7 @@ public class BranchController {
             return "index";
         }
         return indexService.createIndex(indexRequest, clientId)
-              .map(c -> "redirect:/user/dashboard/" + branch)
+              .map(c -> REDIRECT_USER_DASHBOARD + branch)
               .orElseThrow(() -> new NotFoundException("Index", "value", indexRequest.getValue()));
     }
-
 }
