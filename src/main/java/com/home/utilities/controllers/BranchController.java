@@ -53,7 +53,7 @@ public class BranchController {
         return mav;
     }
 
-    @PostMapping("/user/dashboard/{branch}/client-code/add")
+    @PostMapping("/user/dashboard/{branch}/client-code")
     public String createClientCode(@Valid @ModelAttribute("clientCodeData") final ClientCodeRequest clientCodeRequest, final BindingResult bindingResult,
                                    @PathVariable(value = "branch") final String branch) {
         if (bindingResult.hasErrors()) {
@@ -85,7 +85,7 @@ public class BranchController {
         return mav;
     }
 
-    @PostMapping("/user/dashboard/{branch}/client-code/{clientId}/index/add")
+    @PostMapping("/user/dashboard/{branch}/client-code/{clientId}/index")
     public String createIndex(@Valid @ModelAttribute("indexData") final IndexRequest indexRequest, final BindingResult bindingResult,
                               @PathVariable(value = "branch") final String branch,
                               @PathVariable(value = "clientId") final Long clientId) {
