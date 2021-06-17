@@ -4,6 +4,6 @@ function focusInputBox() {
 
 $(document).ready(function () {
   $(window).on("load", function() {
-    $("#staticBackdrop").modal("show");
+    $("#indexBackdrop").modal("show");
   });
 });
