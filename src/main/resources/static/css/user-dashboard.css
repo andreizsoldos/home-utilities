@@ -37,6 +37,10 @@
   padding-bottom: 20px;
 }
 
+#dashboard-section .bi-arrow-return-right::before {
+  padding-right: 5px;
+}
+
 #dashboard-section div.card-group .card-footer {
   text-align: center;
   font-weight: bold;
