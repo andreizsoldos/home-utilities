@@ -27,6 +27,6 @@ public class ClientCodeRequest {
     private String consumptionAddress;
 
     @NotNull(message = "{message.field.empty}")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate contractDate;
 }

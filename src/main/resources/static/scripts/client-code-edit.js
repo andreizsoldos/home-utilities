@@ -1,9 +1,9 @@
 function focusInputBox() {
-  document.getElementById("newIndex").focus();
+  document.getElementById("clientNumber").focus();
 }
 
 $(document).ready(function () {
   $(window).on("load", function() {
-    $("#indexBackdrop").modal("show");
+    $("#editBackdrop").modal("show");
   });
 });

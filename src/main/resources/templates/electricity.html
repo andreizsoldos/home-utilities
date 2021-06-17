@@ -14,7 +14,7 @@
     <div class="noClient" th:if="${clientCodeList.size == 0}">
         <a href="#" th:href="@{/user/dashboard/}" class="goBack btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
         <div class="d-flex-inline">
-            <p class="" th:text="#{electricity.addFirstClientCode.label}">Add first client code</p>
+            <p th:text="#{electricity.addFirstClientCode.label}">Add first client code</p>
             <a href="#" th:href="@{/user/dashboard/electricity/client-code}" class="noClientData text-decoration-none bi bi-person-plus"></a>
         </div>
     </div>
@@ -26,7 +26,10 @@
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="d-grid nav-link" id="nav-1-tab" th:each="client : ${clientCodeList}" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'active':''" th:id="'nav' + ${client.getId()} + 'tab'" data-bs-toggle="tab" data-bs-target="#nav-1" th:data-bs-target="'#nav' + ${client.getId()}" type="button" role="tab" aria-controls="nav-1" th:aria-controls="'nav' + ${client.getId()}" aria-selected="true">
-                    <a id="1" th:id="${client.getId()}" class="btn-primary text-decoration-none scaleHover bi bi-trash"></a>
+                    <div class="d-flex">
+                        <a id="put1" th:id="'put' + ${client.getId()}" class="btn-primary text-primary text-decoration-none scaleHover bi bi-pencil-square"></a>
+                        <a id="delete1" th:id="'delete' + ${client.getId()}" class="btn-primary text-decoration-none scaleHover bi bi-trash"></a>
+                    </div>
                     <span th:text="${client.getClientNumber()}">client-code</span>
                     <span th:text="${client.getClientName()}">client-name</span>
                 </button>
@@ -153,17 +156,17 @@
     </div>
 </section>
 
-<div class="modal fade" id="staticBackdrop" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="deleteBackdrop" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel" th:text="#{electricity.deleteConfirmation.title}">Delete?</h5>
+                <h5 class="modal-title" id="deleteBackdropLabel" th:text="#{electricity.deleteConfirmation.title}">Delete?</h5>
             </div>
             <div class="modal-body">
                 <p class="modal-text" th:text="#{electricity.deleteConfirmation.content}">Confirm delete</p>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <a class="btn btn-secondary scaleHover" data-bs-dismiss="modal" href="#" th:href="@{/user/dashboard/__${branch}__}" th:text="#{electricity.deleteConfirmation.cancel.label}">Cancel</a>
+                <a class="btn btn-secondary scaleHover" href="#" th:href="@{/user/dashboard/__${branch}__}" th:text="#{electricity.deleteConfirmation.cancel.label}">Cancel</a>
                 <a href="#" id="setDelete" th:id="setDelete" class="btn btn-primary scaleHover" th:text="#{electricity.deleteConfirmation.submit.label}">Delete</a>
             </div>
         </div>

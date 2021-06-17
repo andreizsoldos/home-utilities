@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -38,6 +39,7 @@ public class ClientCode extends UserAudit {
     private String consumptionAddress;
 
     @Column(name = "contract_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate contractDate;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "clientCode")

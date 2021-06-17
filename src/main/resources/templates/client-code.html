@@ -24,7 +24,7 @@
                 <div class="alert" th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}">* Eroare</div>
             </div>
 
-            <div class="col-md-3 mx-3">
+            <div class="col-md-4 mx-3">
                 <label for="consumptionNumber" th:text="#{clientCode.consumption.number.label}">Consumption number</label>
                 <input type="text" class="form-control" id="consumptionNumber" placeholder="123456789" th:placeholder="#{clientCode.consumption.number.placeholder}" th:field="*{consumptionLocationNumber}"/>
                 <div class="alert" th:if="${#fields.hasErrors('consumptionLocationNumber')}" th:errors="*{consumptionLocationNumber}">* Eroare</div>
@@ -36,14 +36,14 @@
                 <div class="alert" th:if="${#fields.hasErrors('consumptionAddress')}" th:errors="*{consumptionAddress}">* Eroare</div>
             </div>
 
-            <div class="col-md-4 mx-3 mb-3">
+            <div class="col-md-5 mx-3 mb-3">
                 <label for="contractDate" th:text="#{clientCode.consumption.contractDate.label}">Contract date</label>
-                <input type="date" class="form-control" id="contractDate" placeholder="01.06.2021" th:placeholder="#{clientCode.consumption.contractDate.placeholder}" th:field="*{contractDate}"/>
+                <input type="date" class="form-control" id="contractDate" placeholder="yyyy-MM-dd" th:placeholder="#{clientCode.consumption.contractDate.placeholder}" th:field="*{contractDate}"/>
                 <div class="alert" th:if="${#fields.hasErrors('contractDate')}" th:errors="*{contractDate}">* Eroare</div>
             </div>
 
             <div class="mb-2 d-block text-center">
-                <a href="#" th:href="@{/user/dashboard/electricity}" class="btn btn-secondary text-decoration-none scaleHover" th:text="#{clientCode.cancel.value}">Cancel</a>
+                <a href="#" th:href="@{/user/dashboard/__${branch}__}" class="btn btn-secondary text-decoration-none scaleHover" th:text="#{clientCode.cancel.value}">Cancel</a>
                 <button type="submit" class="btn btn-primary scaleHover" th:text="#{clientCode.submit.value}">Submit</button>
             </div>
         </form>
