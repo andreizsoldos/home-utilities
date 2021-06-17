@@ -38,6 +38,18 @@ public class ClientCodeServiceImpl implements ClientCodeService {
     }
 
     @Override
+    public Optional<ClientCode> editClientCode(final ClientCodeRequest request, final Branch branch, final Long clientId, final Long userId) {
+        final var clientCode = clientCodeRepository.findByBranchAndIdAndUserId(branch, clientId, userId)
+              .orElseThrow(() -> new NotFoundException("Client", "id", clientId));
+        clientCode.setClientNumber(request.getClientNumber());
+        clientCode.setClientName(request.getClientName());
+        clientCode.setConsumptionLocationNumber(request.getConsumptionLocationNumber());
+        clientCode.setConsumptionAddress(request.getConsumptionAddress());
+        clientCode.setContractDate(request.getContractDate());
+        return Optional.of(clientCodeRepository.save(clientCode));
+    }
+
+    @Override
     public List<ClientCodeDetails> getClientCodes(final List<Branch> branches, final Long userId) {
         return clientCodeRepository.findByBranchAndUserId(branches, userId);
     }
@@ -60,5 +72,11 @@ public class ClientCodeServiceImpl implements ClientCodeService {
     @Override
     public int deleteClientCode(final Branch branch, final Long clientId, Long userId) {
         return clientCodeRepository.deleteByBranchAndIdAndUserId(branch, clientId, userId);
+    }
+
+    @Override
+    public ClientCode findByBranchAndClientIdAndUserId(final Branch branch, final Long clientId, final Long userId) {
+        return clientCodeRepository.findByBranchAndIdAndUserId(branch, clientId, userId)
+              .orElseThrow(() -> new NotFoundException("Client", "id", clientId));
     }
 }
