@@ -45,4 +45,15 @@ public interface ClientCodeRepository extends JpaRepository<ClientCode, Long> {
     int deleteByBranchAndIdAndUserId(Branch branch, Long clientId, Long userId);
 
     Optional<ClientCode> findByBranchAndIdAndUserId(Branch branch, Long clientId, Long userId);
+
+    @Query(value =
+          """
+          SELECT revinfo.revtstmp FROM revinfo revinfo
+          WHERE revinfo.rev =
+              (SELECT MAX(clientAud.rev) FROM client_codes_aud clientAud
+              WHERE clientAud.branch = :branch
+              AND clientAud.user_id = :userId)
+          """
+          , nativeQuery = true)
+    Optional<Long> findLastModifiedDate(String branch, Long userId);
 }

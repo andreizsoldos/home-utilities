@@ -15,12 +15,14 @@
         <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.electricity.card.title}">Electricity</h5>
-          <p class="card-text" th:text="#{user.dashboard.card.p1(${electricityTotalClientCodes})}">Number of client codes: x</p>
-          <p class="m-0 p-0" th:text="#{user.dashboard.card.p2(${electricityLastIndex})}">Last index inserted: xxxxxx</p>
-          <p class="card-text" th:text="${electricityClientNameForLastIndex} == '' ? #{user.dashboard.card.p3.noClient} : #{user.dashboard.card.p3(${electricityClientNameForLastIndex})}">for client: xxxxxx</p>
+          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p1}">Client codes:</p>
+          <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${electricityTotalClientCodes})}">x</p>
+          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
+          <p class="my-0 ms-2 py-0 bi-arrow-return-right" th:text="#{user.dashboard.card.p2.1(${electricityLastIndex}, ${electricityLastModifiedIndexDate})}"> --> : xxxxxx</p>
+          <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${electricityClientNameForLastIndex})}"> --> for:</p>
         </div>
         <div class="card-footer">
-          <small class="text-muted no-select" th:text="${electricityLastModifiedDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${electricityLastModifiedDate})}">Last updated x days ago</small>
+          <small class="text-muted no-select" th:text="${electricityLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${electricityLastModificationDate})}">Last updated x days ago</small>
         </div>
       </div>
     </a>
@@ -30,12 +32,14 @@
         <img th:src="@{/images/user-dashboard/water.png}" src="../static/images/user-dashboard/water.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.water.card.title}">Water</h5>
-          <p class="card-text" th:text="#{user.dashboard.card.p1(${waterTotalClientCodes})}">Number of client codes: x</p>
-          <p class="m-0 p-0" th:text="#{user.dashboard.card.p2(${waterLastIndex})}">Last index inserted: xxxxxx</p>
-          <p class="card-text" th:text="${waterClientNameForLastIndex} == '' ? #{user.dashboard.card.p3.noClient} : #{user.dashboard.card.p3(${waterClientNameForLastIndex})}">for client: xxxxxx</p>
+          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p1}">Client codes:</p>
+          <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${waterTotalClientCodes})}">x</p>
+          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
+          <p class="my-0 ms-2 py-0 bi-arrow-return-right" th:text="#{user.dashboard.card.p2.1(${waterLastIndex}, ${waterLastModifiedIndexDate})}"> --> : xxxxxx</p>
+          <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${waterClientNameForLastIndex})}"> --> for:</p>
         </div>
         <div class="card-footer">
-          <small class="text-muted no-select" th:text="${waterLastModifiedDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${waterLastModifiedDate})}">Last updated x days ago</small>
+          <small class="text-muted no-select" th:text="${waterLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${waterLastModificationDate})}">Last updated x days ago</small>
         </div>
       </div>
     </a>
@@ -45,12 +49,14 @@
         <img th:src="@{/images/user-dashboard/gaz.png}" src="../static/images/user-dashboard/gaz.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.gas.card.title}">Gas</h5>
-          <p class="card-text" th:text="#{user.dashboard.card.p1(${gasTotalClientCodes})}">Number of client codes: x</p>
-          <p class="m-0 p-0" th:text="#{user.dashboard.card.p2(${gasLastIndex})}">Last index inserted: xxxxxx</p>
-          <p class="card-text" th:text="${gasClientNameForLastIndex} == '' ? #{user.dashboard.card.p3.noClient} : #{user.dashboard.card.p3(${gasClientNameForLastIndex})}">for client: xxxxxx</p>
+          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p1}">Client codes:</p>
+          <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${gasTotalClientCodes})}">x</p>
+          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
+          <p class="my-0 ms-2 py-0 bi-arrow-return-right" th:text="#{user.dashboard.card.p2.1(${gasLastIndex}, ${gasLastModifiedIndexDate})}"> --> : xxxxxx</p>
+          <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${gasClientNameForLastIndex})}"> --> for:</p>
         </div>
         <div class="card-footer">
-          <small class="text-muted no-select" th:text="${gasLastModifiedDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${gasLastModifiedDate})}">Last updated x days ago</small>
+          <small class="text-muted no-select" th:text="${gasLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${gasLastModificationDate})}">Last updated x days ago</small>
         </div>
       </div>
     </a>

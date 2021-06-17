@@ -16,8 +16,7 @@ public interface IndexService {
 
     Optional<Double> getLastIndexValue(Long clientId, Branch branch, Long userId);
 
-    Optional<Double> getLastIndexValue(Branch branch, Long userId);
+    Optional<String> getLastIndexValue(Branch branch, Long userId);
 
-    Long getLastModifiedDate(Branch branch, Long userId);
-
+    Optional<String> getLastModifiedDate(Branch branch, Long userId);
 }

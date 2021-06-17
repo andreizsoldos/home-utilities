@@ -26,11 +26,13 @@ public class DashboardController {
             mav.addObject(b.name().toLowerCase() + "TotalClientCodes",
                   clientCodeService.getTotalClientCodes(b, userId));
             mav.addObject(b.name().toLowerCase() + "LastIndex",
-                  indexService.getLastIndexValue(b, userId).orElse(0D));
+                  indexService.getLastIndexValue(b, userId).orElse("0"));
+            mav.addObject(b.name().toLowerCase() + "LastModifiedIndexDate",
+                  indexService.getLastModifiedDate(b, userId).orElse("-"));
             mav.addObject(b.name().toLowerCase() + "ClientNameForLastIndex",
-                  clientCodeService.getClientCodeNameWhoInsertedLastIndex(b, userId).orElse(""));
-            mav.addObject(b.name().toLowerCase() + "LastModifiedDate",
-                  indexService.getLastModifiedDate(b, userId));
+                  clientCodeService.getClientCodeNameWhoInsertedLastIndex(b, userId).orElse("-"));
+            mav.addObject(b.name().toLowerCase() + "LastModificationDate",
+                  clientCodeService.getLastModificationDuration(b, userId));
         });
         return mav;
     }

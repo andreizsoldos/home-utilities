@@ -33,3 +33,8 @@ function revealPassword() {
     }
 }
 
+window.addEventListener("load", function() {
+    var z = document.getElementById("email");
+    z.value = "userA@email.com";
+    x.value = "testpassword";
+});
