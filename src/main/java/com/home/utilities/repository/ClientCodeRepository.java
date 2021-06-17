@@ -43,4 +43,6 @@ public interface ClientCodeRepository extends JpaRepository<ClientCode, Long> {
     Optional<String> getClientCodeNameWhoInsertedLastIndex(@Param("branch") Branch branch, @Param("userId") Long userId);
 
     int deleteByBranchAndIdAndUserId(Branch branch, Long clientId, Long userId);
+
+    Optional<ClientCode> findByBranchAndIdAndUserId(Branch branch, Long clientId, Long userId);
 }
