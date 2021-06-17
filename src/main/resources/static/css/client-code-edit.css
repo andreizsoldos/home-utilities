@@ -1,0 +1,83 @@
+#client-code-edit-section {
+  display: flex;
+  margin: auto;
+  padding: 30px;
+}
+
+#client-code-edit-section #editBackdrop {
+  width: 100%;
+}
+
+.modalPopUp .modal-dialog {
+  width: 70%;
+  max-width: 100%;
+}
+
+.modalPopUp .modal-content {
+  background: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#client-code-edit-section form {
+  padding: 10px;
+  margin: 10px;
+  flex-direction: row;
+}
+
+#client-code-edit-section .form-control {
+  margin-bottom: 3px;
+}
+
+#client-code-edit-section input[type="text"], #client-section input[type="password"] {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+#client-code-edit-section input[type="password"]::-ms-reveal, #client-code-edit-section input[type="password"]::-ms-clear {
+  display: none;
+}
+
+#client-code-edit-section input[type="text"]:focus, #client-section input[type="password"]:focus {
+  box-shadow: 0 3px 0 -2px blue;
+}
+
+#client-code-edit-section .no-select {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#client-code-edit-section div.row {
+  margin-left: 5px;
+}
+
+#client-code-edit-section .alert {
+  color: red;
+  font-size: 15px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+#client-code-edit-section .errors {
+  margin-top: 5px;
+  width: auto;
+}
+
+#client-code-edit-section button.btn {
+  width: auto;
+}
+
+#client-code-edit-section .scaleHover:hover {
+  transform: scale(1.05);
+}
+
+#client-code-edit-section div a {
+  cursor: pointer;
+}
