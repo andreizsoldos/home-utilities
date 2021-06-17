@@ -27,6 +27,7 @@ import java.util.List;
 public class BranchController {
 
     private static final String REDIRECT_USER_DASHBOARD = "redirect:/user/dashboard/";
+    private static final String BRANCH = "branch";
 
     private final ClientCodeService clientCodeService;
     private final IndexService indexService;
@@ -49,7 +50,7 @@ public class BranchController {
     public ModelAndView displayClientCodePage(@PathVariable(value = "branch") final String branch) {
         final var mav = new ModelAndView("client-code");
         mav.addObject("clientCodeData", new ClientCodeRequest());
-        mav.addObject("branch", branch);
+        mav.addObject(BRANCH, branch);
         return mav;
     }
 
@@ -61,13 +62,38 @@ public class BranchController {
         }
         final var userId = UserPrincipal.getCurrentUser().getId();
         return clientCodeService.createClientCode(clientCodeRequest, Branch.valueOf(branch.toUpperCase()), userId)
+              .map(c -> REDIRECT_USER_DASHBOARD + branch + "#" + c.getId())
+              .orElseThrow(() -> new NotFoundException("Client code", "number", clientCodeRequest.getClientNumber()));
+    }
+
+    @GetMapping("/user/dashboard/{branch}/client-code-edit/{clientId}")
+    public ModelAndView displayClientCodeEditPage(@PathVariable(value = "branch") final String branch,
+                                                  @PathVariable(value = "clientId") final Long clientId) {
+        final var mav = new ModelAndView("client-code-edit");
+        final var userId = UserPrincipal.getCurrentUser().getId();
+        final var clientCode = clientCodeService.findByBranchAndClientIdAndUserId(Branch.valueOf(branch.toUpperCase()), clientId, userId);
+        mav.addObject("clientCodeData", clientCode);
+        mav.addObject(BRANCH, branch);
+        return mav;
+    }
+
+    @PostMapping("/user/dashboard/{branch}/client-code/{clientId}")
+    public String editClientCode(@Valid @ModelAttribute("clientCodeData") final ClientCodeRequest clientCodeRequest, final BindingResult bindingResult,
+                                 @PathVariable(value = "branch") final String branch,
+                                 @PathVariable(value = "clientId") final Long clientId) {
+        if (bindingResult.hasErrors()) {
+            return "client-code-edit";
+        }
+        final var userId = UserPrincipal.getCurrentUser().getId();
+        return clientCodeService.editClientCode(clientCodeRequest, Branch.valueOf(branch.toUpperCase()), clientId, userId)
               .map(c -> REDIRECT_USER_DASHBOARD + branch)
               .orElseThrow(() -> new NotFoundException("Client code", "number", clientCodeRequest.getClientNumber()));
     }
 
+    @ResponseBody
     @DeleteMapping("/user/dashboard/{branch}/client-code/{clientId}")
-    public @ResponseBody Integer deleteClientCode(@PathVariable(value = "branch") final String branch,
-                             @PathVariable(value = "clientId") final Long clientId) {
+    public Integer deleteClientCode(@PathVariable(value = "branch") final String branch,
+                                    @PathVariable(value = "clientId") final Long clientId) {
         final var userId = UserPrincipal.getCurrentUser().getId();
         return clientCodeService.deleteClientCode(Branch.valueOf(branch.toUpperCase()), clientId, userId);
     }
@@ -78,10 +104,9 @@ public class BranchController {
         final var mav = new ModelAndView("index");
         final var userId = UserPrincipal.getCurrentUser().getId();
         final var lastIndex = indexService.getLastIndexValue(clientId, Branch.valueOf(branch.toUpperCase()), userId);
-        mav.addObject("indexData", new IndexRequest());
-        mav.addObject("branch", branch);
+        mav.addObject("indexData", new IndexRequest(lastIndex.orElse(0D)));
+        mav.addObject(BRANCH, branch);
         mav.addObject("clientId", clientId);
-        mav.addObject("lastIndex", lastIndex.orElse(0D));
         return mav;
     }
 
