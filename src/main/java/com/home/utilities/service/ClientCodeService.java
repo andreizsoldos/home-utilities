@@ -22,4 +22,9 @@ public interface ClientCodeService {
     Optional<String> getClientCodeNameWhoInsertedLastIndex(@Param("branch") Branch branch, @Param("userId") Long userId);
 
     int deleteClientCode(Branch branch, Long clientId, Long userId);
+
+    Optional<ClientCode> editClientCode(ClientCodeRequest request, Branch branch, Long clientId, Long userId);
+
+    ClientCode findByBranchAndClientIdAndUserId(Branch branch, Long clientId, Long userId);
+
 }
