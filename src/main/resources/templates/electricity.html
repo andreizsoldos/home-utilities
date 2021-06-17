@@ -12,7 +12,7 @@
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="electricity-section" id="electricity-section">
     <div class="noClient" th:if="${clientCodeList.size == 0}">
-        <a href="#" th:href="@{/user/dashboard/}" class="goBack btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
+        <a href="#" th:href="@{/user/dashboard}" class="goBack btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
         <div class="d-flex-inline">
             <p th:text="#{electricity.addFirstClientCode.label}">Add first client code</p>
             <a href="#" th:href="@{/user/dashboard/electricity/client-code}" class="noClientData text-decoration-none bi bi-person-plus"></a>
@@ -20,7 +20,7 @@
     </div>
     <div class="card-group" th:unless="${clientCodeList.size == 0}">
         <div class="mb-3 d-block">
-            <a href="#" th:href="@{/user/dashboard/}" class="btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
+            <a href="#" th:href="@{/user/dashboard}" class="btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
             <a href="#" th:href="@{/user/dashboard/electricity/client-code}" class="btn btn-primary text-decoration-none scaleHover" th:text="#{electricity.addClientCode.label}">Add client code</a>
         </div>
         <nav>
