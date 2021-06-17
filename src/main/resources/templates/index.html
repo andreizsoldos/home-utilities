@@ -10,25 +10,25 @@
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="index-section" id="index-section">
     <!-- Modal -->
-    <div class="modal fade modalPopUp" id="staticBackdrop" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" onfocus="focusInputBox()">
+    <div class="modal fade modalPopUp" id="indexBackdrop" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="indexBackdropLabel" aria-hidden="true" onfocus="focusInputBox()">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel" th:text="#{index.title}">Add new index</h5>
+                    <h5 class="modal-title" id="indexBackdropLabel" th:text="#{index.title}">Add new index</h5>
                 </div>
                 <div class="modal-body">
                     <form class="row card" id="indexForm" th:id="indexForm" th:action="@{/user/dashboard/__${branch}__/client-code/__${clientId}__/index}" th:method="post" th:object="${indexData}">
                         <div class="col-md-4 mx-3">
                             <label for="oldIndex" th:text="#{index.oldIndex.label}">Old index</label>
-                            <input type="text" class="form-control no-select" id="oldIndex" value="0" th:value="${lastIndex}" readonly/>
+                            <input type="text" class="form-control no-select" id="oldIndex" th:field="*{lastIndex}" readonly/>
                         </div>
                         <div class="col-md-6 mx-3">
                             <label for="newIndex" th:text="#{index.newIndex.label}">New index</label>
-                            <input type="text" class="form-control" id="newIndex" placeholder="eg. 12345" th:field="*{value}"/>
+                            <input type="text" class="form-control" id="newIndex" th:placeholder="#{index.newIndex.placeholder.label}" th:field="*{value}"/>
                             <div class="alert" th:if="${#fields.hasErrors('value')}" th:errors="*{value}">* Eroare</div>
                         </div>
                         <div class="modal-footer d-block pb-0">
-                            <a class="btn btn-secondary scaleHover"  href="#" th:href="@{/user/dashboard/__${branch}__}" th:text="#{index.cancel.label}">Cancel</a>
+                            <a class="btn btn-secondary scaleHover" href="#" th:href="@{/user/dashboard/__${branch}__}" th:text="#{index.cancel.label}">Cancel</a>
                             <button type="submit" class="btn btn-primary scaleHover" th:text="#{index.submit.label}">Save</button>
                         </div>
                     </form>
