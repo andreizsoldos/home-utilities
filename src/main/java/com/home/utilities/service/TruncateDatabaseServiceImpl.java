@@ -36,8 +36,14 @@ public class TruncateDatabaseServiceImpl implements TruncateDatabaseService {
     @Value("${spring.datasource.password:}")
     private String dbPassword;
 
+    @Value("${admin.username:}")
+    private String adminUsername;
+
     @Value("${admin.password:}")
     private String adminPassword;
+
+    @Value("${student.username:}")
+    private String studentUsername;
 
     @Value("${student.password:}")
     private String studentPassword;
@@ -61,10 +67,10 @@ public class TruncateDatabaseServiceImpl implements TruncateDatabaseService {
 
         final String adminEncodedPassword = passwordEncoder.encode(adminPassword);
         final String studentEncodedPassword = passwordEncoder.encode(studentPassword);
-        final var userAdmin = new User("admin.user@email.com", adminEncodedPassword, "Admin",
+        final var userAdmin = new User(adminUsername, adminEncodedPassword, "Admin",
               "User", Gender.MALE, true, true, UserRole.ADMIN, AccountStatus.ACTIVE);
         userRepository.save(userAdmin);
-        final var userStudent = new User("student.user@email.com", studentEncodedPassword, "Student",
+        final var userStudent = new User(studentUsername, studentEncodedPassword, "Student",
               "User", Gender.FEMALE, true, true, UserRole.USER, AccountStatus.ACTIVE);
         userRepository.save(userStudent);
     }
