@@ -36,6 +36,12 @@ public class TruncateDatabaseServiceImpl implements TruncateDatabaseService {
     @Value("${spring.datasource.password:}")
     private String dbPassword;
 
+    @Value("${admin.password:}")
+    private String adminPassword;
+
+    @Value("${student.password:}")
+    private String studentPassword;
+
     @Override
     @Transactional
     public void truncateAllTablesFromDatabaseAndInsertTwoUsers() throws SQLException {
@@ -53,11 +59,12 @@ public class TruncateDatabaseServiceImpl implements TruncateDatabaseService {
 
         tables.forEach(t -> em.createNativeQuery("truncate table " + t + " restart identity cascade").executeUpdate());
 
-        final String encodedPassword = passwordEncoder.encode("testpassword");
-        final var userAdmin = new User("admin.user@email.com", encodedPassword, "Admin",
+        final String adminEncodedPassword = passwordEncoder.encode(adminPassword);
+        final String studentEncodedPassword = passwordEncoder.encode(studentPassword);
+        final var userAdmin = new User("admin.user@email.com", adminEncodedPassword, "Admin",
               "User", Gender.MALE, true, true, UserRole.ADMIN, AccountStatus.ACTIVE);
         userRepository.save(userAdmin);
-        final var userStudent = new User("student.user@email.com", encodedPassword, "Student",
+        final var userStudent = new User("student.user@email.com", studentEncodedPassword, "Student",
               "User", Gender.FEMALE, true, true, UserRole.USER, AccountStatus.ACTIVE);
         userRepository.save(userStudent);
     }
