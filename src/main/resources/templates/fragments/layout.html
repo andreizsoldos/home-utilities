@@ -26,7 +26,11 @@
         <a class="d-flex align-items-center mb-3 mb-md-0 text-white">
             <img class="bi d-block mx-auto mb-1" th:src="@{/images/header/logo2.png}" src="../../static/images/header/logo2.png" alt="" width="200" height="100">
         </a>
-        <hr>
+        <div class="mt-3 container text-center text-white" sec:authorize="isAuthenticated()">
+            <p class="p-0 m-0" th:text="'Welcome, ' + ${#authentication.principal.firstName.toUpperCase()} + '!'">Welcome STUDENT!</p>
+        </div>
+        <hr class="mt-0" sec:authorize="isAuthenticated()">
+        <hr sec:authorize="isAnonymous()">
         <ul class="nav nav-pills flex-sm-column mb-auto">
             <li>
                 <a href="#" th:href="@{/}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/' ? 'active':''}">
