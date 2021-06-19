@@ -98,10 +98,10 @@ public class BranchController {
         return clientCodeService.deleteClientCode(Branch.valueOf(branch.toUpperCase()), clientId, userId);
     }
 
-    @GetMapping("/user/dashboard/{branch}/client-code/{clientId}/index")
+    @GetMapping("/user/dashboard/{branch}/client-code/{clientId}/client-index")
     public ModelAndView displayIndexPage(@PathVariable(value = "branch") final String branch,
                                          @PathVariable(value = "clientId") final Long clientId) {
-        final var mav = new ModelAndView("index");
+        final var mav = new ModelAndView("client-index");
         final var userId = UserPrincipal.getCurrentUser().getId();
         final var lastIndex = indexService.getLastIndexValue(clientId, Branch.valueOf(branch.toUpperCase()), userId);
         mav.addObject("indexData", new IndexRequest(lastIndex.orElse(0D)));
@@ -110,12 +110,12 @@ public class BranchController {
         return mav;
     }
 
-    @PostMapping("/user/dashboard/{branch}/client-code/{clientId}/index")
+    @PostMapping("/user/dashboard/{branch}/client-code/{clientId}/client-index")
     public String createIndex(@Valid @ModelAttribute("indexData") final IndexRequest indexRequest, final BindingResult bindingResult,
                               @PathVariable(value = "branch") final String branch,
                               @PathVariable(value = "clientId") final Long clientId) {
         if (bindingResult.hasErrors()) {
-            return "index";
+            return "client-index";
         }
         return indexService.createIndex(indexRequest, clientId)
               .map(c -> REDIRECT_USER_DASHBOARD + branch)

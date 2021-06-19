@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: title(#{electricity.title}, ~{::link})}">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/client-index.css}" href="../static/css/client-index.css">
+</head>
+
+<body>
+<header th:replace="~{fragments/layout :: sidebar}"></header>
+<section th:id="index-section" id="index-section">
+    <!-- Modal -->
+    <div class="modal fade modalPopUp" id="indexBackdrop" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="indexBackdropLabel" aria-hidden="true" onfocus="focusInputBox()">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="indexBackdropLabel" th:text="#{index.title}">Add new index</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="row card" id="indexForm" th:id="indexForm" th:action="@{/user/dashboard/__${branch}__/client-code/__${clientId}__/client-index}" th:method="post" th:object="${indexData}">
+                        <div class="col-md-4 mx-3">
+                            <label for="oldIndex" th:text="#{index.oldIndex.label}">Old index</label>
+                            <input type="text" class="form-control no-select" id="oldIndex" th:field="*{lastIndex}" readonly/>
+                        </div>
+                        <div class="col-md-6 mx-3">
+                            <label for="newIndex" th:text="#{index.newIndex.label}">New index</label>
+                            <input type="text" class="form-control" id="newIndex" th:placeholder="#{index.newIndex.placeholder.label}" th:field="*{value}"/>
+                            <div class="alert" th:if="${#fields.hasErrors('value')}" th:errors="*{value}">* Eroare</div>
+                        </div>
+                        <div class="modal-footer d-block pb-0">
+                            <a class="btn btn-secondary scaleHover" href="#" th:href="@{/user/dashboard/__${branch}__}" th:text="#{index.cancel.label}">Cancel</a>
+                            <button type="submit" class="btn btn-primary scaleHover" th:text="#{index.submit.label}">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+<script th:src="@{/scripts/client-index.js}" src="../static/scripts/client-index.js"></script>
+
+</body>
+</html>
