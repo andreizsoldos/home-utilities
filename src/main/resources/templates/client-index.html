@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/layout :: title(#{electricity.title}, ~{::link})}">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}" href="../static/css/index.css">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/client-index.css}" href="../static/css/client-index.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
                     <h5 class="modal-title" id="indexBackdropLabel" th:text="#{index.title}">Add new index</h5>
                 </div>
                 <div class="modal-body">
-                    <form class="row card" id="indexForm" th:id="indexForm" th:action="@{/user/dashboard/__${branch}__/client-code/__${clientId}__/index}" th:method="post" th:object="${indexData}">
+                    <form class="row card" id="indexForm" th:id="indexForm" th:action="@{/user/dashboard/__${branch}__/client-code/__${clientId}__/client-index}" th:method="post" th:object="${indexData}">
                         <div class="col-md-4 mx-3">
                             <label for="oldIndex" th:text="#{index.oldIndex.label}">Old index</label>
                             <input type="text" class="form-control no-select" id="oldIndex" th:field="*{lastIndex}" readonly/>
@@ -44,7 +44,7 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 
-<script th:src="@{/scripts/index.js}" src="../static/scripts/index.js"></script>
+<script th:src="@{/scripts/client-index.js}" src="../static/scripts/client-index.js"></script>
 
 </body>
 </html>

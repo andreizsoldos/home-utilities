@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="col">
-                            <a class="mb-3 btn btn-primary text-decoration-none scaleHover" href="#" th:href="@{/user/dashboard/electricity/client-code/__${client.getId()}__/index}" th:text="#{electricity.addIndex.label}">Add new index</a>
+                            <a class="mb-3 btn btn-primary text-decoration-none scaleHover" href="#" th:href="@{/user/dashboard/electricity/client-code/__${client.getId()}__/client-index}" th:text="#{electricity.addIndex.label}">Add new index</a>
                         </div>
 
                         <div class="card col clientsIndex" id="clientIndex" th:id="'clientIndex' + ${client.getId()}">
