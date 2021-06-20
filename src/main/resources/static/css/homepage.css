@@ -1,5 +1,4 @@
 #home-section {
-  display: flex;
   text-align: center;
   margin: auto;
   padding: 30px;
@@ -22,4 +21,8 @@
   height: 4rem;
   width: 4rem;
   font-size: 2rem;
+}
+
+#home-section .scaleHover:hover, #home-section .feature:hover {
+  transform: scale(1.05);
 }
