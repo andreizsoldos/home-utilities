@@ -1,4 +1,4 @@
-package com.home.utilities.service;
+package com.home.utilities.services;
 
 import java.sql.SQLException;
 

@@ -1,4 +1,4 @@
-package com.home.utilities.service;
+package com.home.utilities.services;
 
 import com.home.utilities.entities.AccountStatus;
 import com.home.utilities.entities.Gender;

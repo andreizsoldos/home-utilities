@@ -2,8 +2,8 @@ package com.home.utilities.controllers;
 
 import com.home.utilities.configuration.userdetails.UserPrincipal;
 import com.home.utilities.entities.Branch;
-import com.home.utilities.service.ClientCodeService;
-import com.home.utilities.service.IndexService;
+import com.home.utilities.services.ClientCodeService;
+import com.home.utilities.services.IndexService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

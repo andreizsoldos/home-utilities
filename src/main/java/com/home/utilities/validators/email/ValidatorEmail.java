@@ -1,6 +1,6 @@
 package com.home.utilities.validators.email;
 
-import com.home.utilities.service.UserService;
+import com.home.utilities.services.UserService;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
