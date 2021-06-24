@@ -1,7 +1,7 @@
 package com.home.utilities.controllers;
 
 import com.home.utilities.payload.dto.ApiResponse;
-import com.home.utilities.service.TruncateDatabaseService;
+import com.home.utilities.services.TruncateDatabaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

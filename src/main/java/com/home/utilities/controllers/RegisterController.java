@@ -2,7 +2,7 @@ package com.home.utilities.controllers;
 
 import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.request.RegisterRequest;
-import com.home.utilities.service.UserService;
+import com.home.utilities.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
