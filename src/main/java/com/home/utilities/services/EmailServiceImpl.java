@@ -34,16 +34,16 @@ public class EmailServiceImpl implements EmailService {
      * @param emailTo            the list of recipients
      * @param receiverName       the name of receiver who will get the email
      * @param subject            the subject of the email
-     * @param message            the body of the email
+     * @param body               the body of the email
      * @param attachmentFilePath the file path for attachment
      * @return true if the email is successfully sent
      */
     @Override
-    public boolean sendEmail(final List<String> emailTo, final String receiverName, final String subject, final String message, String attachmentFilePath) {
+    public boolean sendEmail(final List<String> emailTo, final String receiverName, final String subject, final String body, final String attachmentFilePath) {
         final var fromEmail = environment.getProperty("mailjet.api.email.from");
 
         final Map<Boolean, List<String>> result = emailTo.stream()
-              .collect(Collectors.partitioningBy(to -> sendEmail(buildMail(fromEmail, "Home Utilities", to, receiverName, subject, message, attachmentFilePath))));
+              .collect(Collectors.partitioningBy(to -> sendEmail(buildMail(fromEmail, "Home Utilities", to, receiverName, subject, body, attachmentFilePath))));
         return result.containsKey(true);
     }
 
@@ -53,13 +53,13 @@ public class EmailServiceImpl implements EmailService {
      * @param emailTo            the recipient email address
      * @param receiverName       the name of who will receive the email
      * @param subject            the subject of the email
-     * @param message            the body of the email
+     * @param body               the body of the email
      * @param attachmentFilePath the file path for attachment
      * @return true if the email is successfully sent
      */
     @Override
-    public boolean sendEmail(final String emailTo, final String receiverName, final String subject, final String message, String attachmentFilePath) {
-        return sendEmail(List.of(emailTo), receiverName, subject, message, attachmentFilePath);
+    public boolean sendEmail(final String emailTo, final String receiverName, final String subject, final String body, final String attachmentFilePath) {
+        return sendEmail(List.of(emailTo), receiverName, subject, body, attachmentFilePath);
     }
 
     /**
@@ -106,17 +106,17 @@ public class EmailServiceImpl implements EmailService {
      * @param emailTo            the recipient email address
      * @param receiverName       the name of who will receive the email
      * @param subject            the subject of the email
-     * @param message            the body of the email
+     * @param body               the body of the email
      * @param attachmentFilePath the file path for attachment
      * @return true if the email is successfully sent
      */
     private TransactionalEmail buildMail(final String emailFrom, final String senderName, final String emailTo, final String receiverName,
-                                         final String subject, final String message, String attachmentFilePath) {
+                                         final String subject, final String body, final String attachmentFilePath) {
         final var buildEmail = TransactionalEmail.builder()
               .from(new SendContact(emailFrom, senderName))
               .to(new SendContact(emailTo, receiverName))
               .subject(subject)
-              .htmlPart(message);
+              .htmlPart(body);
 
         if (!attachmentFilePath.equals("")) {
             try {
