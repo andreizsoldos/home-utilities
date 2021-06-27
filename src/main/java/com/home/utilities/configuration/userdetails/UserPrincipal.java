@@ -3,7 +3,6 @@ package com.home.utilities.configuration.userdetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.home.utilities.entities.Gender;
 import com.home.utilities.entities.User;
-import com.home.utilities.entities.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -49,7 +48,7 @@ public class UserPrincipal implements UserDetails {
               .map(role -> new SimpleGrantedAuthority(ROLE_PREFIX + role))
               .collect(Collectors.toSet());
         return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(),
-              user.getFirstName(), user.getLastName(),user.getGender(), authorities);
+              user.getFirstName(), user.getLastName(), user.getGender(), authorities);
     }
 
     public static UserPrincipal getCurrentUser() {
