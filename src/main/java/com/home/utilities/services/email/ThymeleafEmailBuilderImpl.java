@@ -5,18 +5,23 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.util.Locale;
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class ThymeleafEmailBuilderImpl implements ThymeleafEmailBuilder {
 
-    private final TemplateEngine templateEngine;
+    private static final String HEADER_LOGO = "headerLogo";
+    private static final String FOOTER_LOGO = "footerLogo";
+
+    private final TemplateEngine emailTemplateEngine;
 
     @Override
-    public String build(final String emailTemplate, final Map<String, String> content) {
-        final var context = new Context();
+    public String build(final String emailTemplate, final Map<String, String> content, final Locale locale) {
+        final var context = new Context(locale);
         content.forEach(context::setVariable);
-        return templateEngine.process(emailTemplate, context);
+        context.setVariables(Map.of(HEADER_LOGO, HEADER_LOGO, FOOTER_LOGO, FOOTER_LOGO));
+        return emailTemplateEngine.process(emailTemplate, context);
     }
 }
