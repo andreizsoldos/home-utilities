@@ -15,4 +15,5 @@ public interface UserService {
 
     List<Gender> getGenderValues();
 
+    User activateAccount(String token);
 }
