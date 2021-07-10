@@ -1,6 +1,7 @@
 package com.home.utilities.configuration.userdetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.home.utilities.entities.AccountStatus;
 import com.home.utilities.entities.Gender;
 import com.home.utilities.entities.User;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,9 @@ public class UserPrincipal implements UserDetails {
     @JsonIgnore
     private Gender gender;
 
+    @JsonIgnore
+    private AccountStatus status;
+
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserPrincipal create(final User user) {
@@ -48,7 +52,7 @@ public class UserPrincipal implements UserDetails {
               .map(role -> new SimpleGrantedAuthority(ROLE_PREFIX + role))
               .collect(Collectors.toSet());
         return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(),
-              user.getFirstName(), user.getLastName(), user.getGender(), authorities);
+              user.getFirstName(), user.getLastName(), user.getGender(), user.getStatus(), authorities);
     }
 
     public static UserPrincipal getCurrentUser() {
@@ -73,12 +77,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return (status != AccountStatus.EXPIRED);
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return (status != AccountStatus.LOCKED);
     }
 
     @Override
@@ -88,6 +92,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return (status != AccountStatus.DISABLED);
     }
 }

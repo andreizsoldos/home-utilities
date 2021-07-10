@@ -35,7 +35,7 @@ public class ConfirmationToken {
     private User user;
 
     public ConfirmationToken(final User user, final int validForSeconds) {
-        this.token = UUID.randomUUID().toString();
+        this.token = UUID.randomUUID().toString().concat(UUID.randomUUID().toString().concat(UUID.randomUUID().toString().concat(UUID.randomUUID().toString().concat(UUID.randomUUID().toString()))));
         this.createdAt = Instant.now();
         this.expiresAt = createdAt.plusSeconds(validForSeconds);
         this.valid = true;

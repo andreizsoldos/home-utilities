@@ -12,6 +12,4 @@ public interface ConfirmationTokenService {
     ConfirmationToken generateToken(User user);
 
     Boolean validateToken(String token);
-
-    Boolean sendEmailWithToken(String email, String receiverName, String subject, String body, String attachmentFilePath, String token);
 }

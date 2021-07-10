@@ -17,7 +17,6 @@ import java.util.Objects;
 public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 
     private final Environment environment;
-    private final EmailService emailService;
     private final ConfirmationTokenRepository confirmationTokenRepository;
 
     @Override
@@ -35,11 +34,6 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
         final var validFor = Integer.parseInt(Objects.requireNonNull(environment.getProperty("confirmation.token.validity")));
         final var confirmationToken = new ConfirmationToken(user, validFor);
         return this.save(confirmationToken);
-    }
-
-    @Override
-    public Boolean sendEmailWithToken(final String email, final String receiverName, final String subject, final String body, final String attachmentFilePath, final String token) {
-        return emailService.sendEmail(email, receiverName, subject, body.replace("{token}", token), attachmentFilePath);
     }
 
     @Override
