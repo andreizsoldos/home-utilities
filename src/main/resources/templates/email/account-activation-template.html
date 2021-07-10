@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/email/email-layout :: title(#{account.activate.subject}, ~{::style})}">
+    <style th:replace="~{fragments/email/style :: style}"></style>
+</head>
+
+<body>
+    <table class="container" cellpadding='0' cellspacing='0'>
+        <tr>
+            <td th:replace="fragments/email/email-layout :: email-header"></td>
+        </tr>
+        <tr>
+            <td class="body-data">
+                <table class="body-table" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <h2 class="body-h2" th:text="#{account.activate.subject}"></h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3 th:text="#{account.activate.greetings(${firstName})}"></h3>
+                            <p th:text="#{account.activate.p1}"></p>
+                            <div class="display-flex">
+                                <p th:text="#{account.activate.p2}"></p>
+                                    <p class="padding-left-right">
+                                        <b th:text="#{account.activate.until(${tokenValidity})}"></b>
+                                    </p>
+                                </strong>
+                            </div>
+                            <br>
+                            <div class="display-flex">
+                                <p th:text="#{account.activate.p2.press}"></p>
+                                <a class="padding-left-right" href="#" th:href="@{${applicationAddress}+'/register/account/activate/'+${token}}" th:text="#{account.activate.a1.here}"></a>
+                                <p th:text="#{account.activate.p3}"></p>
+                            </div>
+                            <br><br>
+                            <p th:text="#{account.activate.p4}"></p>
+                            <p th:text="#{account.activate.p5}"></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td th:replace="fragments/email/email-layout :: email-footer"></td>
+        </tr>
+    </table>
+</body>
+</html>
