@@ -4,6 +4,7 @@ import com.home.utilities.entities.AccountStatus;
 import com.home.utilities.entities.Gender;
 import com.home.utilities.entities.User;
 import com.home.utilities.entities.UserRole;
+import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.request.RegisterRequest;
 import com.home.utilities.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +22,13 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public Optional<User> createAccount(final RegisterRequest request) {
         final var encodedPassword = passwordEncoder.encode(request.getPassword());
         final var user = new User(request.getEmail(), encodedPassword, request.getFirstName(), request.getLastName(),
-              request.getGender(), request.getTerms(), request.getGdpr(), UserRole.USER, AccountStatus.ACTIVE);
+              request.getGender(), request.getTerms(), request.getGdpr(), UserRole.USER, AccountStatus.LOCKED);
         return Optional.of(userRepository.save(user));
     }
 
@@ -38,5 +40,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Gender> getGenderValues() {
         return List.of(Gender.values());
+    }
+
+    @Override
+    public User activateAccount(final String token) {
+        return Optional.ofNullable(confirmationTokenService.findByToken(token))
+              .map(confirmationToken -> {
+                  final var user = confirmationToken.getUser();
+                  user.setStatus(AccountStatus.ACTIVE);
+                  userRepository.save(user);
+                  confirmationToken.setValid(false);
+                  confirmationTokenService.save(confirmationToken);
+                  return user;
+              })
+              .orElseThrow(() -> new NotFoundException("Token"));
     }
 }
