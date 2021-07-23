@@ -1,0 +1,224 @@
+body {
+  background: lavender;
+}
+
+#account-created-section {
+  display: flex;
+  margin: auto;
+}
+
+#account-created-section .card {
+  position: relative;
+  width: 320px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  font-family: "Helvetica Neue"!important;
+}
+
+#account-created-section .upper-side {
+  padding: 2em;
+  background-color: #8BC34A;
+  display: block;
+  color: #fff;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+#account-created-section .status {
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1em;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+#account-created-section .lower-side {
+  padding: 2em 1.5em 0em 1.5em;
+  background: #fff;
+  display: block;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+#account-created-section .lower-side p {
+  padding-top: 5px;
+}
+
+#account-created-section .message {
+  margin-top: -.5em;
+  color: #757575;
+  letter-spacing: 1px;
+}
+
+#account-created-section .contBtn {
+  position: relative;
+  text-decoration: none;
+  background: #8bc34a;
+  color: #fff;
+  padding: .8em 3em;
+  -webkit-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+  -moz-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+  box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+  border-radius: 25px;
+  -webkit-transition: all .4s ease;
+		-moz-transition: all .4s ease;
+		-o-transition: all .4s ease;
+		transition: all .4s ease;
+}
+
+#account-created-section .contBtn:hover {
+  -webkit-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);
+  -moz-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);
+  box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);
+  -webkit-transition: all .4s ease;
+		-moz-transition: all .4s ease;
+		-o-transition: all .4s ease;
+		transition: all .4s ease;
+}
+
+#account-created-section .scaleHover {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#account-created-section .scaleHover:hover {
+  transform: scale(1.05);
+}
+
+#account-created-section .autoRedirect {
+  color: #757575;
+  font-size: 10px;
+}
+
+#account-created-section #redirectLogin {
+  padding-top: 30px;
+  margin: 0;
+}
+
+#account-created-section .progress-wrapper {
+  line-height: 0;
+  margin-left: -1.5em;
+  margin-right: -1.5em;
+}
+
+.success-checkmark {
+  width: 90px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.success-checkmark .check-icon {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border-radius: 50%;
+  box-sizing: content-box;
+  border: 4px solid #ffffff;
+}
+
+.success-checkmark .check-icon .icon-line {
+  height: 5px;
+  background-color: #ffffff;
+  display: block;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+}
+
+.success-checkmark .check-icon .icon-line.line-tip {
+  top: 46px;
+  left: 14px;
+  width: 25px;
+  transform: rotate(45deg);
+  animation: icon-line-tip 0.75s;
+}
+
+.success-checkmark .check-icon .icon-line.line-long {
+  top: 38px;
+  right: 8px;
+  width: 47px;
+  transform: rotate(-45deg);
+  animation: icon-line-long 0.75s;
+}
+
+progress[value] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  width: 100%;
+  height: 5px;
+  color: #8bc34a;
+}
+
+progress[value]::-webkit-progress-bar {
+  color: #8bc34a;
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+progress[value]::-webkit-progress-value {
+  color: #8bc34a;
+  background-color: #8bc34a;
+  border-radius: 5px;
+}
+
+progress[value]::-moz-progress-bar {
+  color: #8bc34a;
+  background-color: #8bc34a;
+  border-radius: 5px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+@keyframes icon-line-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px;
+  }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px;
+  }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px;
+  }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px;
+  }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px;
+  }
+}
+@keyframes icon-line-long {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px;
+  }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px;
+  }
+  84% {
+    width: 55px;
+    right: 0px;
+    top: 35px;
+  }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px;
+  }
+}

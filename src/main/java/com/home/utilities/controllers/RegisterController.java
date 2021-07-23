@@ -9,6 +9,7 @@ import com.home.utilities.services.email.EmailService;
 import com.home.utilities.services.util.DateTimeConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +29,7 @@ public class RegisterController {
 
     private static final String HEADER_LOGO = "header_logo";
     private static final String FOOTER_LOGO = "footer_logo";
+    private static final Integer REDIRECT_DURATION = 15; //seconds
 
     private final UserService userService;
     private final EmailService emailService;
@@ -40,7 +42,7 @@ public class RegisterController {
 
     @PostMapping(value = "/register")
     public String postRegister(@Valid @ModelAttribute("userRegisterRequest") final RegisterRequest request,
-                               final BindingResult bindingResult, final Locale locale) {
+                               final BindingResult bindingResult, final Locale locale, final Model model) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
@@ -54,12 +56,17 @@ public class RegisterController {
                           "applicationAddress", emailService.getApplicationAddress(),
                           "token", confirmationToken.getToken()),
                     locale))
-              .map(success -> "redirect:/login")
+              .map(success -> {
+                  model.addAttribute("redirectDuration", REDIRECT_DURATION);
+                  model.addAttribute("gender", request.getGender());
+                  return "account-created";
+              })
               .orElseThrow(() -> new EmailException("Error sending email to: ", request.getEmail()));
     }
 
     @GetMapping(value = "/register/account/activate/{token}")
-    public String activateAccount(@PathVariable(name = "token") final String token, final Locale locale) {
+    public String activateAccount(@PathVariable(name = "token") final String token, final Locale locale,
+                                  final Model model) {
         return Optional.of(token)
               .filter(confirmationTokenService::validateToken)
               .map(userService::activateAccount)
@@ -69,7 +76,11 @@ public class RegisterController {
                     Map.of("firstName", u.getFirstName().toUpperCase(),
                           "applicationAddress", emailService.getApplicationAddress()),
                     locale))
-              .map(success -> "redirect:/login")
+              .map(success -> {
+                  model.addAttribute("redirectDuration", REDIRECT_DURATION);
+                  model.addAttribute("gender", confirmationTokenService.findByToken(token).getUser().getGender());
+                  return "account-activated";
+              })
               .orElseThrow(() -> new NotFoundException("Token"));
     }
 }
