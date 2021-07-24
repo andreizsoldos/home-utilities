@@ -29,7 +29,7 @@
                 <a href="#" th:href="@{/login}" class="contBtn" th:text="#{account.created.button.continue}">Continue</a>
             </div>
             <div class="autoRedirect">
-                <p id="redirectLogin" th:text="#{account.created.redirect.login(${gender} == 'FEMALE' ? 'ă' : '')}">Soon you will be automatically redirected to login page</p>
+                <p id="redirectLogin" th:text="${gender} == 'FEMALE' ? #{account.activated.redirect.login(ă)} : #{account.activated.redirect.login('')}">Soon you will be automatically redirected to login page</p>
             </div>
             <div class="progress-wrapper">
                 <progress id="progressBar" max="100" value="100" data-duration="15" th:data-duration="${redirectDuration}"></progress>
