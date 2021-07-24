@@ -13,7 +13,6 @@ import java.util.Map;
 public class ThymeleafEmailBuilderImpl implements ThymeleafEmailBuilder {
 
     private static final String HEADER_LOGO = "headerLogo";
-    private static final String FOOTER_LOGO = "footerLogo";
 
     private final TemplateEngine emailTemplateEngine;
 
@@ -21,7 +20,7 @@ public class ThymeleafEmailBuilderImpl implements ThymeleafEmailBuilder {
     public String build(final String emailTemplate, final Map<String, String> content, final Locale locale) {
         final var context = new Context(locale);
         content.forEach(context::setVariable);
-        context.setVariables(Map.of(HEADER_LOGO, HEADER_LOGO, FOOTER_LOGO, FOOTER_LOGO));
+        context.setVariables(Map.of(HEADER_LOGO, HEADER_LOGO));
         return emailTemplateEngine.process(emailTemplate, context);
     }
 }

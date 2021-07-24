@@ -30,10 +30,8 @@ public class EmailServiceImpl implements EmailService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailServiceImpl.class);
     private static final String CONTENT_ID_HEADER = "headerLogo";
-    private static final String CONTENT_ID_FOOTER = "footerLogo";
     private static final String CONTENT_TYPE = "image/png";
-    private static final String HEADER_LOGO_PATH = "static/images/header/logo.png";
-    private static final String FOOTER_LOGO_PATH = "static/images/header/logo2.png";
+    private static final String HEADER_LOGO_PATH = "static/images/header/logo2.png";
 
     private final JavaMailSender javaMailSender;
     private final Environment environment;
@@ -120,8 +118,7 @@ public class EmailServiceImpl implements EmailService {
 
     private boolean sendMail(final MimeMessage buildMail) {
         try {
-            // Send the email asynchronously
-            new Thread(() -> javaMailSender.send(buildMail)).start();
+            javaMailSender.send(buildMail);
             return true;
         } catch (MailSendException e) {
             LOGGER.error("Failed to send email: {}", e.getMessage());
@@ -143,7 +140,6 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(body, true);
 
             helper.addInline(CONTENT_ID_HEADER, new ClassPathResource(HEADER_LOGO_PATH), CONTENT_TYPE);
-            helper.addInline(CONTENT_ID_FOOTER, new ClassPathResource(FOOTER_LOGO_PATH), CONTENT_TYPE);
 
             if (!attachmentFilePath.equals("")) {
                 final var file = new FileSystemResource(new File(attachmentFilePath));
