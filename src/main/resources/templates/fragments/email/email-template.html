@@ -2,11 +2,10 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="title(subject, styles)">
+<head th:fragment="title(subject)">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:text="${subject}">Email layout</title>
-  <th:block th:replace="${styles}"/>
 </head>
 <body bgcolor="#e1e1e1" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
 
@@ -15,56 +14,6 @@
     <tr>
       <td align="center" valign="top" id="bodycell">
 
-        <!-- preHeader -->
-        <table bgcolor="#e1e1e1" border="0" cellpadding="0" cellspacing="0" width="500" id="emailheader">
-          <tr th:fragment="email-preHead">
-            <td align="center" valign="top">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                  <td align="center" valign="top">
-                    <table border="0" cellpadding="10" cellspacing="0" width="500" class="flexiblecontainer">
-                      <tr>
-                        <td valign="top" width="500" class="flexiblecontainercell">
-                          <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
-                            <tr>
-                              <td align="left" valign="middle" id="invisibleintroduction" class="flexiblecontainerbox" style="display:none;display:none !important;">
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
-                                  <tr>
-                                    <td align="left" class="textcontent">
-                                      <div style="font-family:helvetica,arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-                                        here you can put short introduction of your email template.
-                                      </div>
-                                    </td>
-                                  </tr>
-                                </table>
-                              </td>
-                              <td align="right" valign="middle" class="flexiblecontainerbox">
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
-                                  <tr>
-                                    <td align="left" class="textcontent">
-                                      <div style="font-family:helvetica,arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-                                        <span th:text="#{email.layout.class.emailHeader.textContent.div2}">if you have any troubles, you can see this email</span>
-                                        <a href="#" target="_blank" th:target="_blank" style="text-decoration:none;border-bottom:1px solid #828282;color:#828282;">
-                                          <span style="color:#828282;" th:text="#{email.layout.class.emailHeader.textContent.div2.span}">in your browser</span>
-                                        </a>.
-                                      </div>
-                                    </td>
-                                  </tr>
-                                </table>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-        <!-- end of preHeader -->
-
         <!-- header -->
         <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="500" id="emailbody">
           <tr th:fragment="email-header(emailSubject)">
@@ -72,15 +21,15 @@
               <table border="0" cellpadding="0" cellspacing="0" width="100%" style="color:#ffffff;" bgcolor="#3498db">
                 <tr>
                   <td align="center" valign="top">
-                    <table border="0" cellpadding="0" cellspacing="0" width="500" class="flexiblecontainer">
+                    <table border="0" cellpadding="0" cellspacing="0" width="500">
                       <tr>
-                        <td align="center" valign="top" width="500" class="flexiblecontainercell">
+                        <td align="center" valign="top" width="500">
                           <table border="0" cellpadding="30" cellspacing="0" width="100%">
                             <tr>
-                              <td style="padding-top:10px;padding-bottom:10px;" align="center" valign="top" class="textcontent">
+                              <td style="padding-top:10px;padding-bottom:10px;" align="center" valign="top">
                                 <div style="display:flex;text-align:center;font-family:helvetica,arial,sans-serif;font-size:15px;margin-bottom:0;color:#ffffff;line-height:135%;">
-                                  <div style="text-align:center;font-family:helvetica,arial,sans-serif;font-size:15px;margin-bottom:0;color:#ffffff;line-height:135%;width:auto;align-self:center;padding-right:10px;">
-                                    <img th:src="|cid:${headerLogo}|" src="../../../static/images/header/logo2.png" width="150" class="flexibleimage" style="max-width:150px;display:block;" alt="HomeUtilities Logo" title="HomeUtilities" />
+                                  <div style="text-align:center;font-family:helvetica,arial,sans-serif;font-size:15px;margin:auto;color:#ffffff;line-height:135%;width:auto;align-self:center;padding-right:20px;">
+                                    <img th:src="|cid:${headerLogo}|" src="../../../static/images/header/logo2.png" width="150" style="max-width:150px;display:block;" alt="HomeUtilities Logo" title="HomeUtilities" />
                                   </div>
                                   <div style="text-align:center;font-family:helvetica,arial,sans-serif;font-size:15px;margin-bottom:0;color:#ffffff;line-height:135%;width:100%;">
                                     <h1 style="color:#FFFFFF;line-height:100%;font-family:helvetica,arial,sans-serif;font-size:35px;text-align:center;" th:text="${emailSubject}">Activate account</h1>
@@ -107,22 +56,17 @@
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                   <td align="center" valign="top">
-                    <table border="0" cellpadding="0" cellspacing="0" width="500" class="flexiblecontainer">
+                    <table border="0" cellpadding="0" cellspacing="0" width="500">
                       <tr>
-                        <td align="center" valign="top" width="500" class="flexiblecontainercell">
+                        <td align="center" valign="top" width="500">
                           <table border="0" cellpadding="30" cellspacing="0" width="100%">
                             <tr>
                               <td valign="top" bgcolor="#e1e1e1" style="padding:20px;">
-
                                 <div style="font-family:helvetica,arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
                                   <div th:text="#{footer.copyright}">© 2021. All rights reserved.</div>
-                                  <span th:text="#{email.layout.class.footer.copyright}">If you don't want to receive these emails from us in the future, please
-                                    <a href="#" th:href="@{${applicationAddress}+'/user/profile/unsubscribe'}" style="text-decoration:none;color:#828282;">
-                                      <span style="color:#828282;" th:text="#{email.layout.class.footer.copyright.unsubscribe}">unsubscribe</span>
-                                    </a>
-                                  </span>
+                                  <span th:text="#{email.layout.class.footer.copyright}" style="font-size:10px;">If you don't want to receive these emails from us in the future, please</span>
+                                  <a href="#" th:href="@{${applicationAddress}+'/user/profile/unsubscribe'}" th:text="#{email.layout.class.footer.copyright.unsubscribe}" style="text-decoration:none;color:#828282;">unsubscribe</a>
                                 </div>
-
                               </td>
                             </tr>
                           </table>
