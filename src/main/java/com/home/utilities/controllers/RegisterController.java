@@ -58,7 +58,7 @@ public class RegisterController {
                     locale))
               .map(success -> {
                   model.addAttribute("redirectDuration", REDIRECT_DURATION);
-                  model.addAttribute("gender", request.getGender());
+                  model.addAttribute("gender", request.getGender().name().toUpperCase());
                   return "account-created";
               })
               .orElseThrow(() -> new EmailException("Error sending email to: ", request.getEmail()));
@@ -78,7 +78,7 @@ public class RegisterController {
                     locale))
               .map(success -> {
                   model.addAttribute("redirectDuration", REDIRECT_DURATION);
-                  model.addAttribute("gender", confirmationTokenService.findByToken(token).getUser().getGender());
+                  model.addAttribute("gender", confirmationTokenService.findByToken(token).getUser().getGender().name().toUpperCase());
                   return "account-activated";
               })
               .orElseThrow(() -> new NotFoundException("Token"));
