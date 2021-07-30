@@ -15,12 +15,13 @@ function smoothProgress(e) {
     min = 0,
     chunk = max / dur * seq;
     id.val(max);
+    var location = document.getElementsByClassName("contBtn")[0].getAttribute("href");
     var loop = setInterval(function() {
-        if(id.val() > min)
+        if(id.val() > min) {
             id.val(id.val() - chunk);
-        else {
+        } else {
             clearInterval(loop);
-            window.location.href = "/login";
+            window.location.href = location;
         }
     }, seq);
 }
