@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: title(#{error.template.title}, ~{::link})}">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/error.css}" href="../static/css/error.css">
+</head>
+
+<body>
+<header th:replace="~{fragments/layout :: sidebar}"></header>
+<section th:id="error-section" id="error-section">
+    <div class="card">
+        <div class="upper-side">
+            <div class="second">
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+            </div>
+            <h3 id="c0" class="status" th:text="${c0}">4</h3>
+
+            <div class="third">
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+            </div>
+            <h3 id="c1" class="status" th:text="${c1}">0</h3>
+
+            <div class="fourth">
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+                <div class="cog"></div>
+            </div>
+            <h3 id="c2" class="status" th:text="${c2}">4</h3>
+        </div>
+        <div class="lower-side">
+            <p class="message" th:text="#{error.template.greetings}">Dear user,</p>
+            <p class="message" th:text="${errorMessage}">Unfortunately, this page is under construction and it's not yet available!</p>
+            <div class="scaleHover">
+                <a href="#" th:href="@{/}" class="contBtn" th:text="#{error.template.button.home}">Homepage</a>
+            </div>
+            <div class="autoRedirect">
+                <p id="redirectLogin" th:text="${gender} == 'FEMALE' ? #{error.template.redirect.home(ă)} : #{error.template.redirect.home('')}">Soon you will be automatically redirected to homepage</p>
+            </div>
+            <div class="progress-wrapper">
+                <progress id="progressBar" max="100" value="100" data-duration="15" th:data-duration="${redirectDuration}"></progress>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+<script th:src="@{/scripts/progressbar.js}" src="../static/scripts/progressbar.js"></script>
+
+</body>
+</html>
