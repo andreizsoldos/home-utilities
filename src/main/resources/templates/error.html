@@ -17,7 +17,7 @@
                 <div class="cog"></div>
                 <div class="cog"></div>
             </div>
-            <h3 id="c0" class="status" th:text="${c0}">4</h3>
+            <h3 id="c0" class="status" th:text="${c0}">0</h3>
 
             <div class="third">
                 <div class="cog"></div>
@@ -39,16 +39,16 @@
                 <div class="cog"></div>
                 <div class="cog"></div>
             </div>
-            <h3 id="c2" class="status" th:text="${c2}">4</h3>
+            <h3 id="c2" class="status" th:text="${c2}">0</h3>
         </div>
         <div class="lower-side">
             <p class="message" th:text="#{error.template.greetings}">Dear user,</p>
-            <p class="message" th:text="${errorMessage}">Unfortunately, this page is under construction and it's not yet available!</p>
+            <p class="message" th:text="#{${errorMessage}}">Unfortunately, this page is under construction, and it's not yet available!</p>
             <div class="scaleHover">
-                <a href="#" th:href="@{/}" class="contBtn" th:text="#{error.template.button.home}">Homepage</a>
+                <a href="#" th:href="@{${redirectLocation}}" class="contBtn" th:text="#{${redirectTextButton}}">Homepage</a>
             </div>
             <div class="autoRedirect">
-                <p id="redirectLogin" th:text="${gender} == 'FEMALE' ? #{error.template.redirect.home(ă)} : #{error.template.redirect.home('')}">Soon you will be automatically redirected to homepage</p>
+                <p id="redirectLogin" th:text="#{${redirectMessage}}">Soon you will be automatically redirected to homepage</p>
             </div>
             <div class="progress-wrapper">
                 <progress id="progressBar" max="100" value="100" data-duration="15" th:data-duration="${redirectDuration}"></progress>
