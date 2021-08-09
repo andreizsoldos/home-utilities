@@ -1,7 +1,9 @@
 package com.home.utilities.services;
 
+import com.home.utilities.entities.AccountStatus;
 import com.home.utilities.entities.ConfirmationToken;
 import com.home.utilities.entities.User;
+import com.home.utilities.exceptions.AccountActivatedException;
 import com.home.utilities.repository.ConfirmationTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -39,8 +41,10 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
     @Override
     public Boolean validateToken(final String token) {
         final var confirmationToken = confirmationTokenRepository.findByToken(token);
+        if (confirmationToken.getUser().getStatus() == AccountStatus.ACTIVE) {
+            throw new AccountActivatedException("Account already activated");
+        }
         return token != null &&
-              confirmationToken != null &&
               confirmationToken.getExpiresAt().isAfter(Instant.now()) &&
               confirmationToken.getValid();
     }
