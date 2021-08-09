@@ -9,8 +9,4 @@ public class NotFoundException extends RuntimeException {
     public NotFoundException(final String resourceName, final String fieldName, final Object fieldValue) {
         super(String.format("%s not found with %s: '%s'", resourceName, fieldName, fieldValue));
     }
-
-    public NotFoundException(final String resourceName) {
-        super(String.format("%s not found", resourceName));
-    }
 }
