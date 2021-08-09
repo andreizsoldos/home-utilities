@@ -4,7 +4,7 @@ import com.home.utilities.entities.AccountStatus;
 import com.home.utilities.entities.Gender;
 import com.home.utilities.entities.User;
 import com.home.utilities.entities.UserRole;
-import com.home.utilities.exceptions.NotFoundException;
+import com.home.utilities.exceptions.TokenNotFoundException;
 import com.home.utilities.payload.request.RegisterRequest;
 import com.home.utilities.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +53,6 @@ public class UserServiceImpl implements UserService {
                   confirmationTokenService.save(confirmationToken);
                   return user;
               })
-              .orElseThrow(() -> new NotFoundException("Token"));
+              .orElseThrow(() -> new TokenNotFoundException("Token"));
     }
 }
