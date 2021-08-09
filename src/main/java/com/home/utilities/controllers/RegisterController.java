@@ -1,7 +1,8 @@
 package com.home.utilities.controllers;
 
 import com.home.utilities.exceptions.EmailException;
-import com.home.utilities.exceptions.NotFoundException;
+import com.home.utilities.exceptions.ExpiredTokenException;
+import com.home.utilities.exceptions.TokenNotFoundException;
 import com.home.utilities.payload.request.RegisterRequest;
 import com.home.utilities.services.ConfirmationTokenService;
 import com.home.utilities.services.UserService;
@@ -27,8 +28,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RegisterController {
 
-    private static final String HEADER_LOGO = "header_logo";
-    private static final String FOOTER_LOGO = "footer_logo";
     private static final Integer REDIRECT_DURATION = 15; //seconds
 
     private final UserService userService;
@@ -81,6 +80,6 @@ public class RegisterController {
                   model.addAttribute("gender", confirmationTokenService.findByToken(token).getUser().getGender().name().toUpperCase());
                   return "account-activated";
               })
-              .orElseThrow(() -> new NotFoundException("Token"));
+              .orElseThrow(() -> new ExpiredTokenException("Token"));
     }
 }
