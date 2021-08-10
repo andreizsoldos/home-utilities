@@ -80,6 +80,18 @@
                     <span th:text="#{layout.sidebar.logout}">Sign out</span>
                 </a>
             </li>
+            <li>
+                <a href="#" th:href="@{/support}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/support' ? 'active':''}">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <span th:text="#{layout.sidebar.support}">Support</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" th:href="@{/contact}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/contact' ? 'active':''}">
+                    <i class="bi bi-envelope me-2"></i>
+                    <span th:text="#{layout.sidebar.contact}">Contact</span>
+                </a>
+            </li>
         </ul>
         <hr>
         <div class="languages">
