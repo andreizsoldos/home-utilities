@@ -11,16 +11,13 @@ import com.home.utilities.services.IndexService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,16 +30,36 @@ public class BranchController {
     private final IndexService indexService;
 
     @GetMapping("/user/dashboard/{branch}")
-    public ModelAndView displayBranchPage(@PathVariable(value = "branch") final String branch) {
+    public ModelAndView displayBranchPage(@PathVariable(value = "branch") final String branch, final Locale locale) {
         final var mav = new ModelAndView(branch);
         final var branches = List.of(Branch.valueOf(branch.toUpperCase()));
         final var userId = UserPrincipal.getCurrentUser().getId();
         final var clientCodeList = clientCodeService.getClientCodes(branches, userId);
         final var firstClient = clientCodeService.findFirstClientCode(branches, userId).orElse(new ClientCodeDetails());
         final var indexList = indexService.getIndexes(Branch.valueOf(branch.toUpperCase()), userId);
+        final var weekFirstDay = indexService.firstDayOfCurrentWeek();
+        final var weekLastDay = indexService.lastDayOfCurrentWeek();
+        final var weeklyStats = indexService.getIndexValueForCurrentWeek(Branch.valueOf(branch.toUpperCase()), userId, locale);
+        final var monthFirstDay = indexService.firstDayOfCurrentMonth();
+        final var monthLastDay = indexService.lastDayOfCurrentMonth();
+        final var monthlyStats = indexService.getIndexValueForCurrentMonth(Branch.valueOf(branch.toUpperCase()), userId);
+        final var lastCreatedIndexDate = indexService.getLastCreatedDate(Branch.valueOf(branch.toUpperCase()), userId);
+        final var monthlyMinValues = indexService.getMonthlyMinIndexValues(Branch.valueOf(branch.toUpperCase()), userId, locale);
+        final var monthlyMaxValues = indexService.getMonthlyMaxIndexValues(Branch.valueOf(branch.toUpperCase()), userId, locale);
+
         mav.addObject("clientCodeList", clientCodeList);
         mav.addObject("firstClient", firstClient);
         mav.addObject("indexList", indexList);
+        mav.addObject("weekFirstDay", weekFirstDay);
+        mav.addObject("weekLastDay", weekLastDay);
+        mav.addObject("weeklyStats", weeklyStats);
+        mav.addObject("monthFirstDay", monthFirstDay);
+        mav.addObject("monthLastDay", monthLastDay);
+        mav.addObject("monthlyStats", monthlyStats);
+        mav.addObject("today", LocalDate.now());
+        mav.addObject("lastCreatedIndexDate", lastCreatedIndexDate);
+        mav.addObject("monthlyMinValues", monthlyMinValues);
+        mav.addObject("monthlyMaxValues", monthlyMaxValues);
         return mav;
     }
 
