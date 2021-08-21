@@ -56,11 +56,13 @@ public interface IndexRepository extends JpaRepository<Index, Long> {
     Optional<Instant> findLastModifiedDate(@Param("branch") Branch branch, @Param("userId") Long userId);
 
     @Query("""
-          SELECT max(i.createdAt) from Index i
+          SELECT index.createdAt FROM Index index
+          WHERE index.id =
+              (SELECT max(i.id) from Index i
               INNER JOIN i.clientCode cc
               INNER JOIN cc.user u
               ON u.id = :userId
-              AND cc.branch = :branch
+              AND cc.branch = :branch)
           """)
     Optional<Instant> findLastCreatedDate(@Param("branch") Branch branch, @Param("userId") Long userId);
 
