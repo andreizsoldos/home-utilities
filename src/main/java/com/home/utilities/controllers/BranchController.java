@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,7 +57,8 @@ public class BranchController {
         mav.addObject("monthFirstDay", monthFirstDay);
         mav.addObject("monthLastDay", monthLastDay);
         mav.addObject("monthlyStats", monthlyStats);
-        mav.addObject("today", LocalDate.now());
+        mav.addObject("today", LocalDate.now(ZoneId.systemDefault()));
+        mav.addObject("currentMonth", LocalDate.now(ZoneId.systemDefault()).getMonth().name().toUpperCase(locale));
         mav.addObject("lastCreatedIndexDate", lastCreatedIndexDate);
         mav.addObject("monthlyMinValues", monthlyMinValues);
         mav.addObject("monthlyMaxValues", monthlyMaxValues);
