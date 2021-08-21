@@ -5,7 +5,10 @@ import com.home.utilities.entities.Index;
 import com.home.utilities.payload.dto.IndexDetails;
 import com.home.utilities.payload.request.IndexRequest;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 public interface IndexService {
@@ -19,4 +22,24 @@ public interface IndexService {
     Optional<String> getLastIndexValue(Branch branch, Long userId);
 
     Optional<String> getLastModifiedDate(Branch branch, Long userId);
+
+    LocalDate getLastCreatedDate(Branch branch, Long userId);
+
+    LocalDate firstDayOfCurrentWeek();
+
+    LocalDate lastDayOfCurrentWeek();
+
+    LocalDate firstDayOfCurrentMonth();
+
+    LocalDate lastDayOfCurrentMonth();
+
+    Integer lastDayValueOfCurrentMonth();
+
+    Map<String, Double> getIndexValueForCurrentWeek(Branch branch, Long userId, Locale locale);
+
+    Map<Integer, Double> getIndexValueForCurrentMonth(Branch branch, Long userId);
+
+    Map<String, Double> getMonthlyMinIndexValues(Branch branch, Long userId, Locale locale);
+
+    Map<String, Double> getMonthlyMaxIndexValues(Branch branch, Long userId, Locale locale);
 }

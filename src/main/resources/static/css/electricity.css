@@ -21,6 +21,10 @@
   align-self: baseline;
 }
 
+#electricity-section div.top-buttons .goDashboard, #electricity-section #switchChart {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 #electricity-section div.noClient .d-flex-inline {
   width: 100%;
 }
@@ -44,6 +48,40 @@
   background-color: rgba(230, 230, 230, 0.5);
 }
 
+.utilityTitleText {
+  color: #0d6efd;
+  font-family: "Helvetica Neue";
+  font-weight: bold;
+  font-size: 75px;
+  line-height: normal;
+  transform: scaleY(0.7);
+  -webkit-transform: scaleY(0.7);
+  -moz-transform: scaleY(0.7);
+  margin-top: -25px;
+  margin-bottom: -20px;
+  margin-left: 20px;
+  text-align: center;
+}
+
+#electricity-section .top-buttons {
+  width: 100%;
+}
+
+#electricity-section .top-buttons .img-utility {
+  margin-top: -15px;
+  margin-bottom: 5px;
+  margin-left: 23px;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#electricity-section .top-buttons .img-utility img {
+  margin-top: -7px;
+  margin-bottom: -5px;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
 #electricity-section .card-group {
   display: block;
   margin: auto;
@@ -52,59 +90,114 @@
 }
 
 #electricity-section div.row {
-  padding: 10px;
+  padding-top: 10px;
   margin: 0;
 }
 
 #electricity-section .clientsInfo.card {
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 0;
-  margin-top: auto;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+#electricity-section .bottom-info {
+  display: flex;
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+
+#electricity-section .addInfoClass {
+  padding-top: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#electricity-section .cln {
+  padding: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#electricity-section .table-no-bottom-border {
+  border-bottom-width: 0;
+}
+
+#electricity-section .table-no-top-border {
+  border-top-width: 0;
+}
+
 #electricity-section .clientsIndex.card {
-  max-height: 265px;
+  max-height: 360px;
   overflow-y: auto;
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 0;
   margin-top: auto;
-  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #electricity-section div.charts .card {
-  max-width: 75%;
+  max-width: 100%;
   padding-top: 20px;
+  padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 20px;
-  margin-bottom: 0;
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#electricity-section #switchChart {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#electricity-section #editIndexButton {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#electricity-section .buttonEdit {
+  color: #aaa;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#electricity-section .buttonEdit:hover {
+  color: #0a79df;
 }
 
 #electricity-section .table-responsive {
   height: 100%;
 }
 
+#electricity-section .clientsInfo .table {
+  margin-bottom: 0;
+}
+
 #electricity-section .clientsInfo .table tbody tr th {
-  text-align: right;
-  white-space: nowrap;
+  font-size: 14px;
 }
 
 #electricity-section .clientsInfo .table tbody tr td {
-  width: 100%;
+  font-size: 12px;
+}
+
+#electricity-section .clientsIndex .table thead tr th {
+  font-size: 14px;
+}
+
+#electricity-section .clientsIndex .table tbody tr td {
+  font-size: 12px;
 }
 
 #electricity-section button {

@@ -1,5 +1,6 @@
 package com.home.utilities.configuration.security;
 
+import com.home.utilities.services.util.Translation;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,6 +58,11 @@ public class MvcConfig implements WebMvcConfigurer {
         messageSource.setBasename("classpath:i18n/global");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
+    }
+
+    @Bean
+    public Translation translation() {
+        return new Translation(messageSource());
     }
 
     @Bean

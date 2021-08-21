@@ -19,4 +19,9 @@ public class DateTimeConverter {
             return null;
         }
     }
+
+    public static boolean isDateInBetween(final LocalDate date, final LocalDate min, final LocalDate max) {
+        return !(date.isBefore(min) || date.isAfter(max));
+    }
+
 }
