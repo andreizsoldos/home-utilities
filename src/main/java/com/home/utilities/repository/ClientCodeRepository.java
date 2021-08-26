@@ -18,6 +18,7 @@ public interface ClientCodeRepository extends JpaRepository<ClientCode, Long> {
           INNER JOIN cc.user u
           ON u.id = :userId
           AND cc.branch in (:branches)
+          ORDER BY cc.id ASC
           """)
     List<ClientCodeDetails> findByBranchAndUserId(@Param("branches") List<Branch> branches, @Param("userId") Long userId);
 
