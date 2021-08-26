@@ -13,7 +13,11 @@ import java.util.Optional;
 
 public interface IndexService {
 
+    Optional<Index> findById(Long indexId);
+
     Optional<Index> createIndex(IndexRequest request, Long clientId);
+
+    Optional<Index> updateIndex(Double newValue, Long indexId);
 
     List<IndexDetails> getIndexes(Branch branch, Long userId);
 
@@ -35,11 +39,11 @@ public interface IndexService {
 
     Integer lastDayValueOfCurrentMonth();
 
-    Map<String, Double> getIndexValueForCurrentWeek(Branch branch, Long userId, Locale locale);
+    Map<String, Double> getIndexValuesForCurrentWeek(Long clientId, Branch branch, Long userId, Locale locale);
 
-    Map<Integer, Double> getIndexValueForCurrentMonth(Branch branch, Long userId);
+    Map<Integer, Double> getIndexValuesForCurrentMonth(Long clientId, Branch branch, Long userId);
 
-    Map<String, Double> getMonthlyMinIndexValues(Branch branch, Long userId, Locale locale);
+    Map<String, Double> getMonthlyMinIndexValues(Long clientId, Branch branch, Long userId, Locale locale);
 
-    Map<String, Double> getMonthlyMaxIndexValues(Branch branch, Long userId, Locale locale);
+    Map<String, Double> getMonthlyMaxIndexValues(Long clientId, Branch branch, Long userId, Locale locale);
 }

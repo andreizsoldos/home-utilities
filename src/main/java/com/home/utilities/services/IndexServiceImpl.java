@@ -38,6 +38,12 @@ public class IndexServiceImpl implements IndexService {
     private final ClientCodeRepository clientCodeRepository;
     private final Translation translation;
 
+
+    @Override
+    public Optional<Index> findById(final Long indexId) {
+        return indexRepository.findById(indexId);
+    }
+
     @Override
     public Optional<Index> createIndex(final IndexRequest request, final Long clientId) {
         final var clientCode = clientCodeRepository.findById(clientId)
@@ -45,6 +51,14 @@ public class IndexServiceImpl implements IndexService {
         final var index = new Index();
         index.setValue(request.getValue());
         index.setClientCode(clientCode);
+        return Optional.of(indexRepository.save(index));
+    }
+
+    @Override
+    public Optional<Index> updateIndex(final Double newValue, final Long indexId) {
+        final var index = indexRepository.findById(indexId)
+              .orElseThrow(() -> new NotFoundException("Index", "id", indexId));
+        index.setValue(newValue);
         return Optional.of(indexRepository.save(index));
     }
 
@@ -107,9 +121,10 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Map<String, Double> getIndexValueForCurrentWeek(final Branch branch, final Long userId, final Locale locale) {
+    public Map<String, Double> getIndexValuesForCurrentWeek(final Long clientId, final Branch branch, final Long userId, final Locale locale) {
         final var indexValuesOfThisWeek = indexRepository.findIndexes(branch, userId).stream()
               .filter(i -> filterDates(i, firstDayOfCurrentWeek(), lastDayOfCurrentWeek()))
+              .filter(i -> i.getClientCode().getId().equals(clientId))
               .collect(Collectors.toMap(i -> getDayOfWeekName(i, locale), Index::getValue, (v1, v2) -> v1));
 
         return Arrays.stream(DaysOfWeek.values())
@@ -117,9 +132,10 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Map<Integer, Double> getIndexValueForCurrentMonth(final Branch branch, final Long userId) {
+    public Map<Integer, Double> getIndexValuesForCurrentMonth(final Long clientId, final Branch branch, final Long userId) {
         final var indexValuesOfThisMonth = indexRepository.findIndexes(branch, userId).stream()
               .filter(i -> filterDates(i, firstDayOfCurrentMonth(), lastDayOfCurrentMonth()))
+              .filter(i -> i.getClientCode().getId().equals(clientId))
               .collect(Collectors.toMap(this::getDayOfMonthValue, Index::getValue, (v1, v2) -> v1));
 
         return IntStream.rangeClosed(1, lastDayValueOfCurrentMonth())
@@ -128,8 +144,9 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Map<String, Double> getMonthlyMinIndexValues(final Branch branch, final Long userId, final Locale locale) {
+    public Map<String, Double> getMonthlyMinIndexValues(final Long clientId, final Branch branch, final Long userId, final Locale locale) {
         final var minIndexValues = indexRepository.findMinIndexValues(branch, userId, MONTHS_IN_YEAR).stream()
+              .filter(i -> i.getClientCode().getId().equals(clientId))
               .collect(Collectors.toMap(i -> getDayOfMonthName(i, locale), Index::getValue, (v1, v2) -> v1));
 
         return Arrays.stream(MonthsOfYear.values())
@@ -137,8 +154,9 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Map<String, Double> getMonthlyMaxIndexValues(final Branch branch, final Long userId, final Locale locale) {
+    public Map<String, Double> getMonthlyMaxIndexValues(final Long clientId, final Branch branch, final Long userId, final Locale locale) {
         final var maxIndexValues = indexRepository.findMaxIndexValues(branch, userId, MONTHS_IN_YEAR).stream()
+              .filter(i -> i.getClientCode().getId().equals(clientId))
               .collect(Collectors.toMap(i -> getDayOfMonthName(i, locale), Index::getValue, (v1, v2) -> v1));
 
         return Arrays.stream(MonthsOfYear.values())

@@ -16,7 +16,7 @@ public class ExceptionController implements ErrorController {
     @ExceptionHandler(value = Exception.class)
     public ModelAndView handleError(final Exception ex) {
         final var responseStatus = Optional.ofNullable(AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class))
-              .orElseThrow(() -> new NotFoundException("Response", "status", ""));
+              .orElseThrow(() -> new NotFoundException("Response status not found"));
         final var statusCode = String.valueOf(responseStatus.value().value());
 
         return ExceptionHandlerFactory.addModelObject("error", statusCode, ex);

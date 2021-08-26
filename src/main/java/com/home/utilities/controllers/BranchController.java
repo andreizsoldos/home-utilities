@@ -6,6 +6,7 @@ import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.dto.ClientCodeDetails;
 import com.home.utilities.payload.request.ClientCodeRequest;
 import com.home.utilities.payload.request.IndexRequest;
+import com.home.utilities.payload.request.NewIndexValueRequest;
 import com.home.utilities.services.ClientCodeService;
 import com.home.utilities.services.IndexService;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
 public class BranchController {
 
     private static final String REDIRECT_USER_DASHBOARD = "redirect:/user/dashboard/";
+    private static final String CLIENT_CODE_DATA = "clientCodeData";
     private static final String BRANCH = "branch";
 
     private final ClientCodeService clientCodeService;
@@ -35,31 +38,38 @@ public class BranchController {
         final var mav = new ModelAndView(branch);
         final var branches = List.of(Branch.valueOf(branch.toUpperCase()));
         final var userId = UserPrincipal.getCurrentUser().getId();
-        final var clientCodeList = clientCodeService.getClientCodes(branches, userId);
         final var firstClient = clientCodeService.findFirstClientCode(branches, userId).orElse(new ClientCodeDetails());
         final var indexList = indexService.getIndexes(Branch.valueOf(branch.toUpperCase()), userId);
+        final var lastCreatedIndexDate = indexService.getLastCreatedDate(Branch.valueOf(branch.toUpperCase()), userId);
+        final var clientCodeList = clientCodeService.getClientCodes(branches, userId);
+
         final var weekFirstDay = indexService.firstDayOfCurrentWeek();
         final var weekLastDay = indexService.lastDayOfCurrentWeek();
-        final var weeklyStats = indexService.getIndexValueForCurrentWeek(Branch.valueOf(branch.toUpperCase()), userId, locale);
+        final var weeklyStats = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getIndexValuesForCurrentWeek(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+
         final var monthFirstDay = indexService.firstDayOfCurrentMonth();
         final var monthLastDay = indexService.lastDayOfCurrentMonth();
-        final var monthlyStats = indexService.getIndexValueForCurrentMonth(Branch.valueOf(branch.toUpperCase()), userId);
-        final var lastCreatedIndexDate = indexService.getLastCreatedDate(Branch.valueOf(branch.toUpperCase()), userId);
-        final var monthlyMinValues = indexService.getMonthlyMinIndexValues(Branch.valueOf(branch.toUpperCase()), userId, locale);
-        final var monthlyMaxValues = indexService.getMonthlyMaxIndexValues(Branch.valueOf(branch.toUpperCase()), userId, locale);
+        final var monthlyStats = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getIndexValuesForCurrentMonth(c.getId(), Branch.valueOf(branch.toUpperCase()), userId)));
 
-        mav.addObject("clientCodeList", clientCodeList);
+        final var monthlyMinValues = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyMinIndexValues(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+        final var monthlyMaxValues = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyMaxIndexValues(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+
         mav.addObject("firstClient", firstClient);
         mav.addObject("indexList", indexList);
+        mav.addObject("lastCreatedIndexDate", lastCreatedIndexDate);
+        mav.addObject("clientCodeList", clientCodeList);
+        mav.addObject("today", LocalDate.now(ZoneId.systemDefault()));
+        mav.addObject("currentMonth", LocalDate.now(ZoneId.systemDefault()).getMonth().name().toUpperCase(locale));
         mav.addObject("weekFirstDay", weekFirstDay);
         mav.addObject("weekLastDay", weekLastDay);
         mav.addObject("weeklyStats", weeklyStats);
         mav.addObject("monthFirstDay", monthFirstDay);
         mav.addObject("monthLastDay", monthLastDay);
         mav.addObject("monthlyStats", monthlyStats);
-        mav.addObject("today", LocalDate.now(ZoneId.systemDefault()));
-        mav.addObject("currentMonth", LocalDate.now(ZoneId.systemDefault()).getMonth().name().toUpperCase(locale));
-        mav.addObject("lastCreatedIndexDate", lastCreatedIndexDate);
         mav.addObject("monthlyMinValues", monthlyMinValues);
         mav.addObject("monthlyMaxValues", monthlyMaxValues);
         return mav;
@@ -68,7 +78,7 @@ public class BranchController {
     @GetMapping("/user/dashboard/{branch}/client-code")
     public ModelAndView displayClientCodePage(@PathVariable(value = "branch") final String branch) {
         final var mav = new ModelAndView("client-code");
-        mav.addObject("clientCodeData", new ClientCodeRequest());
+        mav.addObject(CLIENT_CODE_DATA, new ClientCodeRequest());
         mav.addObject(BRANCH, branch);
         return mav;
     }
@@ -91,12 +101,12 @@ public class BranchController {
         final var mav = new ModelAndView("client-code-edit");
         final var userId = UserPrincipal.getCurrentUser().getId();
         final var clientCode = clientCodeService.findByBranchAndClientIdAndUserId(Branch.valueOf(branch.toUpperCase()), clientId, userId);
-        mav.addObject("clientCodeData", clientCode);
+        mav.addObject(CLIENT_CODE_DATA, clientCode);
         mav.addObject(BRANCH, branch);
         return mav;
     }
 
-    @PostMapping("/user/dashboard/{branch}/client-code/{clientId}")
+    @PostMapping("/user/dashboard/{branch}/client-code-edit/{clientId}")
     public String editClientCode(@Valid @ModelAttribute("clientCodeData") final ClientCodeRequest clientCodeRequest, final BindingResult bindingResult,
                                  @PathVariable(value = "branch") final String branch,
                                  @PathVariable(value = "clientId") final Long clientId) {
@@ -139,5 +149,23 @@ public class BranchController {
         return indexService.createIndex(indexRequest, clientId)
               .map(c -> REDIRECT_USER_DASHBOARD + branch)
               .orElseThrow(() -> new NotFoundException("Index", "value", indexRequest.getValue()));
+    }
+
+    @ResponseBody
+    @PutMapping("/user/dashboard/{branch}/client-code/{clientId}/client-index/{indexId}")
+    public String updateIndex(@Valid @RequestBody final NewIndexValueRequest request, final BindingResult bindingResult,
+                              @PathVariable(value = "branch") final String branch,
+                              @PathVariable(value = "clientId") final Long clientId,
+                              @PathVariable(value = "indexId") final Long indexId) {
+        if (bindingResult.hasErrors()) {
+            return branch;
+        }
+
+        final var userId = UserPrincipal.getCurrentUser().getId();
+        return indexService.updateIndex(request.getNewValue(), indexId)
+              .filter(i -> i.getClientCode().getUser().getId().equals(userId))
+              .filter(i -> i.getClientCode().getId().equals(clientId))
+              .map(c -> "OK")
+              .orElseThrow(() -> new NotFoundException("Index", "id", indexId));
     }
 }

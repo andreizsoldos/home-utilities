@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,4 +20,10 @@ public class ClientCodeDetails {
     private String consumptionLocationNumber;
     private String consumptionAddress;
     private LocalDate contractDate;
+
+    public Long count(final List<IndexDetails> indexesList) {
+        return indexesList.stream()
+              .filter(i -> i.getClientId().equals(id))
+              .count();
+    }
 }

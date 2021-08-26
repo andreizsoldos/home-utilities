@@ -1,4 +1,4 @@
-#electricity-section {
+#utility-section {
   width: 100%;
   padding: 20px;
   margin: 20px;
@@ -6,7 +6,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section div.noClient {
+#utility-section div.noClient {
   display: flex;
   width: 100%;
   height: 100%;
@@ -17,19 +17,19 @@
   color: #0d6efd;
 }
 
-#electricity-section div.noClient .goBack {
+#utility-section div.noClient .goBack {
   align-self: baseline;
 }
 
-#electricity-section div.top-buttons .goDashboard, #electricity-section #switchChart {
+#utility-section div.top-buttons .goDashboard {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section div.noClient .d-flex-inline {
+#utility-section div.noClient .d-flex-inline {
   width: 100%;
 }
 
-#electricity-section a.noClientData {
+#utility-section a.noClientData {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,7 +42,7 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section a.noClientData:hover {
+#utility-section a.noClientData:hover {
   cursor: pointer;
   transform: scale(1.05);
   background-color: rgba(230, 230, 230, 0.5);
@@ -59,71 +59,74 @@
   -moz-transform: scaleY(0.7);
   margin-top: -25px;
   margin-bottom: -20px;
-  margin-left: 20px;
+  margin-left: 10px;
   text-align: center;
 }
 
-#electricity-section .top-buttons {
+#utility-section .top-buttons {
   width: 100%;
 }
 
-#electricity-section .top-buttons .img-utility {
+#utility-section .top-buttons .img-utility {
   margin-top: -15px;
   margin-bottom: 5px;
-  margin-left: 23px;
   border-radius: 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section .top-buttons .img-utility img {
+#utility-section .top-buttons .img-utility img {
   margin-top: -7px;
   margin-bottom: -5px;
   margin-left: -5px;
   margin-right: -5px;
 }
 
-#electricity-section .card-group {
+#utility-section .card-group {
   display: block;
   margin: auto;
   width: 100%;
   height: 100%;
 }
 
-#electricity-section div.row {
+#utility-section div.row {
   padding-top: 10px;
   margin: 0;
 }
 
-#electricity-section .clientsInfo.card {
+#utility-section .clientsInfo.card {
   margin-bottom: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section .bottom-info {
+#utility-section .bottom-info {
   display: flex;
   margin-top: -1px;
   margin-bottom: -1px;
 }
 
-#electricity-section .addInfoClass {
-  padding-top: 40px;
+#utility-section .addInfoClass {
+  display: flex;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section .cln {
+#utility-section .addNewIndexButton {
+   height: 100%;
+}
+
+#utility-section .cln {
   padding: 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section .table-no-bottom-border {
+#utility-section .table-no-bottom-border {
   border-bottom-width: 0;
 }
 
-#electricity-section .table-no-top-border {
+#utility-section .table-no-top-border {
   border-top-width: 0;
 }
 
-#electricity-section .clientsIndex.card {
+#utility-section .clientsIndex.card {
   max-height: 360px;
   overflow-y: auto;
   padding-top: 20px;
@@ -136,7 +139,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section div.charts .card {
+#utility-section div.charts .card {
   max-width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -147,7 +150,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section #switchChart {
+#utility-section .charts div a {
   width: 30px;
   height: 30px;
   font-size: 20px;
@@ -155,9 +158,10 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section #editIndexButton {
+#utility-section .clientsIndex table tbody tr a {
   width: 30px;
   height: 30px;
   padding: 0;
@@ -166,46 +170,46 @@
   text-align: center;
 }
 
-#electricity-section .buttonEdit {
+#utility-section .buttonEdit {
   color: #aaa;
   cursor: pointer;
   vertical-align: middle;
 }
 
-#electricity-section .buttonEdit:hover {
+#utility-section .buttonEdit:hover {
   color: #0a79df;
 }
 
-#electricity-section .table-responsive {
+#utility-section .table-responsive {
   height: 100%;
 }
 
-#electricity-section .clientsInfo .table {
+#utility-section .clientsInfo .table {
   margin-bottom: 0;
 }
 
-#electricity-section .clientsInfo .table tbody tr th {
+#utility-section .clientsInfo .table tbody tr th {
   font-size: 14px;
 }
 
-#electricity-section .clientsInfo .table tbody tr td {
+#utility-section .clientsInfo .table tbody tr td {
   font-size: 12px;
 }
 
-#electricity-section .clientsIndex .table thead tr th {
+#utility-section .clientsIndex .table thead tr th {
   font-size: 14px;
 }
 
-#electricity-section .clientsIndex .table tbody tr td {
+#utility-section .clientsIndex .table tbody tr td {
   font-size: 12px;
 }
 
-#electricity-section button {
+#utility-section button {
   font-size: 12px;
   font-weight: bold;
 }
 
-#electricity-section .no-select {
+#utility-section .no-select {
   cursor: default;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -219,11 +223,11 @@
   transform: scale(1.05);
 }
 
-#electricity-section div a {
+#utility-section div a {
   cursor: pointer;
 }
 
-#electricity-section #nav-tab button a {
+#utility-section #nav-tab button a {
   display: none;
   cursor: pointer;
   color: red;
@@ -231,11 +235,29 @@
   background: none;
 }
 
-#electricity-section .modal-content {
+#utility-section .modal-content {
   background: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#electricity-section .modal-footer {
+#utility-section .modal-footer {
   margin: auto;
+}
+
+#utility-section .noWrap {
+  white-space: nowrap;
+}
+
+#utility-section .buttonSave {
+  color: #aaa;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#utility-section .buttonSave:hover {
+  color: #0a79df;
+}
+
+#utility-section .saveMode {
+  display: none;
 }

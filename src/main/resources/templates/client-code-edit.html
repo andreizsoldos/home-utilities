@@ -2,7 +2,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: title(#{clientCode.title}, ~{::link})}">
+<head th:replace="~{fragments/layout :: title(#{clientCode.edit.title}, ~{::link})}">
     <link type="text/css" rel="stylesheet" th:href="@{/css/client-code-edit.css}" href="../static/css/client-code-edit.css">
 </head>
 
@@ -17,7 +17,7 @@
                     <h5 class="modal-title" id="editBackdropLabel" th:text="#{clientCode.edit.title}">Edit client code</h5>
                 </div>
                 <div class="modal-body">
-                    <form class="row card" id="clientCodeEditForm" th:id="clientCodeEditForm" th:action="@{/user/dashboard/__${branch}__/client-code/__${clientId}__}" th:method="post" th:object="${clientCodeData}">
+                    <form class="row card" id="clientCodeEditForm" th:id="clientCodeEditForm" th:action="@{/user/dashboard/__${branch}__/client-code-edit/__${clientId}__}" th:method="post" th:object="${clientCodeData}">
                         <div class="col-md-3 mx-3">
                             <label for="clientNumber" th:text="#{clientCode.number.label}">Number</label>
                             <input type="text" class="form-control" id="clientNumber" placeholder="123456789" th:placeholder="#{clientCode.number.placeholder}" th:field="*{clientNumber}" autofocus/>
