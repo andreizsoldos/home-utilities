@@ -9,13 +9,18 @@ import com.home.utilities.payload.request.IndexRequest;
 import com.home.utilities.payload.request.NewIndexValueRequest;
 import com.home.utilities.services.ClientCodeService;
 import com.home.utilities.services.IndexService;
+import com.home.utilities.services.util.DateTimeConverter;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
@@ -26,6 +31,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BranchController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BranchController.class);
     private static final String REDIRECT_USER_DASHBOARD = "redirect:/user/dashboard/";
     private static final String CLIENT_CODE_DATA = "clientCodeData";
     private static final String BRANCH = "branch";
@@ -34,7 +40,7 @@ public class BranchController {
     private final IndexService indexService;
 
     @GetMapping("/user/dashboard/{branch}")
-    public ModelAndView displayBranchPage(@PathVariable(value = "branch") final String branch, final Locale locale) {
+    public ModelAndView displayBranchPage(@PathVariable(value = "branch") final String branch, final Locale locale, final HttpServletRequest httpServletRequest) {
         final var mav = new ModelAndView(branch);
         final var branches = List.of(Branch.valueOf(branch.toUpperCase()));
         final var userId = UserPrincipal.getCurrentUser().getId();
@@ -72,6 +78,8 @@ public class BranchController {
         mav.addObject("monthlyStats", monthlyStats);
         mav.addObject("monthlyMinValues", monthlyMinValues);
         mav.addObject("monthlyMaxValues", monthlyMaxValues);
+        final var currentDateTime = DateTimeConverter.fromInstantToString(Instant.now());
+        LOGGER.info("User {}, started request on path: {} on {}", userId, httpServletRequest.getRequestURI(), currentDateTime);
         return mav;
     }
 
