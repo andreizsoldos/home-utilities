@@ -97,7 +97,7 @@
                                             <td class="saveMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
                                                 <a id="saveIndexButton" th:id="'saveIndexButton' + ${index.getId()}" class="buttonSave text-decoration-none bi bi-check-lg" th:title="#{electricity.index.button.save.tooltip}"></a>
                                             </td>
-                                            <td class="editableValue border-start-0" th:id="${index.getId()}" th:text="${index.getValue()}" th:colspan="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 1 : 2"></td>
+                                            <td class="editableValue border-start-0" th:id="${index.getId()}" th:text="${index.getValue()}" th:colspan="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 1 : 2" th:style="${index.getCreatedAt() != index.getModifiedAt()} ? 'color: #FF0000' : 'color: #000000'"></td>
                                         </tr>
                                     </tbody>
                                 </table>
