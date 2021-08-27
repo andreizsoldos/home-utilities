@@ -24,4 +24,7 @@ public class DateTimeConverter {
         return !(date.isBefore(min) || date.isAfter(max));
     }
 
+    public static String fromInstantToString(final Instant instant) {
+        return instant.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+    }
 }
