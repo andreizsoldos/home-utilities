@@ -11,13 +11,13 @@
 <section th:id="dashboard-section" id="dashboard-section">
   <div class="card-group">
     <a href="#" th:href="@{/user/dashboard/electricity}">
-      <div class="card">
+      <div class="card bg-electricity">
         <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.electricity.card.title}">Electricity</h5>
-          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p1}">Client codes:</p>
+          <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${electricityTotalClientCodes})}">x</p>
-          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
+          <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
           <p class="my-0 ms-2 py-0 bi-arrow-return-right" th:text="#{user.dashboard.card.p2.1(${electricityLastIndex}, ${electricityLastModifiedIndexDate})}"> --> : xxxxxx</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${electricityClientNameForLastIndex})}"> --> for:</p>
         </div>
@@ -28,13 +28,13 @@
     </a>
 
     <a href="#" th:href="@{/user/dashboard/water}">
-      <div class="card">
+      <div class="card bg-water">
         <img th:src="@{/images/user-dashboard/water.png}" src="../static/images/user-dashboard/water.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.water.card.title}">Water</h5>
-          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p1}">Client codes:</p>
+          <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${waterTotalClientCodes})}">x</p>
-          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
+          <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
           <p class="my-0 ms-2 py-0 bi-arrow-return-right" th:text="#{user.dashboard.card.p2.1(${waterLastIndex}, ${waterLastModifiedIndexDate})}"> --> : xxxxxx</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${waterClientNameForLastIndex})}"> --> for:</p>
         </div>
@@ -45,13 +45,13 @@
     </a>
 
     <a href="#" th:href="@{/user/dashboard/gas}">
-      <div class="card">
+      <div class="card bg-gas">
         <img th:src="@{/images/user-dashboard/gaz.png}" src="../static/images/user-dashboard/gaz.png" class="card-img-top" alt="" width="256" height="256">
         <div class="card-body">
           <h5 class="card-title" th:text="#{user.dashboard.gas.card.title}">Gas</h5>
-          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p1}">Client codes:</p>
+          <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${gasTotalClientCodes})}">x</p>
-          <p class="m-0 p-0 fw-bold" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
+          <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
           <p class="my-0 ms-2 py-0 bi-arrow-return-right" th:text="#{user.dashboard.card.p2.1(${gasLastIndex}, ${gasLastModifiedIndexDate})}"> --> : xxxxxx</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${gasClientNameForLastIndex})}"> --> for:</p>
         </div>
