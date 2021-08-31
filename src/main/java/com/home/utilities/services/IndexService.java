@@ -3,6 +3,7 @@ package com.home.utilities.services;
 import com.home.utilities.entities.Branch;
 import com.home.utilities.entities.Index;
 import com.home.utilities.payload.dto.IndexDetails;
+import com.home.utilities.payload.dto.OldIndexDetails;
 import com.home.utilities.payload.request.IndexRequest;
 
 import java.time.LocalDate;
@@ -21,6 +22,10 @@ public interface IndexService {
 
     List<IndexDetails> getIndexes(Branch branch, Long userId);
 
+    void saveOldIndex(Double oldValue, Long indexId);
+
+    List<OldIndexDetails> getOldIndexes(List<Long> indexId);
+
     Optional<Double> getLastIndexValue(Long clientId, Branch branch, Long userId);
 
     Optional<String> getLastIndexValue(Branch branch, Long userId);
@@ -32,6 +37,8 @@ public interface IndexService {
     LocalDate firstDayOfCurrentWeek();
 
     LocalDate lastDayOfCurrentWeek();
+
+    List<Integer> currentDaysOfWeek();
 
     LocalDate firstDayOfCurrentMonth();
 
