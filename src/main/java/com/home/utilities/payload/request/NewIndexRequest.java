@@ -1,6 +1,5 @@
 package com.home.utilities.payload.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class NewIndexValueRequest {
+public class NewIndexRequest {
 
     @NotNull(message = "{message.field.empty}")
     @PositiveOrZero(message = "{message.field.positive}")
