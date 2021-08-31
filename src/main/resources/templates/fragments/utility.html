@@ -81,19 +81,22 @@
                                     <thead class="position-sticky bg-white" style="top:0;">
                                         <tr>
                                             <th th:text="#{utility.index.createdDate.title}">Created Date</th>
-                                            <th th:text="#{utility.index.title} + ' (' + ${client.count(indexList)} + ')'" th:colspan="${#temporals.format(lastCreatedIndexDate, 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 2 : 1">Index</th>
+                                            <th class="optimizeWidth" th:text="#{utility.index.title} + ' (' + ${client.count(indexList)} + ')'" th:colspan="${#temporals.format(lastCreatedIndexDate, 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 2 : 1">Index</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="index : ${indexList}" th:if="${client.getId() == index.getClientId()}">
                                             <td class="noWrap" th:text="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy HH:mm:ss')}">Index created date</td>
-                                            <td class="editMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
+                                            <td class="cancelMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
+                                                <a id="cancelEditingIndexButton" th:id="'cancelEditingIndexButton' + ${index.getId()}" class="buttonCancelEdit text-decoration-none bi bi-x-lg" th:title="#{utility.index.button.edit.cancel.tooltip}"></a>
+                                            </td>
+                                            <td class="editableValue noWrap border-start-0" th:classappend="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 'border-end-0':''" th:id="${index.getId()}" th:text="${index.getValue()}" th:colspan="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 1 : 2" th:style="${index.getCreatedAt() != index.getModifiedAt()} ? 'color: #FF0000' : 'color: #000000'" data-bs-toggle="tooltip" data-bs-placement="right" th:title="${index.getCreatedAt() != index.getModifiedAt()} ? #{utility.oldIndex.title.tooltip} + '<br>' + '<div class=' + 'text-start' + '>' + ${index.insertTooltipTitle('__#{utility.oldIndex.hour.tooltip}__', '__#{utility.oldIndex.value.tooltip}__', oldIndexes)} + '<br>' + ${index.getOldIndex(oldIndexes)} + '</div>'"></td>
+                                            <td class="editMode scaleHover border-start-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
                                                 <a id="editIndexButton" th:id="'editIndexButton' + ${index.getId()}" class="buttonEdit text-decoration-none bi bi-pen" th:title="#{utility.index.button.edit.tooltip}"></a>
                                             </td>
-                                            <td class="saveMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
+                                            <td class="saveMode scaleHover border-start-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
                                                 <a id="saveIndexButton" th:id="'saveIndexButton' + ${index.getId()}" class="buttonSave text-decoration-none bi bi-check-lg" th:title="#{utility.index.button.save.tooltip}"></a>
                                             </td>
-                                            <td class="editableValue border-start-0" th:id="${index.getId()}" th:text="${index.getValue()}" th:colspan="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 1 : 2" th:style="${index.getCreatedAt() != index.getModifiedAt()} ? 'color: #FF0000' : 'color: #000000'" data-bs-toggle="tooltip" data-bs-placement="right" th:title="${index.getCreatedAt() != index.getModifiedAt()} ? #{utility.oldIndex.title.tooltip} + '<br>' + '<div class=' + 'text-start' + '>' + ${index.insertTooltipTitle('__#{utility.oldIndex.hour.tooltip}__', '__#{utility.oldIndex.value.tooltip}__', oldIndexes)} + '<br>' + ${index.getOldIndex(oldIndexes)} + '</div>'"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -160,6 +163,7 @@ var myChart = null;
 var canvas = null;
 var ctx = null;
 var chartType = 'line';
+var cancelEditContent = null;
 
 $(document).ready(function () {
     $(window).on("load", function() {
@@ -301,16 +305,41 @@ $(document).ready(function () {
 
         $(this).siblings('td.editableValue').css('color', '#FF0000');
         $(this).siblings('.editMode').show();
+        $(this).siblings('.cancelMode').hide();
         $(this).hide();
     });
 
     $('.editMode').click(function() {
         $(this).siblings('td.editableValue').each(function() {
             var content = $(this).html();
-            $(this).html('<input value="' + content + '" class="saveInput" style="height:100%; width:100%; padding:0; margin:0" />');
+            cancelEditContent = content;
+            $(this).html('<input value="' + content + '" class="saveInput" style="height:100%; width:100%; padding:0; margin:0; text-align: center" />');
+            $(this).addClass('border-end-0');
+            $(this).closest('tbody').find('td.editableValue').attr('colspan', '3');
+            $(this).closest('tbody').siblings('thead').find('th.optimizeWidth').attr('colspan', '3');
+            $(this).attr('colspan', '1');
         });
 
         $(this).siblings('.saveMode').show();
+        $(this).siblings('.cancelMode').show();
+        $(this).hide();
+    });
+
+    $('.cancelMode').click(function() {
+        $('.saveInput').each(function() {
+            $(this).html(cancelEditContent);
+            $(this).contents().unwrap();
+        });
+
+        $(this).siblings('td.editableValue').each(function() {
+            $(this).addClass('border-end-0');
+            $(this).closest('tbody').find('td.editableValue').attr('colspan', '2');
+            $(this).closest('tbody').siblings('thead').find('th.optimizeWidth').attr('colspan', '2');
+            $(this).attr('colspan', '1');
+        });
+
+        $(this).siblings('.editMode').show();
+        $(this).siblings('.saveMode').hide();
         $(this).hide();
     });
 
