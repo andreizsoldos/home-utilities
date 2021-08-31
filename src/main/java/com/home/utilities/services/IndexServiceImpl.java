@@ -1,14 +1,13 @@
 package com.home.utilities.services;
 
-import com.home.utilities.entities.Branch;
-import com.home.utilities.entities.DaysOfWeek;
-import com.home.utilities.entities.Index;
-import com.home.utilities.entities.MonthsOfYear;
+import com.home.utilities.entities.*;
 import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.dto.IndexDetails;
+import com.home.utilities.payload.dto.OldIndexDetails;
 import com.home.utilities.payload.request.IndexRequest;
 import com.home.utilities.repository.ClientCodeRepository;
 import com.home.utilities.repository.IndexRepository;
+import com.home.utilities.repository.OldIndexRepository;
 import com.home.utilities.services.util.DateTimeConverter;
 import com.home.utilities.services.util.Translation;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +33,10 @@ public class IndexServiceImpl implements IndexService {
           .map(Month::getValue)
           .collect(Collectors.toList());
 
-    private final IndexRepository indexRepository;
-    private final ClientCodeRepository clientCodeRepository;
     private final Translation translation;
+    private final IndexRepository indexRepository;
+    private final OldIndexRepository oldIndexRepository;
+    private final ClientCodeRepository clientCodeRepository;
 
 
     @Override
@@ -48,9 +48,13 @@ public class IndexServiceImpl implements IndexService {
     public Optional<Index> createIndex(final IndexRequest request, final Long clientId) {
         final var clientCode = clientCodeRepository.findById(clientId)
               .orElseThrow(() -> new NotFoundException("Client code", "id", clientId));
+        final var oldIndex = new OldIndex();
         final var index = new Index();
         index.setValue(request.getValue());
         index.setClientCode(clientCode);
+        oldIndex.setValue(request.getValue());
+        oldIndex.setIndex(index);
+        oldIndexRepository.save(oldIndex);
         return Optional.of(indexRepository.save(index));
     }
 
@@ -66,6 +70,23 @@ public class IndexServiceImpl implements IndexService {
     public List<IndexDetails> getIndexes(final Branch branch, final Long userId) {
         return indexRepository.findIndexes(branch, userId).stream()
               .map(i -> new IndexDetails(i.getId(), i.getClientCode().getId(), i.getValue(), i.getCreatedAt(), i.getModifiedAt()))
+              .collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveOldIndex(final Double oldValue, final Long indexId) {
+        final var index = indexRepository.findById(indexId)
+              .orElseThrow(() -> new NotFoundException("Index", "id", indexId));
+        final var oldIndex = new OldIndex();
+        oldIndex.setValue(oldValue);
+        oldIndex.setIndex(index);
+        oldIndexRepository.save(oldIndex);
+    }
+
+    @Override
+    public List<OldIndexDetails> getOldIndexes(final List<Long> indexesId) {
+        return oldIndexRepository.findByIndexesId(indexesId).stream()
+              .map(i -> new OldIndexDetails(i.getId(), i.getIndex().getId(), i.getValue(), i.getCreatedAt(), i.getModifiedAt()))
               .collect(Collectors.toList());
     }
 
@@ -103,6 +124,15 @@ public class IndexServiceImpl implements IndexService {
     public LocalDate lastDayOfCurrentWeek() {
         return LocalDate.now(ZoneId.systemDefault())
               .with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+    }
+
+    @Override
+    public List<Integer> currentDaysOfWeek() {
+        return IntStream.rangeClosed(0, 6)
+              .boxed()
+              .map(i -> firstDayOfCurrentWeek().plusDays(i))
+              .map(LocalDate::getDayOfMonth)
+              .collect(Collectors.toList());
     }
 
     @Override
