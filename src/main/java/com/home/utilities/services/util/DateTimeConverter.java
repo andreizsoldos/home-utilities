@@ -27,4 +27,8 @@ public class DateTimeConverter {
     public static String fromInstantToString(final Instant instant) {
         return instant.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
     }
+
+    public static String toTime(final Instant instant) {
+        return instant.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+    }
 }
