@@ -170,16 +170,6 @@
   text-align: center;
 }
 
-#utility-section .buttonEdit {
-  color: #aaa;
-  cursor: pointer;
-  vertical-align: middle;
-}
-
-#utility-section .buttonEdit:hover {
-  color: #0a79df;
-}
-
 #utility-section .table-responsive {
   height: 100%;
 }
@@ -244,20 +234,51 @@
   margin: auto;
 }
 
+#utility-section .editableValue {
+  width: 100%;
+}
+
 #utility-section .noWrap {
   white-space: nowrap;
+}
+
+#utility-section .buttonEdit {
+  color: #aaa;
+  cursor: pointer;
+  vertical-align: middle;
+  width: 100%;
+}
+
+#utility-section .buttonEdit:hover {
+  color: #0a79df;
+}
+
+#utility-section .buttonCancelEdit {
+  color: #aaa;
+  cursor: pointer;
+  vertical-align: middle;
+  width: 100%;
+}
+
+#utility-section .buttonCancelEdit:hover {
+  color: #ff0000;
 }
 
 #utility-section .buttonSave {
   color: #aaa;
   cursor: pointer;
   vertical-align: middle;
+  width: 100%;
 }
 
 #utility-section .buttonSave:hover {
   color: #0a79df;
 }
 
-#utility-section .saveMode {
+#utility-section .editMode {
+  display: block;
+}
+
+#utility-section .saveMode, #utility-section .cancelMode {
   display: none;
 }
