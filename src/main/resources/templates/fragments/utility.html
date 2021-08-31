@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: title(#{utility.page.title}, ~{})}"></head>
+
+<body th:fragment="utility">
+<header th:replace="~{fragments/layout :: sidebar}"></header>
+<section th:id="utility-section" id="utility-section">
+    <div class="noClient" th:if="${clientCodeList.size == 0}">
+        <a href="#" th:href="@{/user/dashboard}" class="goBack btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
+        <div class="d-flex-inline">
+            <p th:text="#{utility.addFirstClientCode.label}">Add first client code</p>
+            <a href="#" th:href="@{/user/dashboard/__${branch}__/client-code}" class="noClientData text-decoration-none bi bi-person-plus"></a>
+        </div>
+    </div>
+    <div class="card-group" th:unless="${clientCodeList.size == 0}">
+        <div class="d-flex top-buttons">
+            <div class="img-utility">
+                <a href="#" th:href="@{/user/dashboard/__${branch}__/client-code}" class="text-decoration-none">
+                    <img th:src="@{/images/user-dashboard/__${branch}__.png}" src="../../static/images/user-dashboard/__${branch}__.png" class="scaleHover" alt="" width="75" height="75" th:title="#{utility.addClientCode.label}" data-bs-placement="bottom">
+                </a>
+            </div>
+
+            <p class="utilityTitleText" th:text="#{utility.title(${branchOrdinal})}"></p>
+
+            <div class="ms-4 d-block w-100">
+                <a href="#" th:href="@{/user/dashboard}" class="btn btn-primary goDashboard float-end text-decoration-none scaleHover bi bi-arrow-return-left" th:title="#{utility.button.back.tooltip}" data-bs-placement="left"></a>
+            </div>
+        </div>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="d-grid nav-link" id="nav-1-tab" th:each="client : ${clientCodeList}" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'active':''" th:id="'nav' + ${client.getId()} + 'tab'" data-bs-toggle="tab" data-bs-target="#nav-1" th:data-bs-target="'#nav' + ${client.getId()}" type="button" role="tab" aria-controls="nav-1" th:aria-controls="'nav' + ${client.getId()}" aria-selected="true">
+                    <div class="d-flex">
+                        <a id="put1" th:id="'put' + ${client.getId()}" th:title="#{utility.button.edit.tooltip}" class="btn-primary text-primary text-decoration-none scaleHover bi bi-pencil-square"></a>
+                        <a id="delete1" th:id="'delete' + ${client.getId()}" th:title="#{utility.button.delete.tooltip}" class="btn-primary text-decoration-none scaleHover bi bi-trash"></a>
+                    </div>
+                    <div th:title="#{utility.contractSince.title} + ': <br>' + ${#temporals.format(client.getContractDate(), 'dd-MM-yyyy')}">
+                        <div>
+                            <span th:text="${client.getClientNumber()}">client-code</span>
+                        </div>
+                        <div>
+                            <span th:text="${client.getClientName()}">client-name</span>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-1" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'show active':''" th:each="client : ${clientCodeList}" th:id="'nav' + ${client.getId()}" role="tabpanel" aria-labelledby="nav-1-tab" th:aria-labelledby="'nav' + ${client.getId()} + 'tab'">
+                <div class="row">
+                    <div class="col-md-4 pe-0 justify-content-md-center">
+                        <div class="card col clientsInfo" id="clientInfo" th:id="'clientInfo' + ${client.getId()}">
+                            <div class="col bottom-info">
+                                <div class="addInfoClass">
+                                    <button class="addNewIndexButton btn btn-primary scaleHover" id="addIndexId" th:id="'addIndexId' + ${client.getId()}" th:text="#{utility.addIndex.label}">Add new index</button>
+                                </div>
+                                <div class="cln container-fluid">
+                                    <table class="table table-sm table-hover table-bordered text-center align-middle">
+                                        <tbody>
+                                            <tr class="table-no-bottom-border">
+                                                <th th:text="#{utility.consumptionNumber.title}">Number</th>
+                                            </tr>
+                                            <tr class="table-no-top-border">
+                                                <td th:text="${client.getConsumptionLocationNumber()}">Number</td>
+                                            </tr>
+                                            <tr class="table-no-bottom-border">
+                                                <th th:text="#{utility.consumptionAddress.title}">Address</th>
+                                            </tr>
+                                            <tr class="table-no-top-border">
+                                                <td th:text="${client.getConsumptionAddress()}">Address</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card col clientsIndex" id="clientIndex" th:id="'clientIndex' + ${client.getId()}">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover table-bordered text-center align-middle">
+                                    <thead class="position-sticky bg-white" style="top:0;">
+                                        <tr>
+                                            <th th:text="#{utility.index.createdDate.title}">Created Date</th>
+                                            <th th:text="#{utility.index.title} + ' (' + ${client.count(indexList)} + ')'" th:colspan="${#temporals.format(lastCreatedIndexDate, 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 2 : 1">Index</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="index : ${indexList}" th:if="${client.getId() == index.getClientId()}">
+                                            <td class="noWrap" th:text="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy HH:mm:ss')}">Index created date</td>
+                                            <td class="editMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
+                                                <a id="editIndexButton" th:id="'editIndexButton' + ${index.getId()}" class="buttonEdit text-decoration-none bi bi-pen" th:title="#{utility.index.button.edit.tooltip}"></a>
+                                            </td>
+                                            <td class="saveMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
+                                                <a id="saveIndexButton" th:id="'saveIndexButton' + ${index.getId()}" class="buttonSave text-decoration-none bi bi-check-lg" th:title="#{utility.index.button.save.tooltip}"></a>
+                                            </td>
+                                            <td class="editableValue border-start-0" th:id="${index.getId()}" th:text="${index.getValue()}" th:colspan="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 1 : 2" th:style="${index.getCreatedAt() != index.getModifiedAt()} ? 'color: #FF0000' : 'color: #000000'" data-bs-toggle="tooltip" data-bs-placement="right" th:title="${index.getCreatedAt() != index.getModifiedAt()} ? #{utility.oldIndex.title.tooltip} + '<br>' + '<div class=' + 'text-start' + '>' + ${index.insertTooltipTitle('__#{utility.oldIndex.hour.tooltip}__', '__#{utility.oldIndex.value.tooltip}__', oldIndexes)} + '<br>' + ${index.getOldIndex(oldIndexes)} + '</div>'"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 justify-content-md-center charts">
+                        <div class="card col-md-auto graphInfo" id="clientGraph" th:id="'clientGraph' + ${client.getId()}">
+                            <a id="switchChart" th:id="'switchChart' + ${client.getId()}" th:title="#{chart.button.switch.tooltip}" class="switch btn btn-primary text-decoration-none text-center scaleHover bi bi-arrow-repeat"></a>
+                            <canvas id="indexChart" th:id="'indexChart' + ${client.getId()}"></canvas>
+                            <div class="mt-3 d-flex justify-content-md-evenly text-center">
+                                <div class="btn-group m-0" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check weekType" name="btnRadio" th:id="'chartTypeWeek' + ${client.getId()}" autocomplete="off" checked>
+                                    <label class="btn btn-outline-primary scaleHover bi bi-calendar-week" th:for="'chartTypeWeek' + ${client.getId()}" th:text="'  ' + #{chart.week.button.label}">Week</label>
+
+                                    <input type="radio" class="btn-check monthType" name="btnRadio" th:id="'chartTypeMonth' + ${client.getId()}" autocomplete="off">
+                                    <label class="btn btn-outline-primary scaleHover bi bi-calendar-month" th:for="'chartTypeMonth' + ${client.getId()}" th:text="'  ' + #{chart.month.button.label}">Month</label>
+
+                                    <input type="radio" class="btn-check yearType" name="btnRadio" th:id="'chartTypeYear' + ${client.getId()}" autocomplete="off">
+                                    <label class="btn btn-outline-primary scaleHover bi bi-calendar3" th:for="'chartTypeYear' + ${client.getId()}" th:text="'  ' + #{chart.year.button.label}">Year</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="deleteBackdrop" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteBackdropLabel" th:text="#{utility.deleteConfirmation.title}">Delete?</h5>
+            </div>
+            <div class="modal-body">
+                <p class="modal-text" th:text="#{utility.deleteConfirmation.content}">Confirm delete</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <a class="btn btn-secondary scaleHover" href="#" th:href="@{/user/dashboard/__${branch}__}" th:text="#{utility.deleteConfirmation.cancel.label}">Cancel</a>
+                <a href="#" id="setDelete" th:id="setDelete" class="btn btn-primary scaleHover" th:text="#{utility.deleteConfirmation.submit.label}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript" th:inline="javascript">
+var hdr = null;
+var tok = null;
+var clientId = null;
+var myChart = null;
+var canvas = null;
+var ctx = null;
+var chartType = 'line';
+
+$(document).ready(function () {
+    $(window).on("load", function() {
+        windowPath = window.location.href;
+        if(windowPath.indexOf("#") == -1) {
+            activateTab();
+        } else {
+            var tabId = windowPath.substr(windowPath.indexOf("#") + 1, windowPath.length - windowPath.indexOf("#") + 1);
+            sessionStorage.setItem("currentActiveTab", tabId);
+            window.location.href = "/user/dashboard/" + '[(${branch})]';
+            activateTab();
+        }
+
+        initChart();
+        $('[data-bs-toggle=tooltip]').tooltip();
+    });
+
+    $('[title]').each(function() {
+        $(this).attr('data-bs-toggle', 'tooltip');
+        $(this).attr('data-bs-html', 'true');
+    });
+
+    function activateTab() {
+        var tabId = sessionStorage.getItem("currentActiveTab");
+        if (tabId != null) {
+            $('.nav-tabs button[data-bs-target="#nav' + tabId + '"]').tab('show');
+        }
+    }
+
+    function getFirstClientId() {
+        var active_button = $('.tab-content div.active');
+        return active_button.attr("id").substr(3);
+    }
+
+    clientId = getFirstClientId();
+
+    function replaceCanvas(elem) {
+        canvas = document.createElement('canvas');
+        var newContext = canvas.getContext('2d');
+        elem.parentNode.insertBefore(canvas, elem.nextSibling);
+        elem.parentNode.removeChild(elem);
+        canvas.id = 'indexChart' + clientId;
+        return newContext;
+    }
+
+    $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        clientId = e.target.id.substr(3).substr(0, this.id.substr(3).length - 3);
+        sessionStorage.setItem("currentActiveTab", clientId);
+        ctx = replaceCanvas(document.getElementById('indexChart' + clientId));
+        myChart = new Chart(ctx, {
+            type: chartType,
+            data: data,
+            options: options
+        });
+        $('.weekType').each(function() {
+            $(this).click();
+        });
+    });
+
+    $("button").click(function() {
+        if($(this).find("a").hasClass("active")) {
+            $(this).find("a").removeClass("active");
+            $(this).find("a").hide();
+        } else {
+            $("button a").removeClass("active");
+            $("button a").hide();
+            $(this).find("a").addClass("active");
+            $(this).find("a").show();
+        }
+    });
+
+    $("button a").click(function() {
+        var buttonId = this.id;
+        if(buttonId.startsWith("delete")) {
+            if($(this).hasClass("active")) {
+                $("#deleteBackdrop").modal("show");
+            }
+        } else if(buttonId.startsWith("put")) {
+            if($(this).hasClass("active")) {
+                $(this).attr("href", "/user/dashboard/" + '[(${branch})]' + "/client-code-edit/" + clientId);
+            }
+        }
+    });
+
+    function deleteClient(branch, id) {
+        hdr = $("meta[name='_csrf_header']").attr("content");
+        tok = $("meta[name='_csrf']").attr("content");
+
+        var reqHeaders = new Headers();
+        reqHeaders.set(hdr, tok);
+
+        return fetch("/user/dashboard/" + branch + "/client-code/" + id, {
+            method: 'DELETE',
+            headers: reqHeaders
+        })
+        .then(response => response.text())
+        .then(data => {
+            window.location.href = "/user/dashboard/" + branch;
+        })
+        .catch(err => err);
+    }
+
+    $("#setDelete").click(function() {
+        deleteClient('[(${branch})]', clientId);
+    });
+
+    function saveOldIndexValue(branch, clientCodeId, indexId, newVal) {
+        hdr = $("meta[name='_csrf_header']").attr("content");
+        tok = $("meta[name='_csrf']").attr("content");
+
+        var reqHeaders = new Headers();
+        reqHeaders.set(hdr, tok);
+        reqHeaders.set('Content-Type', 'application/json');
+
+        const data = {'newValue': newVal};
+        return fetch("/user/dashboard/" + branch + "/client-code/" + clientCodeId + "/client-index/" + indexId, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: reqHeaders
+        })
+        .then(response => response.text())
+        .then(data => {
+            window.location.href = "/user/dashboard/" + branch;
+        })
+        .catch(err => err);
+    }
+
+    $('.saveMode').click(function() {
+        var newIndexValue;
+        $('.saveInput').each(function() {
+            var content = $(this).val();
+            newIndexValue = $(this).val();
+            $(this).html(content);
+            $(this).contents().unwrap();
+        });
+
+        var indexValueId = $(this).siblings('td.editableValue').attr('id');
+        saveOldIndexValue('[(${branch})]', clientId, indexValueId, newIndexValue);
+
+        $(this).siblings('td.editableValue').css('color', '#FF0000');
+        $(this).siblings('.editMode').show();
+        $(this).hide();
+    });
+
+    $('.editMode').click(function() {
+        $(this).siblings('td.editableValue').each(function() {
+            var content = $(this).html();
+            $(this).html('<input value="' + content + '" class="saveInput" style="height:100%; width:100%; padding:0; margin:0" />');
+        });
+
+        $(this).siblings('.saveMode').show();
+        $(this).hide();
+    });
+
+    $('.addNewIndexButton').click(function() {
+        if ($(this).attr('id') == 'addIndexId' + clientId) {
+            window.location.href = "/user/dashboard/" + '[(${branch})]' + "/client-code/" + clientId + "/client-index"
+        }
+    });
+
+    function initChart() {
+        if(myChart != null) {
+            myChart.destroy();
+        }
+        canvas = document.getElementById('indexChart' + clientId);
+        ctx = canvas.getContext('2d');
+        myChart = new Chart(ctx, {
+            type: chartType,
+            data: data,
+            options: options
+        });
+    }
+
+    function toggleChart() {
+        const currentChartTitle = myChart.options.title.text;
+        myChart.destroy();
+        this.chartType = (this.chartType == 'line') ? 'bar' : 'line';
+        initChart();
+        myChart.options.title.text = currentChartTitle;
+        myChart.update();
+    }
+
+    var daysOfWeekNumbers = [];
+    /*[# th:each="day : ${daysOfWeek}"]*/
+        daysOfWeekNumbers.push('[(${day})]');
+    /*[/]*/
+
+    var daysOfWeekLabels = [];
+    /*[# th:each="client : ${weeklyStats}"]*/
+        if ('[(${client.key})]' == clientId) {
+            /*[# th:each="weekLabel : ${client.value}"]*/
+                daysOfWeekLabels.push('[(${weekLabel.key})]'.concat(' (').concat(daysOfWeekNumbers['[(${weekLabelStat.index})]']).concat(')'));
+            /*[/]*/
+        }
+    /*[/]*/
+
+    var weekIndexes = [];
+    /*[# th:each="client : ${weeklyStats}"]*/
+        if ('[(${client.key})]' == clientId) {
+            /*[# th:each="index : ${client.value}"]*/
+                weekIndexes.push('[(${index.value})]');
+            /*[/]*/
+        }
+    /*[/]*/
+
+    var chart_labels = daysOfWeekLabels;
+    var temp_dataset = weekIndexes;
+
+    var data = {
+        labels: chart_labels,
+        datasets: [{
+            label: '[(#{chart.title})]',
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            borderCapStyle: 'square',
+            pointBorderColor: "white",
+            pointBackgroundColor: "green",
+            pointBorderWidth: 1,
+            pointHoverRadius: 8,
+            pointHoverBackgroundColor: "yellow",
+            pointHoverBorderColor: "green",
+            pointHoverBorderWidth: 2,
+            pointRadius: 4,
+            pointHitRadius: 10,
+            data: temp_dataset,
+            spanGaps: true,
+        }]
+    };
+
+    var options = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
+                scaleLabel: {
+                    fontSize: 13,
+                    display: true,
+                    labelString: '[(#{chart.yAxis.title})]',
+                    align: 'center'
+                }
+            }]
+        },
+        title: {
+            fontSize: 15,
+            display: true,
+            text: '[(#{chart.title.week.text(${#temporals.format(weekFirstDay, 'dd-MM-yyyy')}, ${#temporals.format(weekLastDay, 'dd-MM-yyyy')})})]',
+            position: 'top'
+        },
+        legend: {
+            display: true,
+            position: 'top',
+        }
+    };
+
+    function reInitChart() {
+        const currentChartTitle = myChart.options.title.text;
+        myChart.destroy();
+        initChart();
+        myChart.options.title.text = currentChartTitle;
+        myChart.update();
+    }
+
+    function removeDataSet(ds1) {
+        let removalIndex = data.datasets.indexOf(ds1);
+        if(removalIndex >= 0) {
+            data.datasets.splice(removalIndex, 1);
+        }
+    }
+
+    $(".switch").click(function() {
+        if ($(this).attr('id') == 'switchChart' + clientId) {
+            toggleChart();
+        }
+    });
+
+    // chart within the current week
+    $(".weekType").click(function() {
+        if ($(this).attr('id') == 'chartTypeWeek' + clientId) {
+            updateWeekChart();
+        }
+    });
+
+    function updateWeekChart() {
+        var weekIndexes = [];
+        /*[# th:each="client : ${weeklyStats}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    weekIndexes.push('[(${index.value})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        chart_labels = daysOfWeekLabels;
+        temp_dataset = weekIndexes;
+        myChart.data.labels = chart_labels;
+        myChart.data.datasets[0].data = temp_dataset;
+        myChart.data.datasets[0].label = '[(#{chart.title})]';
+        myChart.options.title.text = '[(#{chart.title.week.text(${#temporals.format(weekFirstDay, 'dd-MM-yyyy')}, ${#temporals.format(weekLastDay, 'dd-MM-yyyy')})})]';
+        removeDataSet(myChart.data.datasets[1]);
+        myChart.update();
+    }
+
+    // chart within the current month
+    $(".monthType").click(function() {
+        if ($(this).attr('id') == 'chartTypeMonth' + clientId) {
+            updateMonthChart();
+        }
+    });
+
+    function updateMonthChart() {
+        var daysOfMonthNumbers = [];
+        /*[# th:each="client : ${monthlyStats}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    daysOfMonthNumbers.push('[(${index.key})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        var monthIndexes = [];
+        /*[# th:each="client : ${monthlyStats}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    monthIndexes.push('[(${index.value})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        chart_labels = daysOfMonthNumbers;
+        temp_dataset = monthIndexes;
+        myChart.data.labels = chart_labels;
+        myChart.data.datasets[0].data = temp_dataset;
+        myChart.data.datasets[0].label = '[(#{chart.title})]';
+        myChart.options.title.text = '[(#{chart.title.month.text(${currentMonth})})]';
+        removeDataSet(myChart.data.datasets[1]);
+        myChart.update();
+    }
+
+    // chart within the current year
+    $(".yearType").click(function() {
+        if ($(this).attr('id') == 'chartTypeYear' + clientId) {
+            updateYearChart();
+        }
+    });
+
+    function updateYearChart() {
+        var monthsOfYearLabels = [];
+        /*[# th:each="client : ${monthlyMinValues}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    monthsOfYearLabels.push('[(${index.key})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        var yearMinIndexes = [];
+        /*[# th:each="client : ${monthlyMinValues}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    yearMinIndexes.push('[(${index.value})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        var yearMaxIndexes = [];
+        /*[# th:each="client : ${monthlyMaxValues}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    yearMaxIndexes.push('[(${index.value})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        chart_labels = monthsOfYearLabels;
+        temp_dataset1 = yearMinIndexes;
+        temp_dataset2 = yearMaxIndexes;
+        myChart.data.labels = chart_labels;
+        myChart.data.datasets[0].data = temp_dataset1;
+        myChart.data.datasets[0].label = '[(#{chart.minMax.title(Min)})]';
+        myChart.data.datasets[1] = {
+        label: '[(#{chart.minMax.title(Max)})]',
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(247, 198, 161, 1)',
+        borderColor: 'rgb(237, 128, 47)',
+        borderCapStyle: 'square',
+        pointBorderColor: "white",
+        pointBackgroundColor: "green",
+        pointBorderWidth: 1,
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: "yellow",
+        pointHoverBorderColor: "green",
+        pointHoverBorderWidth: 2,
+        pointRadius: 4,
+        pointHitRadius: 10,
+        data: temp_dataset2,
+        spanGaps: true,
+        };
+        myChart.options.title.text = '[(#{chart.title.year.text})]';
+        myChart.update();
+    }
+})
+
+
+</script>
+
+</body>
+</html>
