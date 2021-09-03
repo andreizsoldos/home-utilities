@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @Data
@@ -25,5 +26,14 @@ public class ClientCodeDetails {
         return indexesList.stream()
               .filter(i -> i.getClientId().equals(id))
               .count();
+    }
+
+    public LocalDate lastIndexDate(final List<IndexDetails> indexesList) {
+        return indexesList.stream()
+              .filter(i -> i.getClientId().equals(id))
+              .map(IndexDetails::getCreatedAt)
+              .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()))
+              .max(LocalDate::compareTo)
+              .orElse(null);
     }
 }
