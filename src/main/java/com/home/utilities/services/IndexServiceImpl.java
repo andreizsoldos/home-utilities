@@ -1,10 +1,12 @@
 package com.home.utilities.services;
 
 import com.home.utilities.entities.*;
+import com.home.utilities.entities.audit.BaseEntity;
 import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.dto.IndexDetails;
 import com.home.utilities.payload.dto.OldIndexDetails;
-import com.home.utilities.payload.request.IndexRequest;
+import com.home.utilities.payload.request.NewIndexRequest;
+import com.home.utilities.payload.request.OldIndexRequest;
 import com.home.utilities.repository.ClientCodeRepository;
 import com.home.utilities.repository.IndexRepository;
 import com.home.utilities.repository.OldIndexRepository;
@@ -45,7 +47,7 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Optional<Index> createIndex(final IndexRequest request, final Long clientId) {
+    public Optional<Index> createIndex(final NewIndexRequest request, final Long clientId) {
         final var clientCode = clientCodeRepository.findById(clientId)
               .orElseThrow(() -> new NotFoundException("Client code", "id", clientId));
         final var oldIndex = new OldIndex();
@@ -59,10 +61,10 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Optional<Index> updateIndex(final Double newValue, final Long indexId) {
+    public Optional<Index> updateIndex(final OldIndexRequest request, final Long indexId) {
         final var index = indexRepository.findById(indexId)
               .orElseThrow(() -> new NotFoundException("Index", "id", indexId));
-        index.setValue(newValue);
+        index.setValue(request.getValue());
         return Optional.of(indexRepository.save(index));
     }
 
@@ -74,11 +76,11 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public void saveOldIndex(final Double oldValue, final Long indexId) {
+    public void saveOldIndex(final OldIndexRequest request, final Long indexId) {
         final var index = indexRepository.findById(indexId)
               .orElseThrow(() -> new NotFoundException("Index", "id", indexId));
         final var oldIndex = new OldIndex();
-        oldIndex.setValue(oldValue);
+        oldIndex.setValue(request.getValue());
         oldIndex.setIndex(index);
         oldIndexRepository.save(oldIndex);
     }
@@ -112,6 +114,13 @@ public class IndexServiceImpl implements IndexService {
         return indexRepository.findLastCreatedDate(branch, userId)
               .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()))
               .orElse(LocalDate.now(ZoneId.systemDefault()).minusDays(1L));
+    }
+
+    @Override
+    public Optional<LocalDate> getLastCreatedDate(final Double lastIndex) {
+        return indexRepository.findByValue(lastIndex)
+              .map(BaseEntity::getCreatedAt)
+              .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()));
     }
 
     @Override
