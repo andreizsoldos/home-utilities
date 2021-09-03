@@ -11,9 +11,4 @@ public class HomepageController {
     public ModelAndView homepage() {
         return new ModelAndView("homepage");
     }
-
-    @GetMapping("/dashboard")
-    public ModelAndView dashboardPage() {
-        return new ModelAndView("dashboard");
-    }
 }
