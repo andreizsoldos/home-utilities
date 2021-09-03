@@ -12,8 +12,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-public class RedirectLoginPageFilter extends GenericFilterBean {
+public class RedirectPageFilter extends GenericFilterBean {
+
+    private static final List<String> URI = List.of("/login", "/register");
 
     @Override
     public void doFilter(final ServletRequest servletRequest,
@@ -22,7 +25,7 @@ public class RedirectLoginPageFilter extends GenericFilterBean {
         final var request = (HttpServletRequest) servletRequest;
         final var response = (HttpServletResponse) servletResponse;
 
-        if (isAuthenticated() && "/login".equals(request.getRequestURI())) {
+        if (isAuthenticated() && URI.contains(request.getRequestURI())) {
             final var encodedRedirectURL = ((HttpServletResponse) servletResponse)
                   .encodeRedirectURL(request.getContextPath() + "/");
 

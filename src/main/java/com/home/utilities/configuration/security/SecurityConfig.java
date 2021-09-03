@@ -1,6 +1,6 @@
 package com.home.utilities.configuration.security;
 
-import com.home.utilities.configuration.security.filters.RedirectLoginPageFilter;
+import com.home.utilities.configuration.security.filters.RedirectPageFilter;
 import com.home.utilities.configuration.userdetails.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -92,6 +92,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .and()
 
               // Redirect from login page if user is authenticated
-              .addFilterAfter(new RedirectLoginPageFilter(), UsernamePasswordAuthenticationFilter.class);
+              .addFilterAfter(new RedirectPageFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
