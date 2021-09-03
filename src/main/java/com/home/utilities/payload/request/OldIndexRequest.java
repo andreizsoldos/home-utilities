@@ -2,7 +2,6 @@ package com.home.utilities.payload.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.home.utilities.validators.index.NewValueGreaterThanOldValue;
-import com.home.utilities.validators.index.OncePerDay;
 import com.home.utilities.validators.index.ValidateNumeric;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +11,8 @@ import javax.validation.constraints.PositiveOrZero;
 
 @Getter
 @Setter
-@OncePerDay(field = "value", fieldMatch = "lastIndex")
 @NewValueGreaterThanOldValue(field = "value", fieldMatch = "lastIndex")
-public class NewIndexRequest {
+public class OldIndexRequest {
 
     @ValidateNumeric
     @JsonDeserialize(using = IndexRequestDeserializer.class)
@@ -24,10 +22,10 @@ public class NewIndexRequest {
 
     private Double lastIndex;
 
-    public NewIndexRequest() {
+    public OldIndexRequest() {
     }
 
-    public NewIndexRequest(final Double lastIndex) {
+    public OldIndexRequest(final Double lastIndex) {
         this.lastIndex = lastIndex;
     }
 }

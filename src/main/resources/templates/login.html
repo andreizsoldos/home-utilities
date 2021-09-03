@@ -10,23 +10,19 @@
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="login-section" id="login-section">
     <div class="card">
-        <img class="mt-3 mb-3 card-img-top px-5" th:src="@{/images/login/login-logo.png}" src="../static/images/login/login-logo.png" alt=""
-             width="50" height="150">
+        <img class="mt-3 mb-3 card-img-top px-5" th:src="@{/images/login/login-logo.png}" src="../static/images/login/login-logo.png" alt="" width="50" height="150">
 
         <h3 class="card-title text-center no-select" th:text="#{login.content.title}">Please enter credentials</h3>
 
         <div class="card-body">
             <form th:action="@{/login}" th:method="post" th:id="loginForm" autocomplete="off">
-                <div class="errors" th:if="${param.error}"
-                     th:text="#{${session[SPRING_SECURITY_LAST_EXCEPTION]?.message}}">error
-                </div>
+                <div class="errors" th:if="${param.error}" th:text="#{${session[SPRING_SECURITY_LAST_EXCEPTION]?.message}}">error</div>
                 <div class="mb-3 input-group">
                     <div class="input-group-prepend col-auto">
                         <span class="input-group-text bi-person-fill"></span>
                     </div>
                     <div class="form-floating col">
-                        <input type="text" class="form-control" id="email" th:name="#{login.email.name}"
-                               th:placeholder="#{email.placeholder}" placeholder="name@example.com" autofocus>
+                        <input type="text" class="form-control" id="email" th:name="#{login.email.name}" th:placeholder="#{email.placeholder}" placeholder="name@example.com" autofocus>
                         <label for="email" th:text="#{login.email.label}">EM</label>
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     </div>
@@ -37,12 +33,10 @@
                         <span class="input-group-text bi-shield-lock-fill"></span>
                     </div>
                     <div class="form-floating col">
-                        <input type="password" class="form-control" id="password" th:name="#{login.password.name}"
-                               th:placeholder="#{password.placeholder}" placeholder="********">
+                        <input type="password" class="form-control" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********">
                         <label for="password" th:text="#{login.password.label}">PW</label>
                     </div>
-                    <span class="px-2 m-auto bi-eye" id="togglePassword" th:title="#{login.password.tooltip.show}"
-                          th:onclick="revealPassword()" onclick="revealPassword()"></span>
+                    <span class="px-2 m-auto bi-eye" id="togglePassword" th:title="#{login.password.tooltip.show}" th:onclick="revealPassword()" onclick="revealPassword()"></span>
                 </div>
 
                 <div class="mb-2">

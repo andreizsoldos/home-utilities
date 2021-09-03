@@ -4,7 +4,8 @@ import com.home.utilities.entities.Branch;
 import com.home.utilities.entities.Index;
 import com.home.utilities.payload.dto.IndexDetails;
 import com.home.utilities.payload.dto.OldIndexDetails;
-import com.home.utilities.payload.request.IndexRequest;
+import com.home.utilities.payload.request.NewIndexRequest;
+import com.home.utilities.payload.request.OldIndexRequest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,13 +17,13 @@ public interface IndexService {
 
     Optional<Index> findById(Long indexId);
 
-    Optional<Index> createIndex(IndexRequest request, Long clientId);
+    Optional<Index> createIndex(NewIndexRequest request, Long clientId);
 
-    Optional<Index> updateIndex(Double newValue, Long indexId);
+    Optional<Index> updateIndex(OldIndexRequest request, Long indexId);
 
     List<IndexDetails> getIndexes(Branch branch, Long userId);
 
-    void saveOldIndex(Double oldValue, Long indexId);
+    void saveOldIndex(OldIndexRequest request, Long indexId);
 
     List<OldIndexDetails> getOldIndexes(List<Long> indexId);
 
@@ -33,6 +34,8 @@ public interface IndexService {
     Optional<String> getLastModifiedDate(Branch branch, Long userId);
 
     LocalDate getLastCreatedDate(Branch branch, Long userId);
+
+    Optional<LocalDate> getLastCreatedDate(Double lastIndex);
 
     LocalDate firstDayOfCurrentWeek();
 

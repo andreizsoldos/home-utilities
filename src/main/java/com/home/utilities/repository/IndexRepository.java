@@ -22,6 +22,8 @@ public interface IndexRepository extends JpaRepository<Index, Long> {
           """)
     List<Index> findIndexes(@Param("branch") Branch branch, @Param("userId") Long userId);
 
+    Optional<Index> findByValue(Double value);
+
     @Query("""
           SELECT index.value FROM Index index
           WHERE index.id =

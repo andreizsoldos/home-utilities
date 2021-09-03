@@ -53,7 +53,7 @@
                         <div class="card col clientsInfo" id="clientInfo" th:id="'clientInfo' + ${client.getId()}">
                             <div class="col bottom-info">
                                 <div class="addInfoClass">
-                                    <button class="addNewIndexButton btn btn-primary scaleHover" id="addIndexId" th:id="'addIndexId' + ${client.getId()}" th:text="#{utility.addIndex.label}">Add new index</button>
+                                    <button class="addNewIndexButton btn btn-primary scaleHover" id="addIndexId" th:id="'addIndexId' + ${client.getId()}" th:text="#{utility.addIndex.label}" th:disabled="${#temporals.format(client.lastIndexDate(indexList), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">Add new index</button>
                                 </div>
                                 <div class="cln container-fluid">
                                     <table class="table table-sm table-hover table-bordered text-center align-middle">
@@ -77,16 +77,18 @@
                         </div>
                         <div class="card col clientsIndex" id="clientIndex" th:id="'clientIndex' + ${client.getId()}">
                             <div class="table-responsive">
-                                <table class="table table-sm table-hover table-bordered text-center align-middle">
+                                <table th:id="'indexTableData' + ${client.getId()}" class="indexTableData table table-sm table-hover table-bordered text-center align-middle">
                                     <thead class="position-sticky bg-white" style="top:0;">
                                         <tr>
-                                            <th th:text="#{utility.index.createdDate.title}">Created Date</th>
+                                            <th th:text="#{utility.index.createdDate.title}">Created on</th>
+                                            <th th:text="#{utility.index.modifiedDate.title}">Modified on</th>
                                             <th class="optimizeWidth" th:text="#{utility.index.title} + ' (' + ${client.count(indexList)} + ')'" th:colspan="${#temporals.format(lastCreatedIndexDate, 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 2 : 1">Index</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="index : ${indexList}" th:if="${client.getId() == index.getClientId()}">
                                             <td class="noWrap" th:text="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy HH:mm:ss')}">Index created date</td>
+                                            <td class="noWrap" th:text="${#temporals.format(index.getModifiedAt(), 'dd-MM-yyyy HH:mm:ss')}">Index modified date</td>
                                             <td class="cancelMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
                                                 <a id="cancelEditingIndexButton" th:id="'cancelEditingIndexButton' + ${index.getId()}" class="buttonCancelEdit text-decoration-none bi bi-x-lg" th:title="#{utility.index.button.edit.cancel.tooltip}"></a>
                                             </td>
@@ -163,12 +165,12 @@ var myChart = null;
 var canvas = null;
 var ctx = null;
 var chartType = 'line';
-var cancelEditContent = null;
+var oldValueContent = null;
 
 $(document).ready(function () {
     $(window).on("load", function() {
         windowPath = window.location.href;
-        if(windowPath.indexOf("#") == -1) {
+        if (windowPath.indexOf("#") == -1) {
             activateTab();
         } else {
             var tabId = windowPath.substr(windowPath.indexOf("#") + 1, windowPath.length - windowPath.indexOf("#") + 1);
@@ -270,7 +272,7 @@ $(document).ready(function () {
         deleteClient('[(${branch})]', clientId);
     });
 
-    function saveOldIndexValue(branch, clientCodeId, indexId, newVal) {
+    function saveOldIndexValue(branch, clientCodeId, indexId, newVal, oldVal) {
         hdr = $("meta[name='_csrf_header']").attr("content");
         tok = $("meta[name='_csrf']").attr("content");
 
@@ -278,17 +280,17 @@ $(document).ready(function () {
         reqHeaders.set(hdr, tok);
         reqHeaders.set('Content-Type', 'application/json');
 
-        const data = {'newValue': newVal};
+        const data = {
+            'value': newVal,
+            'lastIndex': oldVal
+        };
+
         return fetch("/user/dashboard/" + branch + "/client-code/" + clientCodeId + "/client-index/" + indexId, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: reqHeaders
         })
-        .then(response => response.text())
-        .then(data => {
-            window.location.href = "/user/dashboard/" + branch;
-        })
-        .catch(err => err);
+        .then(response => response.text());
     }
 
     $('.saveMode').click(function() {
@@ -297,22 +299,33 @@ $(document).ready(function () {
             var content = $(this).val();
             newIndexValue = $(this).val();
             $(this).html(content);
-            $(this).contents().unwrap();
         });
 
         var indexValueId = $(this).siblings('td.editableValue').attr('id');
-        saveOldIndexValue('[(${branch})]', clientId, indexValueId, newIndexValue);
-
-        $(this).siblings('td.editableValue').css('color', '#FF0000');
-        $(this).siblings('.editMode').show();
-        $(this).siblings('.cancelMode').hide();
-        $(this).hide();
+        saveOldIndexValue('[(${branch})]', clientId, indexValueId, newIndexValue, oldValueContent)
+            .then(data => {
+                if (data.startsWith('*')) {
+                    $('div#indexError').remove();
+                    $('<div id="indexError" class="alert p-0 m-0 text-end"></div>').insertBefore('#indexTableData' + clientId);
+                    $('div#indexError').html(data);
+                    $('.saveInput').css('background-color', '#FFFF00');
+                    $('.saveInput').focus();
+                } else {
+                    $('.saveInput').contents().unwrap();
+                    $(this).siblings('td.editableValue').css('color', '#FF0000');
+                    $(this).siblings('.editMode').show();
+                    $(this).siblings('.cancelMode').hide();
+                    $(this).hide();
+                    window.location.href = "/user/dashboard/" + '[(${branch})]';
+                }
+            })
+            .catch(err => err);
     });
 
     $('.editMode').click(function() {
         $(this).siblings('td.editableValue').each(function() {
             var content = $(this).html();
-            cancelEditContent = content;
+            oldValueContent = content;
             $(this).html('<input value="' + content + '" class="saveInput" style="height:100%; width:100%; padding:0; margin:0; text-align: center" />');
             $(this).addClass('border-end-0');
             $(this).closest('tbody').find('td.editableValue').attr('colspan', '3');
@@ -327,7 +340,7 @@ $(document).ready(function () {
 
     $('.cancelMode').click(function() {
         $('.saveInput').each(function() {
-            $(this).html(cancelEditContent);
+            $(this).html(oldValueContent);
             $(this).contents().unwrap();
         });
 
@@ -338,6 +351,7 @@ $(document).ready(function () {
             $(this).attr('colspan', '1');
         });
 
+        $('div#indexError').remove();
         $(this).siblings('.editMode').show();
         $(this).siblings('.saveMode').hide();
         $(this).hide();
@@ -445,14 +459,6 @@ $(document).ready(function () {
             position: 'top',
         }
     };
-
-    function reInitChart() {
-        const currentChartTitle = myChart.options.title.text;
-        myChart.destroy();
-        initChart();
-        myChart.options.title.text = currentChartTitle;
-        myChart.update();
-    }
 
     function removeDataSet(ds1) {
         let removalIndex = data.datasets.indexOf(ds1);

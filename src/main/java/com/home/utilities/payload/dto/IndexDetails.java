@@ -30,7 +30,7 @@ public class IndexDetails {
     }
 
     public String insertTooltipTitle(final String leftTitle, final String rightTitle, final List<OldIndexDetails> oldIndexesList) {
-        final var leftChar = addDelimiter((8 - leftTitle.length()) / 2);
+        final var leftChar = addDelimiter(Math.round((8f - leftTitle.length()) / 2f));
         final var rightChar = addDelimiter((maxListLength(oldIndexesList) - 13 - rightTitle.length() - 1) < 0 ? 3 : maxListLength(oldIndexesList) - 13 - rightTitle.length() - 1);
         final var middleChar = addDelimiter((maxListLength(oldIndexesList) - countDelimiter(leftChar) - leftTitle.length() - countDelimiter(rightChar)) < 0 ? 6 : maxListLength(oldIndexesList) - countDelimiter(leftChar) - leftTitle.length() - countDelimiter(rightChar));
 
