@@ -2,6 +2,7 @@ package com.home.utilities.controllers;
 
 import com.home.utilities.exceptions.EmailException;
 import com.home.utilities.exceptions.ExpiredTokenException;
+import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.exceptions.TokenNotFoundException;
 import com.home.utilities.payload.request.RegisterRequest;
 import com.home.utilities.services.ConfirmationTokenService;
@@ -81,5 +82,23 @@ public class RegisterController {
                   return "account-activated";
               })
               .orElseThrow(() -> new ExpiredTokenException("Token"));
+    }
+
+    @GetMapping("/recover-password")
+    public ModelAndView recoverPasswordPage() {
+        throw new NotFoundException("Recover password page not found");
+        //return new ModelAndView("recover-password");
+    }
+
+    @GetMapping("/terms-and-conditions")
+    public ModelAndView termsAndConditionsPage() {
+        throw new NotFoundException("Terms and conditions page not found");
+        //return new ModelAndView("terms-and-conditions");
+    }
+
+    @GetMapping("/privacy-policy")
+    public ModelAndView privacyPolicyPage() {
+        throw new NotFoundException("Privacy policy page not found");
+        //return new ModelAndView("privacy-policy");
     }
 }
