@@ -6,11 +6,12 @@ import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.dto.ClientCodeDetails;
 import com.home.utilities.payload.dto.IndexDetails;
 import com.home.utilities.payload.request.ClientCodeRequest;
-import com.home.utilities.payload.request.IndexRequest;
 import com.home.utilities.payload.request.NewIndexRequest;
+import com.home.utilities.payload.request.OldIndexRequest;
 import com.home.utilities.services.ClientCodeService;
 import com.home.utilities.services.IndexService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -72,7 +74,7 @@ public class BranchController {
         mav.addObject("lastCreatedIndexDate", lastCreatedIndexDate);
         mav.addObject("clientCodeList", clientCodeList);
         mav.addObject("today", LocalDate.now(ZoneId.systemDefault()));
-        mav.addObject("currentMonth", LocalDate.now(ZoneId.systemDefault()).getMonth().name().toUpperCase(locale));
+        mav.addObject("currentMonth", LocalDate.now(ZoneId.systemDefault()).getMonth().getDisplayName(TextStyle.FULL, locale).toUpperCase());
         mav.addObject("weekFirstDay", weekFirstDay);
         mav.addObject("weekLastDay", weekLastDay);
         mav.addObject("daysOfWeek", daysOfWeek);
@@ -145,36 +147,38 @@ public class BranchController {
         final var mav = new ModelAndView("client-index");
         final var userId = UserPrincipal.getCurrentUser().getId();
         final var lastIndex = indexService.getLastIndexValue(clientId, Branch.valueOf(branch.toUpperCase()), userId);
-        mav.addObject("indexData", new IndexRequest(lastIndex.orElse(0D)));
+        mav.addObject("indexData", new NewIndexRequest(lastIndex.orElse(0D)));
         mav.addObject(BRANCH, branch);
         mav.addObject("clientId", clientId);
         return mav;
     }
 
     @PostMapping("/user/dashboard/{branch}/client-code/{clientId}/client-index")
-    public String createIndex(@Valid @ModelAttribute("indexData") final IndexRequest indexRequest, final BindingResult bindingResult,
+    public String createIndex(@Valid @ModelAttribute("indexData") final NewIndexRequest newIndexRequest, final BindingResult bindingResult,
                               @PathVariable(value = "branch") final String branch,
                               @PathVariable(value = "clientId") final Long clientId) {
         if (bindingResult.hasErrors()) {
             return "client-index";
         }
-        return indexService.createIndex(indexRequest, clientId)
+        return indexService.createIndex(newIndexRequest, clientId)
               .map(c -> REDIRECT_USER_DASHBOARD + branch)
-              .orElseThrow(() -> new NotFoundException("Index", "value", indexRequest.getValue()));
+              .orElseThrow(() -> new NotFoundException("Index", "value", newIndexRequest.getValue()));
     }
 
     @ResponseBody
     @PutMapping("/user/dashboard/{branch}/client-code/{clientId}/client-index/{indexId}")
-    public String updateIndex(@Valid @RequestBody final NewIndexRequest request, final BindingResult bindingResult,
+    public String updateIndex(@Valid @RequestBody final OldIndexRequest oldIndexRequest, final BindingResult bindingResult,
                               @PathVariable(value = "branch") final String branch,
                               @PathVariable(value = "clientId") final Long clientId,
                               @PathVariable(value = "indexId") final Long indexId) {
         if (bindingResult.hasErrors()) {
-            return branch;
+            return bindingResult.getFieldErrors("value").stream()
+                  .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                  .collect(Collectors.joining("<br>"));
         }
         final var userId = UserPrincipal.getCurrentUser().getId();
-        indexService.saveOldIndex(request.getNewValue(), indexId);
-        return indexService.updateIndex(request.getNewValue(), indexId)
+        indexService.saveOldIndex(oldIndexRequest, indexId);
+        return indexService.updateIndex(oldIndexRequest, indexId)
               .filter(i -> i.getClientCode().getUser().getId().equals(userId))
               .filter(i -> i.getClientCode().getId().equals(clientId))
               .map(c -> "OK")
