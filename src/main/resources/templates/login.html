@@ -15,7 +15,7 @@
         <h3 class="card-title text-center no-select" th:text="#{login.content.title}">Please enter credentials</h3>
 
         <div class="card-body">
-            <form th:action="@{/login}" th:method="post" th:id="loginForm" autocomplete="off">
+            <form th:action="@{/login}" th:method="post" th:id="loginForm">
                 <div class="errors" th:if="${param.error}" th:text="#{${session[SPRING_SECURITY_LAST_EXCEPTION]?.message}}">error</div>
                 <div class="mb-3 input-group">
                     <div class="input-group-prepend col-auto">
