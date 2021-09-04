@@ -181,6 +181,8 @@ $(document).ready(function () {
 
         initChart();
         $('[data-bs-toggle=tooltip]').tooltip();
+
+        $(".loading").fadeOut("slow");
     });
 
     $('[title]').each(function() {
@@ -197,7 +199,11 @@ $(document).ready(function () {
 
     function getFirstClientId() {
         var active_button = $('.tab-content div.active');
-        return active_button.attr("id").substr(3);
+        if (active_button.attr("id") != null) {
+            return active_button.attr("id").substr(3);
+        } else {
+            return 0;
+        }
     }
 
     clientId = getFirstClientId();
@@ -368,12 +374,14 @@ $(document).ready(function () {
             myChart.destroy();
         }
         canvas = document.getElementById('indexChart' + clientId);
-        ctx = canvas.getContext('2d');
-        myChart = new Chart(ctx, {
-            type: chartType,
-            data: data,
-            options: options
-        });
+        if (canvas != null) {
+            ctx = canvas.getContext('2d');
+            myChart = new Chart(ctx, {
+                type: chartType,
+                data: data,
+                options: options
+            });
+        }
     }
 
     function toggleChart() {
@@ -600,8 +608,6 @@ $(document).ready(function () {
         myChart.update();
     }
 })
-
-
 </script>
 
 </body>
