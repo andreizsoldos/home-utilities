@@ -54,6 +54,7 @@
   font-weight: bold;
   font-size: 65px;
   line-height: normal;
+  height: fit-content;
   margin-top: -20px;
   margin-bottom: -20px;
   margin-left: 10px;
@@ -165,8 +166,6 @@
 }
 
 #utility-section .clientsIndex table tbody tr a {
-  width: 30px;
-  height: 30px;
   padding: 0;
   justify-content: center;
   align-items: center;
@@ -183,18 +182,22 @@
 
 #utility-section .clientsInfo .table tbody tr th {
   font-size: 14px;
+  vertical-align: middle;
 }
 
 #utility-section .clientsInfo .table tbody tr td {
   font-size: 12px;
+  vertical-align: middle;
 }
 
 #utility-section .clientsIndex .table thead tr th {
   font-size: 14px;
+  vertical-align: middle;
 }
 
 #utility-section .clientsIndex .table tbody tr td {
   font-size: 12px;
+  vertical-align: middle;
 }
 
 #utility-section button {
@@ -242,7 +245,7 @@
 }
 
 #utility-section .noWrap {
-  white-space: nowrap;
+  width: 83px;
 }
 
 #utility-section .buttonEdit {
@@ -279,11 +282,15 @@
 }
 
 #utility-section .editMode {
-  display: block;
+  display: table-cell;
 }
 
 #utility-section .saveMode, #utility-section .cancelMode {
   display: none;
+}
+
+#utility-section .editMode, #utility-section .saveMode, #utility-section .cancelMode {
+  width: 0;
 }
 
 #utility-section .alert {
