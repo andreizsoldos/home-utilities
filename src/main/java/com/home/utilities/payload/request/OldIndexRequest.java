@@ -2,7 +2,6 @@ package com.home.utilities.payload.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.home.utilities.validators.index.NewValueGreaterThanOldValue;
-import com.home.utilities.validators.index.ValidateNumeric;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,6 @@ import javax.validation.constraints.PositiveOrZero;
 @NewValueGreaterThanOldValue(field = "value", fieldMatch = "lastIndex")
 public class OldIndexRequest {
 
-    @ValidateNumeric
     @JsonDeserialize(using = IndexRequestDeserializer.class)
     @NotNull(message = "{message.index.illegal.value}")
     @PositiveOrZero(message = "{message.field.positive}")
