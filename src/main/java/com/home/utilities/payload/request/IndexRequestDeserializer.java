@@ -11,6 +11,7 @@ import java.io.IOException;
 public class IndexRequestDeserializer extends StdDeserializer<Double> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexRequestDeserializer.class);
+    private static final String NUMERIC = "^(?=[^a-zA-Z]*[a-zA-Z]).*";
 
     public IndexRequestDeserializer() {
         this(null);
@@ -24,10 +25,18 @@ public class IndexRequestDeserializer extends StdDeserializer<Double> {
     public Double deserialize(final JsonParser p, final DeserializationContext ctxt) throws IOException {
         final var value = p.getText();
         try {
-            return Double.parseDouble(value);
+            if (!validate(value, NUMERIC)) {
+                return Double.parseDouble(value);
+            } else {
+                return null;
+            }
         } catch (NumberFormatException e) {
             LOGGER.error("Number format exception: {}", e.getMessage());
             return null;
         }
+    }
+
+    private boolean validate(final String value, final String pattern) {
+        return value.matches(pattern);
     }
 }
