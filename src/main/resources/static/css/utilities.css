@@ -245,52 +245,56 @@
 }
 
 #utility-section .noWrap {
-  width: 83px;
+  width: auto;
+  min-width: 83px;
 }
 
 #utility-section .buttonEdit {
   color: #aaa;
-  cursor: pointer;
   vertical-align: middle;
   width: 100%;
 }
 
-#utility-section .buttonEdit:hover {
+#utility-section .editMode {
+  cursor: pointer;
+  display: table-cell;
+  width: 0;
+}
+
+#utility-section .editMode:hover a {
   color: #0a79df;
 }
 
 #utility-section .buttonCancelEdit {
   color: #aaa;
-  cursor: pointer;
   vertical-align: middle;
   width: 100%;
 }
 
-#utility-section .buttonCancelEdit:hover {
+#utility-section .cancelMode {
+  cursor: pointer;
+  display: none;
+  width: 0;
+}
+
+#utility-section .cancelMode:hover a {
   color: #ff0000;
 }
 
 #utility-section .buttonSave {
   color: #aaa;
-  cursor: pointer;
   vertical-align: middle;
   width: 100%;
 }
 
-#utility-section .buttonSave:hover {
-  color: #0a79df;
-}
-
-#utility-section .editMode {
-  display: table-cell;
-}
-
-#utility-section .saveMode, #utility-section .cancelMode {
+#utility-section .saveMode {
+  cursor: pointer;
   display: none;
+  width: 0;
 }
 
-#utility-section .editMode, #utility-section .saveMode, #utility-section .cancelMode {
-  width: 0;
+#utility-section .saveMode:hover a {
+  color: #0a79df;
 }
 
 #utility-section .alert {

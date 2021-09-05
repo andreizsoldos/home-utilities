@@ -40,7 +40,7 @@
                             <span th:text="${client.getClientNumber()}">client-code</span>
                         </div>
                         <div>
-                            <span th:text="${client.getClientName()}">client-name</span>
+                            <span th:id="'clientStatName' + ${client.getId()}" th:text="${client.getClientName()}">client-name</span>
                         </div>
                     </div>
                 </button>
@@ -87,17 +87,17 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="index : ${indexList}" th:if="${client.getId() == index.getClientId()}">
-                                            <td class="noWrap" th:rowspan="2" th:text="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} + ' ' + ${#temporals.format(index.getCreatedAt(), 'HH:mm:ss')}">Index created date</td>
-                                            <td class="noWrap" th:rowspan="2" th:text="${#temporals.format(index.getModifiedAt(), 'dd-MM-yyyy HH:mm:ss')}">Index modified date</td>
-                                            <td class="cancelMode scaleHover border-0" th:rowspan="2" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
-                                                <a id="cancelEditingIndexButton" th:id="'cancelEditingIndexButton' + ${index.getId()}" class="buttonCancelEdit text-decoration-none bi bi-x-lg" th:title="#{utility.index.button.edit.cancel.tooltip}"></a>
+                                            <td class="noWrap" th:utext="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} + '<br>' + ${#temporals.format(index.getCreatedAt(), 'HH:mm:ss')}">Index created date</td>
+                                            <td class="noWrap" th:utext="${#temporals.format(index.getModifiedAt(), 'dd-MM-yyyy')} + '<br>' + ${#temporals.format(index.getModifiedAt(), 'HH:mm:ss')}">Index modified date</td>
+                                            <td class="cancelMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}" th:title="#{utility.index.button.edit.cancel.tooltip}">
+                                                <a id="cancelEditingIndexButton" th:id="'cancelEditingIndexButton' + ${index.getId()}" class="buttonCancelEdit text-decoration-none bi bi-x-lg"></a>
                                             </td>
                                             <td class="editableValue noWrap border-start-0" th:classappend="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 'border-end-0':''" th:id="${index.getId()}" th:text="${index.getValue()}" th:colspan="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 1 : 2" th:style="${index.getCreatedAt() != index.getModifiedAt()} ? 'color: #FF0000' : 'color: #000000'" data-bs-toggle="tooltip" data-bs-placement="right" th:title="${index.getCreatedAt() != index.getModifiedAt()} ? #{utility.oldIndex.title.tooltip} + '<br>' + '<div class=' + 'text-start' + '>' + ${index.insertTooltipTitle('__#{utility.oldIndex.hour.tooltip}__', '__#{utility.oldIndex.value.tooltip}__', oldIndexes)} + '<br>' + ${index.getOldIndex(oldIndexes)} + '</div>'"></td>
-                                            <td class="editMode scaleHover border-start-0" th:rowspan="2" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
-                                                <a id="editIndexButton" th:id="'editIndexButton' + ${index.getId()}" class="buttonEdit text-decoration-none bi bi-pen" th:title="#{utility.index.button.edit.tooltip}"></a>
+                                            <td class="editMode scaleHover border-start-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}" th:title="#{utility.index.button.edit.tooltip}">
+                                                <a id="editIndexButton" th:id="'editIndexButton' + ${index.getId()}" class="buttonEdit text-decoration-none bi bi-pen"></a>
                                             </td>
-                                            <td class="saveMode scaleHover border-start-0" th:rowspan="2" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">
-                                                <a id="saveIndexButton" th:id="'saveIndexButton' + ${index.getId()}" class="buttonSave text-decoration-none bi bi-check-lg" th:title="#{utility.index.button.save.tooltip}"></a>
+                                            <td class="saveMode scaleHover border-start-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}" th:title="#{utility.index.button.save.tooltip}">
+                                                <a id="saveIndexButton" th:id="'saveIndexButton' + ${index.getId()}" class="buttonSave text-decoration-none bi bi-check-lg"></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -301,11 +301,9 @@ $(document).ready(function () {
 
     $('.saveMode').click(function() {
         var newIndexValue;
-        $('.saveInput').each(function() {
-            var content = $(this).val();
-            newIndexValue = $(this).val();
-            $(this).html(content);
-        });
+        var content = $(this).siblings('td.editableValue').find('.saveInput').val();
+        newIndexValue = $(this).siblings('td.editableValue').find('.saveInput').val();
+        $(this).siblings('td.editableValue').find('.saveInput').html(content);
 
         var indexValueId = $(this).siblings('td.editableValue').attr('id');
         saveOldIndexValue('[(${branch})]', clientId, indexValueId, newIndexValue, oldValueContent)
@@ -314,9 +312,9 @@ $(document).ready(function () {
                     $('div#indexError').remove();
                     $('<div id="indexError" class="alert p-0 m-0 text-end"></div>').insertBefore('#indexTableData' + clientId);
                     $('div#indexError').html(data);
-                    $('.saveInput').css('background-color', '#FFFF00');
-                    $('.saveInput').focus();
-                    $('.saveInput').select();
+                    $(this).siblings('td.editableValue').find('.saveInput').css('background-color', '#FFC0CB');
+                    $(this).siblings('td.editableValue').find('.saveInput').focus();
+                    $(this).siblings('td.editableValue').find('.saveInput').select();
                 } else {
                     $('.saveInput').contents().unwrap();
                     $(this).siblings('td.editableValue').css('color', '#FF0000');
@@ -344,30 +342,35 @@ $(document).ready(function () {
     });
 
     $('.editMode').click(function() {
-        $(this).siblings('td.editableValue').each(function() {
-            var content = $(this).html();
-            oldValueContent = content;
-            $(this).html('<input value="' + content + '" id="saveInputId' + $(this).attr('id') + '" class="saveInput" style="height:100%; width:100%; padding:0; margin:0; text-align: center" />');
-            $(this).addClass('border-end-0');
-            $(this).closest('tbody').find('td.editableValue').attr('colspan', '3');
-            $(this).closest('tbody').siblings('thead').find('th.optimizeWidth').attr('colspan', '3');
-            $(this).attr('colspan', '1');
-        });
+        if ($('.saveInput').length > 0) {
+            $('div#indexError').remove();
+            $('<div id="indexError" class="alert p-0 m-0 text-end"></div>').insertBefore('#indexTableData' + clientId);
+            $('div#indexError').html('[(#{utility.index.button.edit.instance})]');
+        } else {
+            $('div#indexError').remove();
+            $(this).siblings('td.editableValue').each(function() {
+                var content = $(this).html();
+                oldValueContent = content;
+                $(this).html('<input value="' + content + '" id="saveInputId' + $(this).attr('id') + '" class="saveInput" style="height:100%; width:100%; padding:0; margin:0; text-align: center" />');
+                $(this).addClass('border-end-0');
+                $(this).closest('tbody').find('td.editableValue').attr('colspan', '3');
+                $(this).closest('tbody').siblings('thead').find('th.optimizeWidth').attr('colspan', '3');
+                $(this).attr('colspan', '1');
+            });
 
-        $(this).siblings('.saveMode').show();
-        $(this).siblings('.saveMode').attr('style', 'display: table-cell');
-        $(this).siblings('.cancelMode').show();
-        $(this).siblings('.cancelMode').attr('style', 'display: table-cell');
-        $('.saveInput').focus();
-        $('.saveInput').select();
-        $(this).hide();
+            $(this).siblings('.saveMode').show();
+            $(this).siblings('.saveMode').attr('style', 'display: table-cell');
+            $(this).siblings('.cancelMode').show();
+            $(this).siblings('.cancelMode').attr('style', 'display: table-cell');
+            $(this).siblings('td.editableValue').find('.saveInput').focus();
+            $(this).siblings('td.editableValue').find('.saveInput').select();
+            $(this).hide();
+        }
     });
 
     $('.cancelMode').click(function() {
-        $('.saveInput').each(function() {
-            $(this).html(oldValueContent);
-            $(this).contents().unwrap();
-        });
+        $(this).siblings('td.editableValue').find('.saveInput').html(oldValueContent);
+        $(this).siblings('td.editableValue').find('.saveInput').contents().unwrap();
 
         $(this).siblings('td.editableValue').each(function() {
             $(this).addClass('border-end-0');
@@ -376,7 +379,7 @@ $(document).ready(function () {
             $(this).attr('colspan', '1');
         });
 
-        $('div#indexError').remove();
+        $(this).closest('.table-responsive').find('div#indexError').remove();
         $(this).siblings('.editMode').show();
         $(this).siblings('.editMode').attr('style', 'display: table-cell');
         $(this).siblings('.saveMode').hide();
