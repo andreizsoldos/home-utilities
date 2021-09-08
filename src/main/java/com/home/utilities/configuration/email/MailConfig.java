@@ -1,6 +1,8 @@
 package com.home.utilities.configuration.email;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -12,7 +14,6 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 
@@ -20,10 +21,11 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class MailConfig {
 
-    private static final String HOST = "mail.host";
-    private static final String PORT = "mail.port";
-    private static final String USERNAME = "mail.username";
-    private static final String PASSWORD = "mail.password";
+    private static final Logger LOGGER = LoggerFactory.getLogger(MailConfig.class);
+    private static final String SMTP_HOST = "mail.smtp.host";
+    private static final String SMTP_PORT = "mail.smtp.port";
+    private static final String SMTP_USERNAME = "mail.username";
+    private static final String SMTP_PASSWORD = "mail.password";
     private static final String SMTP_AUTH = "mail.smtp.auth";
     private static final String SMTP_STARTTLS = "mail.smtp.starttls.enable";
     private static final String SMTP_SSL = "mail.smtp.ssl.trust";
@@ -32,17 +34,19 @@ public class MailConfig {
 
     @Bean
     public JavaMailSender mailSender() {
-        final var mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(environment.getProperty(HOST));
-        mailSender.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty(PORT))));
-        mailSender.setUsername(environment.getProperty(USERNAME));
-        mailSender.setPassword(environment.getProperty(PASSWORD));
-
         final var javaMailProperties = new Properties();
-        javaMailProperties.setProperty(SMTP_AUTH, environment.getProperty(SMTP_AUTH));
-        javaMailProperties.setProperty(SMTP_STARTTLS, environment.getProperty(SMTP_STARTTLS));
-        javaMailProperties.setProperty(SMTP_SSL, environment.getProperty(SMTP_SSL));
+        javaMailProperties.put(SMTP_HOST, "smtp.gmail.com");
+        javaMailProperties.put(SMTP_PORT, "587");
+        javaMailProperties.put(SMTP_AUTH, "true");
+        javaMailProperties.put(SMTP_STARTTLS, "true");
+        javaMailProperties.put(SMTP_SSL, "smtp.gmail.com");
+
+        final var mailSender = new JavaMailSenderImpl();
+        mailSender.setUsername(environment.getProperty(SMTP_USERNAME));
+        mailSender.setPassword(environment.getProperty(SMTP_PASSWORD));
         mailSender.setJavaMailProperties(javaMailProperties);
+        LOGGER.info("Username: {}", mailSender.getUsername());
+        LOGGER.info("Password: {}", mailSender.getPassword());
         return mailSender;
     }
 
