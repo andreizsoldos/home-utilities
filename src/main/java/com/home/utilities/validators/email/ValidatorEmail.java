@@ -1,8 +1,6 @@
 package com.home.utilities.validators.email;
 
-import com.home.utilities.services.UserService;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,9 +13,6 @@ public class ValidatorEmail implements ConstraintValidator<ValidateEmail, String
     private static final String DOMAIN_VALID = "^(?=[^@]*@[a-zA-Z0-9]{2,}).*(?:\\.[a-zA-Z]{2,8})(?=$)";
     private static final String ILLEGAL_CONSECUTIVE_DOTS = "^(?=[^\\.]*\\.\\.).*";
     private static final int MAX_LENGTH = 50;
-
-    @Autowired
-    private UserService userService;
 
     @Override
     public void initialize(final ValidateEmail constraintAnnotation) {
@@ -34,9 +29,6 @@ public class ValidatorEmail implements ConstraintValidator<ValidateEmail, String
         hibernateContext.disableDefaultConstraintViolation();
 
         if (!email.equals("")) {
-            if (emailExists(email)) {
-                validated = buildConstraints(hibernateContext, null, null, "{message.email.exists}");
-            }
             if (email.length() > MAX_LENGTH) {
                 validated = buildConstraints(hibernateContext, "max", MAX_LENGTH, "{size.registerRequest.email}");
             }
@@ -61,10 +53,6 @@ public class ValidatorEmail implements ConstraintValidator<ValidateEmail, String
 
     private boolean validate(final String email, final String pattern) {
         return email.matches(pattern);
-    }
-
-    private boolean emailExists(final String email) {
-        return userService.existsEmail(email);
     }
 
     private boolean buildConstraints(final HibernateConstraintValidatorContext context,
