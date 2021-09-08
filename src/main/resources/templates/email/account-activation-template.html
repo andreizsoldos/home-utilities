@@ -47,7 +47,7 @@
                                                                                 <div style="text-align:left;font-family:helvetica,arial,sans-serif;font-size:20px;margin-bottom:0;margin-top:3px;color:#5f5f5f;line-height:135%;">
                                                                                     <p style="margin-bottom:0;">
                                                                                         <span th:text="#{account.activate.p2.press}">Press</span>
-                                                                                        <a href="#" th:href="@{${applicationAddress}+'/register/account/activate/'+${token}}" th:text="#{account.activate.a1.here}">here</a>
+                                                                                        <a href="#" th:href="@{${applicationAddress} + ${#strings.endsWith(applicationAddress,'/') ? '' : '/'} + 'register/account/activate/' + ${token}}" th:text="#{account.activate.a1.here}">here</a>
                                                                                         <span th:text="#{account.activate.p3}">to activate your account.</span>
                                                                                     </p>
                                                                                 </div>
