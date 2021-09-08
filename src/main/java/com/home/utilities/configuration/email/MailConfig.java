@@ -27,9 +27,6 @@ public class MailConfig {
     private static final String SMTP_AUTH = "mail.smtp.auth";
     private static final String SMTP_STARTTLS = "mail.smtp.starttls.enable";
     private static final String SMTP_SSL = "mail.smtp.ssl.trust";
-    private static final String SOCKET_FACTORY_PORT = "mail.smtp.socketFactory.port";
-    private static final String SOCKET_FACTORY_CLASS = "mail.smtp.socketFactory.class";
-    private static final String SOCKET_FACTORY_FALLBACK = "mail.smtp.socketFactory.fallback";
 
     private final Environment environment;
 
@@ -45,9 +42,6 @@ public class MailConfig {
         javaMailProperties.setProperty(SMTP_AUTH, environment.getProperty(SMTP_AUTH));
         javaMailProperties.setProperty(SMTP_STARTTLS, environment.getProperty(SMTP_STARTTLS));
         javaMailProperties.setProperty(SMTP_SSL, environment.getProperty(SMTP_SSL));
-        javaMailProperties.setProperty(SOCKET_FACTORY_PORT, environment.getProperty(SOCKET_FACTORY_PORT));
-        javaMailProperties.setProperty(SOCKET_FACTORY_CLASS, environment.getProperty(SOCKET_FACTORY_CLASS));
-        javaMailProperties.setProperty(SOCKET_FACTORY_FALLBACK, environment.getProperty(SOCKET_FACTORY_FALLBACK));
         mailSender.setJavaMailProperties(javaMailProperties);
         return mailSender;
     }
