@@ -3,7 +3,6 @@ package com.home.utilities.controllers;
 import com.home.utilities.exceptions.EmailException;
 import com.home.utilities.exceptions.ExpiredTokenException;
 import com.home.utilities.exceptions.NotFoundException;
-import com.home.utilities.exceptions.TokenNotFoundException;
 import com.home.utilities.payload.request.RegisterRequest;
 import com.home.utilities.services.ConfirmationTokenService;
 import com.home.utilities.services.UserService;
@@ -65,8 +64,7 @@ public class RegisterController {
     }
 
     @GetMapping(value = "/register/account/activate/{token}")
-    public String activateAccount(@PathVariable(name = "token") final String token, final Locale locale,
-                                  final Model model) {
+    public String activateAccount(@PathVariable(name = "token") final String token, final Locale locale, final Model model) {
         return Optional.of(token)
               .filter(confirmationTokenService::validateToken)
               .map(userService::activateAccount)
@@ -82,12 +80,6 @@ public class RegisterController {
                   return "account-activated";
               })
               .orElseThrow(() -> new ExpiredTokenException("Token"));
-    }
-
-    @GetMapping("/recover-password")
-    public ModelAndView recoverPasswordPage() {
-        throw new NotFoundException("Recover password page not found");
-        //return new ModelAndView("recover-password");
     }
 
     @GetMapping("/terms-and-conditions")

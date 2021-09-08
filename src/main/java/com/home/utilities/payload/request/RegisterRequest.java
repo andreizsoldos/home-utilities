@@ -1,5 +1,6 @@
 package com.home.utilities.payload.request;
 
+import com.home.utilities.validators.email.EmailExists;
 import com.home.utilities.validators.email.ValidateEmail;
 import com.home.utilities.validators.password.RepeatPassword;
 import com.home.utilities.validators.password.ValidatePassword;
@@ -16,6 +17,7 @@ import javax.validation.constraints.*;
 @RepeatPassword(field = "password", fieldMatch = "repeatPassword")
 public class RegisterRequest {
 
+    @EmailExists
     @ValidateEmail
     @NotBlank(message = "{message.field.empty}")
     private String email;
