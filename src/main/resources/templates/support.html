@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: title(#{support.title}, ~{::link})}">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/support.css}" href="../static/css/support.css">
+</head>
+
+<body>
+<header th:replace="~{fragments/layout :: sidebar}"></header>
+<section th:id="support-section" id="support-section">
+  <div class="card">
+    <div class="card-group">
+      <a href="#" th:href="@{/support/reset-password}">
+        <div class="card pwd">
+          <img th:src="@{/images/support/reset-pwd.png}" src="../static/images/support/reset-pwd.png" class="card-img-top" alt="" width="128" height="128">
+        </div>
+        <div class="card-body p-0">
+          <h5 class="card-title" th:text="#{support.reset.password.title}">Reset password</h5>
+        </div>
+      </a>
+
+      <a href="#" th:href="@{/support/account/activate/link}">
+        <div class="card account">
+          <img th:src="@{/images/support/activate-account-link.png}" src="../static/images/support/activate-account-link.png" class="card-img-top" alt="" width="125" height="125">
+        </div>
+        <div class="card-body p-0">
+          <h5 class="card-title" th:text="#{support.activate.account.link.title}">Reset password</h5>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"></script>
+</body>
+</html>
