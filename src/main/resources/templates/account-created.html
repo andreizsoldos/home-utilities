@@ -19,8 +19,8 @@
                     <div class="icon-fix"></div>
                 </div>
             </div>
-            <h3 class="status" th:text="#{account.created.congrats}">Congratulations!</h3>
-            <h3 class="status" th:text="#{account.created.message}">Your account has been successfully created.</h3>
+            <h3 class="status" th:text="#{${accountTitle}}">Congratulations!</h3>
+            <h3 class="status" th:text="#{${accountMessageTop}}">Your account has been successfully created.</h3>
         </div>
         <div class="lower-side">
             <p class="message" th:text="#{account.created.message.activationLink}">A link has been sent to your email to activate your account.</p>
