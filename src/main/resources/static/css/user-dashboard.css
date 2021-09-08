@@ -13,10 +13,10 @@
 }
 
 #dashboard-section div.card-group .card {
-  max-width: 256px;
-  margin: 20px;
-  border-top-left-radius: 128px;
-  border-top-right-radius: 128px;
+  max-width: max-content;
+  margin: 15px;
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
   border-width: medium;
@@ -29,7 +29,6 @@
 #dashboard-section div.card-group .card-title {
   text-align: center;
   font-weight: bold;
-  font-size: 40px;
   padding-bottom: 20px;
   color: #6c757d;
   font-family: "Helvetica Neue";
@@ -48,6 +47,10 @@
 #dashboard-section div.card-group .card-footer {
   text-align: center;
   font-weight: bold;
+}
+
+#dashboard-section img {
+  align-self: center;
 }
 
 #dashboard-section .no-select {
