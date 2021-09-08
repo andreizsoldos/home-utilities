@@ -66,6 +66,7 @@ public class SupportController {
                           "token", confirmationToken.getToken()),
                     locale))
               .map(success -> {
+                  model.addAttribute("pageTitle", "support.account.title.link");
                   model.addAttribute("accountTitle", "support.account.title");
                   model.addAttribute("accountMessageTop", "support.account.message.top");
                   model.addAttribute("redirectDuration", REDIRECT_DURATION);

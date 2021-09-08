@@ -2,7 +2,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: title(#{account.created.title}, ~{::link})}">
+<head th:replace="~{fragments/layout :: title(#{${pageTitle}}, ~{::link})}">
     <link type="text/css" rel="stylesheet" th:href="@{/css/account-created-activated.css}" href="../static/css/account-created-activated.css">
 </head>
 
