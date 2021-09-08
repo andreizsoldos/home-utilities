@@ -1,9 +1,6 @@
 package com.home.utilities.services;
 
-import com.home.utilities.entities.AccountStatus;
-import com.home.utilities.entities.Gender;
-import com.home.utilities.entities.User;
-import com.home.utilities.entities.UserRole;
+import com.home.utilities.entities.*;
 import com.home.utilities.exceptions.AccountActivatedException;
 import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.exceptions.TokenNotFoundException;
@@ -73,10 +70,17 @@ public class UserServiceImpl implements UserService {
                   if (u.getStatus() == AccountStatus.ACTIVE) {
                       throw new AccountActivatedException("Account already activated");
                   } else if (u.getStatus() == AccountStatus.LOCKED) {
-                      final var confirmationToken = confirmationTokenService.findByUserId(u.getId())
-                            .orElseThrow(() -> new TokenNotFoundException("Token"));
-                      confirmationToken.setValid(false);
-                      confirmationTokenService.save(confirmationToken);
+                      final var confirmationToken = confirmationTokenService.findByUserId(u.getId());
+                      if (confirmationToken.isEmpty()) {
+                          throw new TokenNotFoundException("Token");
+                      } else {
+                          confirmationToken.stream()
+                                .filter(ConfirmationToken::getValid)
+                                .forEach(c -> {
+                                    c.setValid(false);
+                                    confirmationTokenService.save(c);
+                                });
+                      }
                       return u;
                   } else {
                       throw new NotFoundException("Account status error");

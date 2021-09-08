@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,7 +28,7 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
     }
 
     @Override
-    public Optional<ConfirmationToken> findByUserId(final Long userId) {
+    public List<ConfirmationToken> findByUserId(final Long userId) {
         return confirmationTokenRepository.findByUserId(userId);
     }
 
