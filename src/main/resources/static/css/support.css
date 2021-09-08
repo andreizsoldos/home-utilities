@@ -1,0 +1,68 @@
+#support-section {
+  display: flex;
+  margin: auto;
+}
+
+#support-section div.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#support-section div.card-group {
+  display: block;
+  height: max-content;
+  padding: 20px;
+  justify-content: space-evenly;
+}
+
+#support-section div.card-group a {
+  text-decoration: none;
+  color: black;
+}
+
+#support-section div.card-group .pwd {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#support-section div.card-group .account {
+  width: max-content;
+  padding: 3px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#support-section div.card-group .card-body {
+  width: 260px;
+}
+
+#support-section div.card-group .card {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
+  border-width: thick;
+}
+
+#support-section div.card-group .card:hover {
+  transform: scale(1.05);
+}
+
+#support-section div.card-group .card-title {
+  text-align: center;
+  font-weight: bold;
+  color: #6c757d;
+  font-family: "Helvetica Neue";
+  line-height: normal;
+}
+
+#support-section .no-select {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
