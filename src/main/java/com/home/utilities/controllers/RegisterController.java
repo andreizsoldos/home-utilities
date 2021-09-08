@@ -56,6 +56,7 @@ public class RegisterController {
                           "token", confirmationToken.getToken()),
                     locale))
               .map(success -> {
+                  model.addAttribute("pageTitle", "account.created.title");
                   model.addAttribute("accountTitle", "account.created.congrats");
                   model.addAttribute("accountMessageTop", "account.created.message");
                   model.addAttribute("redirectDuration", REDIRECT_DURATION);
