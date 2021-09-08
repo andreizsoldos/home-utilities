@@ -66,6 +66,8 @@ public class SupportController {
                           "token", confirmationToken.getToken()),
                     locale))
               .map(success -> {
+                  model.addAttribute("accountTitle", "support.account.title");
+                  model.addAttribute("accountMessageTop", "support.account.message.top");
                   model.addAttribute("redirectDuration", REDIRECT_DURATION);
                   model.addAttribute("gender", userService.findByEmail(request.getEmail()).getGender().name().toUpperCase());
                   return "account-created";
