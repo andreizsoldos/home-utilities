@@ -1,8 +1,6 @@
 package com.home.utilities.configuration.email;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -21,7 +19,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class MailConfig {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MailConfig.class);
     private static final String SMTP_HOST = "mail.smtp.host";
     private static final String SMTP_PORT = "mail.smtp.port";
     private static final String SMTP_USERNAME = "mail.username";
@@ -45,8 +42,6 @@ public class MailConfig {
         mailSender.setUsername(environment.getProperty(SMTP_USERNAME));
         mailSender.setPassword(environment.getProperty(SMTP_PASSWORD));
         mailSender.setJavaMailProperties(javaMailProperties);
-        LOGGER.info("Username: {}", mailSender.getUsername());
-        LOGGER.info("Password: {}", mailSender.getPassword());
         return mailSender;
     }
 
