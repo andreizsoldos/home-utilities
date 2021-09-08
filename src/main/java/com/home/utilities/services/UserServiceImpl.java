@@ -4,6 +4,8 @@ import com.home.utilities.entities.AccountStatus;
 import com.home.utilities.entities.Gender;
 import com.home.utilities.entities.User;
 import com.home.utilities.entities.UserRole;
+import com.home.utilities.exceptions.AccountActivatedException;
+import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.exceptions.TokenNotFoundException;
 import com.home.utilities.payload.request.RegisterRequest;
 import com.home.utilities.payload.request.SupportRequest;
@@ -68,11 +70,17 @@ public class UserServiceImpl implements UserService {
     public Optional<User> checkAccount(final SupportRequest request) {
         return userRepository.findByEmail(request.getEmail())
               .map(u -> {
-                  final var confirmationToken = confirmationTokenService.findByUserId(u.getId())
-                        .orElseThrow(() -> new TokenNotFoundException("Token"));
-                  confirmationToken.setValid(false);
-                  confirmationTokenService.save(confirmationToken);
-                  return u;
+                  if (u.getStatus() == AccountStatus.ACTIVE) {
+                      throw new AccountActivatedException("Account already activated");
+                  } else if (u.getStatus() == AccountStatus.LOCKED) {
+                      final var confirmationToken = confirmationTokenService.findByUserId(u.getId())
+                            .orElseThrow(() -> new TokenNotFoundException("Token"));
+                      confirmationToken.setValid(false);
+                      confirmationTokenService.save(confirmationToken);
+                      return u;
+                  } else {
+                      throw new NotFoundException("Account status error");
+                  }
               });
     }
 }
