@@ -3,13 +3,13 @@ package com.home.utilities.services;
 import com.home.utilities.entities.ConfirmationToken;
 import com.home.utilities.entities.User;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface ConfirmationTokenService {
 
     ConfirmationToken findByToken(String token);
 
-    Optional<ConfirmationToken> findByUserId(Long userId);
+    List<ConfirmationToken> findByUserId(Long userId);
 
     ConfirmationToken save(ConfirmationToken token);
 
