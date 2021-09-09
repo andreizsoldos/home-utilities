@@ -10,10 +10,8 @@
 
 <body>
 <section th:fragment="toggle-sidebar" id="toggle-sidebar">
-    <div class="d-flex flex-sm-column p-0 h-100 text-white bg-dark justify-content-sm-center">
-        <button type="button" id="sidebarCollapse" class="active btn p-0 m-0 h-100 text-decoration-none text-white" th:title="#{toggle.layout.tooltip.hide} ? #{toggle.layout.tooltip.show} : #{toggle.layout.tooltip.hide}" data-bs-placement="right">
-            <i class="bi bi-arrow-left-square"></i>
-        </button>
+    <div class="d-flex flex-sm-column m-0 p-0 justify-content-sm-center">
+        <button type="button" id="sidebarCollapse" class="btn text-decoration-none bi bi-arrow-left-square" data-bs-toggle="tooltip" th:title="#{toggle.layout.tooltip.hide}" data-bs-placement="right"></button>
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
@@ -23,7 +21,23 @@
             integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
             crossorigin="anonymous"></script>
 
-    <script th:src="@{/scripts/toggle-layout.js}" src="../../static/scripts/toggle-layout.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').click(function (e) {
+                $('#sidebar').toggle();
+                $(this).tooltip('dispose').tooltip();
+                if ($(this).hasClass('bi-arrow-left-square')) {
+                    $(this).removeClass('bi-arrow-left-square');
+                    $(this).addClass('bi-arrow-right-square');
+                    $(this).attr('data-bs-original-title', '[(#{toggle.layout.tooltip.show})]');
+                } else {
+                    $(this).removeClass('bi-arrow-right-square');
+                    $(this).addClass('bi-arrow-left-square');
+                    $(this).attr('data-bs-original-title', '[(#{toggle.layout.tooltip.hide})]');
+                }
+            });
+        })
+    </script>
 </section>
 
 </body>
