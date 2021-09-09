@@ -6,6 +6,7 @@
 
 <body th:fragment="utility">
 <header th:replace="~{fragments/layout :: sidebar}"></header>
+<section th:replace="~{fragments/toggle-layout :: toggle-sidebar}"></section>
 <section th:id="utility-section" id="utility-section">
     <div class="noClient" th:if="${clientCodeList.size == 0}">
         <a href="#" th:href="@{/user/dashboard}" class="goBack btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
@@ -181,8 +182,6 @@ $(document).ready(function () {
 
         initChart();
         $('[data-bs-toggle=tooltip]').tooltip();
-
-        $(".loading").fadeOut("slow");
     });
 
     $('[title]').each(function() {
