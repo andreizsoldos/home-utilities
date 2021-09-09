@@ -9,8 +9,8 @@
 <section th:replace="~{fragments/toggle-layout :: toggle-sidebar}"></section>
 <section th:id="utility-section" id="utility-section">
     <div class="noClient" th:if="${clientCodeList.size == 0}">
-        <a href="#" th:href="@{/user/dashboard}" class="goBack btn btn-primary text-decoration-none scaleHover bi bi-arrow-return-left"></a>
-        <div class="d-flex-inline">
+        <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goBack text-decoration-none scaleHover bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="right"></a>
+        <div class="d-flex-inline" th:title="#{utility.addFirstClientCode.label}" data-bs-placement="bottom">
             <p th:text="#{utility.addFirstClientCode.label}">Add first client code</p>
             <a href="#" th:href="@{/user/dashboard/__${branch}__/client-code}" class="noClientData text-decoration-none bi bi-person-plus"></a>
         </div>
@@ -26,7 +26,7 @@
             <p class="utilityTitleText" th:text="#{utility.title(${branchOrdinal})}"></p>
 
             <div class="ms-4 d-block w-100">
-                <a href="#" th:href="@{/user/dashboard}" class="btn btn-primary goDashboard float-end text-decoration-none scaleHover bi bi-arrow-return-left" th:title="#{utility.button.back.tooltip}" data-bs-placement="left"></a>
+                <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goDashboard float-end text-decoration-none scaleHover bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="left"></a>
             </div>
         </div>
         <nav>
@@ -50,7 +50,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-1" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'show active':''" th:each="client : ${clientCodeList}" th:id="'nav' + ${client.getId()}" role="tabpanel" aria-labelledby="nav-1-tab" th:aria-labelledby="'nav' + ${client.getId()} + 'tab'">
                 <div class="row">
-                    <div class="col-md-4 pe-0 justify-content-md-center">
+                    <div class="col-md-5 pe-0 justify-content-md-center">
                         <div class="card col clientsInfo" id="clientInfo" th:id="'clientInfo' + ${client.getId()}">
                             <div class="col bottom-info">
                                 <div class="addInfoClass">
@@ -107,7 +107,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-8 justify-content-md-center charts">
+                    <div class="col-md-7 justify-content-md-center charts">
                         <div class="card col-md-auto graphInfo" id="clientGraph" th:id="'clientGraph' + ${client.getId()}">
                             <a id="switchChart" th:id="'switchChart' + ${client.getId()}" th:title="#{chart.button.switch.tooltip}" class="switch btn btn-primary text-decoration-none text-center scaleHover bi bi-arrow-repeat"></a>
                             <canvas id="indexChart" th:id="'indexChart' + ${client.getId()}"></canvas>
