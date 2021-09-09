@@ -1,8 +1,12 @@
 #toggle-sidebar #sidebarCollapse {
+  color: black;
   width: max-content;
-  height: 100%;
-  background-color: rgba(50, 50, 50, 0.1);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: auto;
+  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: normal;
+  background: none;
 }
 
 #toggle-sidebar #sidebarCollapse:focus {
