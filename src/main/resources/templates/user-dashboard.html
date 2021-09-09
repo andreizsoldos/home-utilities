@@ -4,15 +4,17 @@
 
 <head th:replace="~{fragments/layout :: title(#{user.dashboard.title}, ~{::link})}">
     <link type="text/css" rel="stylesheet" th:href="@{/css/user-dashboard.css}" href="../static/css/user-dashboard.css">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/toggle-layout.css}" href="../../static/css/toggle-layout.css">
 </head>
 
 <body>
 <header th:replace="~{fragments/layout :: sidebar}"></header>
+<section th:replace="~{fragments/toggle-layout :: toggle-sidebar}"></section>
 <section th:id="dashboard-section" id="dashboard-section">
   <div class="card-group">
     <a href="#" th:href="@{/user/dashboard/electricity}">
       <div class="card bg-electricity">
-        <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png" alt="" width="200" height="200">
+        <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png" alt="" width="245" height="245">
         <div class="card-body">
           <h5 class="card-title fs-1" th:text="#{user.dashboard.electricity.card.title}">Electricity</h5>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
@@ -29,7 +31,7 @@
 
     <a href="#" th:href="@{/user/dashboard/water}">
       <div class="card bg-water">
-        <img th:src="@{/images/user-dashboard/water.png}" src="../static/images/user-dashboard/water.png" alt="" width="200" height="200">
+        <img th:src="@{/images/user-dashboard/water.png}" src="../static/images/user-dashboard/water.png" alt="" width="245" height="245">
         <div class="card-body">
           <h5 class="card-title fs-1" th:text="#{user.dashboard.water.card.title}">Water</h5>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
@@ -46,7 +48,7 @@
 
     <a href="#" th:href="@{/user/dashboard/gas}">
       <div class="card bg-gas">
-        <img th:src="@{/images/user-dashboard/gas.png}" src="../static/images/user-dashboard/gas.png" alt="" width="200" height="200">
+        <img th:src="@{/images/user-dashboard/gas.png}" src="../static/images/user-dashboard/gas.png" alt="" width="245" height="245">
         <div class="card-body">
           <h5 class="card-title fs-1" th:text="#{user.dashboard.gas.card.title}">Gas</h5>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>

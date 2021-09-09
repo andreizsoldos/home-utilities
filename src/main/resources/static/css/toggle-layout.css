@@ -1,0 +1,22 @@
+#toggle-sidebar #sidebarCollapse {
+  color: black;
+  width: max-content;
+  height: auto;
+  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: normal;
+  background: none;
+}
+
+#toggle-sidebar #sidebarCollapse:focus {
+  outline:none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+#toggle-sidebar #sidebarCollapse:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}

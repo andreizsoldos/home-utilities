@@ -13,10 +13,10 @@
 }
 
 #dashboard-section div.card-group .card {
-  max-width: max-content;
+  width: 247px;
   margin: 15px;
-  border-top-left-radius: 200px;
-  border-top-right-radius: 200px;
+  border-top-left-radius: 247px;
+  border-top-right-radius: 247px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
   border-width: medium;
@@ -47,6 +47,11 @@
 #dashboard-section div.card-group .card-footer {
   text-align: center;
   font-weight: bold;
+}
+
+#dashboard-section .bg-electricity img {
+  margin-top: -5px;
+  margin-bottom: 5px;
 }
 
 #dashboard-section img {
