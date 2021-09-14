@@ -50,7 +50,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-1" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'show active':''" th:each="client : ${clientCodeList}" th:id="'nav' + ${client.getId()}" role="tabpanel" aria-labelledby="nav-1-tab" th:aria-labelledby="'nav' + ${client.getId()} + 'tab'">
                 <div class="row">
-                    <div class="col-md-5 pe-0 justify-content-md-center">
+                    <div class="col-md-5 pe-0 justify-content-md-center spaceBottom">
                         <div class="card col clientsInfo" id="clientInfo" th:id="'clientInfo' + ${client.getId()}">
                             <div class="col bottom-info">
                                 <div class="addInfoClass">
@@ -109,18 +109,39 @@
 
                     <div class="col-md-7 justify-content-md-center charts">
                         <div class="card col-md-auto graphInfo" id="clientGraph" th:id="'clientGraph' + ${client.getId()}">
-                            <a id="switchChart" th:id="'switchChart' + ${client.getId()}" th:title="#{chart.button.switch.tooltip}" class="switch btn btn-primary text-decoration-none text-center scaleHover bi bi-arrow-repeat"></a>
+                            <a id="switchChart" th:id="'switchChart' + ${client.getId()}" th:title="#{chart.button.switch.tooltip.line}" class="switch btn btn-primary text-decoration-none text-center scaleHover bi bi-graph-up"></a>
                             <canvas id="indexChart" th:id="'indexChart' + ${client.getId()}"></canvas>
-                            <div class="mt-3 d-flex justify-content-md-evenly text-center">
-                                <div class="btn-group m-0" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check weekType" name="btnRadio" th:id="'chartTypeWeek' + ${client.getId()}" autocomplete="off" checked>
-                                    <label class="btn btn-outline-primary scaleHover bi bi-calendar-week" th:for="'chartTypeWeek' + ${client.getId()}" th:text="'  ' + #{chart.week.button.label}">Week</label>
+                            <div class="row p-0 justify-content-md-evenly">
+                                <div class="col-auto justify-content-md-evenly text-center spaceBottom spaceTop">
+                                    <div class="consumption-label">
+                                        <small th:text="#{chart.consumption.label}">Consumption</small>
+                                    </div>
+                                    <div class="btn-group m-0" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check weekType" name="btnRadio" th:id="'chartTypeWeek' + ${client.getId()}" autocomplete="off" checked>
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-week" th:for="'chartTypeWeek' + ${client.getId()}" th:text="'  ' + #{chart.week.button.label}">Week</label>
 
-                                    <input type="radio" class="btn-check monthType" name="btnRadio" th:id="'chartTypeMonth' + ${client.getId()}" autocomplete="off">
-                                    <label class="btn btn-outline-primary scaleHover bi bi-calendar-month" th:for="'chartTypeMonth' + ${client.getId()}" th:text="'  ' + #{chart.month.button.label}">Month</label>
+                                        <input type="radio" class="btn-check monthType" name="btnRadio" th:id="'chartTypeMonth' + ${client.getId()}" autocomplete="off">
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-month" th:for="'chartTypeMonth' + ${client.getId()}" th:text="'  ' + #{chart.month.button.label}">Month</label>
 
-                                    <input type="radio" class="btn-check yearType" name="btnRadio" th:id="'chartTypeYear' + ${client.getId()}" autocomplete="off">
-                                    <label class="btn btn-outline-primary scaleHover bi bi-calendar3" th:for="'chartTypeYear' + ${client.getId()}" th:text="'  ' + #{chart.year.button.label}">Year</label>
+                                        <input type="radio" class="btn-check yearType" name="btnRadio" th:id="'chartTypeYear' + ${client.getId()}" autocomplete="off">
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar3" th:for="'chartTypeYear' + ${client.getId()}" th:text="'  ' + #{chart.year.button.label}">Year</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-auto justify-content-md-evenly text-center spaceBottom spaceTop">
+                                    <div class="index-label">
+                                        <small th:text="#{chart.index.label}">Index</small>
+                                    </div>
+                                    <div class="btn-group m-0" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check weekType" name="btnRadio" th:id="'chartTypeWeek' + ${client.getId()}" autocomplete="off" checked>
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-week" th:for="'chartTypeWeek' + ${client.getId()}" th:text="'  ' + #{chart.week.button.label}">Week</label>
+
+                                        <input type="radio" class="btn-check monthType" name="btnRadio" th:id="'chartTypeMonth' + ${client.getId()}" autocomplete="off">
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-month" th:for="'chartTypeMonth' + ${client.getId()}" th:text="'  ' + #{chart.month.button.label}">Month</label>
+
+                                        <input type="radio" class="btn-check yearType" name="btnRadio" th:id="'chartTypeYear' + ${client.getId()}" autocomplete="off">
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar3" th:for="'chartTypeYear' + ${client.getId()}" th:text="'  ' + #{chart.year.button.label}">Year</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +186,7 @@ var clientId = null;
 var myChart = null;
 var canvas = null;
 var ctx = null;
-var chartType = 'line';
+var chartType = 'bar';
 var oldValueContent = null;
 
 $(document).ready(function () {
@@ -183,6 +204,31 @@ $(document).ready(function () {
         initChart();
         $('[data-bs-toggle=tooltip]').tooltip();
     });
+
+    var togMenu = sessionStorage.getItem("toggleMenuMode");
+    if (togMenu == 'On' && togMenu != null) {
+        $('#sidebarCollapse').tooltip('dispose').tooltip();
+        $('#sidebarCollapse').removeClass('bi-arrow-right-square');
+        $('#sidebarCollapse').addClass('bi-arrow-left-square');
+        $('#sidebarCollapse').attr('data-bs-original-title', '[(#{toggle.layout.tooltip.hide})]');
+        $('#sidebar').show();
+    } else if (togMenu == 'Off' && togMenu != null) {
+        $('#sidebarCollapse').tooltip('dispose').tooltip();
+        $('#sidebarCollapse').removeClass('bi-arrow-left-square');
+        $('#sidebarCollapse').addClass('bi-arrow-right-square');
+        $('#sidebarCollapse').attr('data-bs-original-title', '[(#{toggle.layout.tooltip.show})]');
+        $('#sidebar').hide();
+    }
+
+    /* iOS re-orientation fix */
+    if (navigator.userAgent.match('/iPhone/i') || navigator.userAgent.match('/iPad/i')) {
+        /* iOS hides Safari address bar */
+        window.addEventListener("load",function() {
+            setTimeout(function() {
+                window.scrollTo(0, 1);
+            }, 1000);
+        });
+    }
 
     $('[title]').each(function() {
         $(this).attr('data-bs-toggle', 'tooltip');
@@ -415,6 +461,22 @@ $(document).ready(function () {
         myChart.update();
     }
 
+    $(".switch").click(function() {
+        if ($(this).attr('id') == 'switchChart' + clientId) {
+            toggleChart();
+            $(this).tooltip('dispose').tooltip();
+            if ($(this).hasClass('bi-bar-chart')) {
+                $(this).removeClass('bi-bar-chart');
+                $(this).addClass('bi-graph-up');
+                $(this).attr('data-bs-original-title', '[(#{chart.button.switch.tooltip.line})]');
+            } else {
+                $(this).removeClass('bi-graph-up');
+                $(this).addClass('bi-bar-chart');
+                $(this).attr('data-bs-original-title', '[(#{chart.button.switch.tooltip.bar})]');
+            }
+        }
+    });
+
     var daysOfWeekNumbers = [];
     /*[# th:each="day : ${daysOfWeek}"]*/
         daysOfWeekNumbers.push('[(${day})]');
@@ -473,7 +535,7 @@ $(document).ready(function () {
                 scaleLabel: {
                     fontSize: 13,
                     display: true,
-                    labelString: '[(#{chart.yAxis.title})]',
+                    labelString: '[(#{chart.yAxis.title(${branchOrdinal})})]',
                     align: 'center'
                 }
             }]
@@ -496,12 +558,6 @@ $(document).ready(function () {
             data.datasets.splice(removalIndex, 1);
         }
     }
-
-    $(".switch").click(function() {
-        if ($(this).attr('id') == 'switchChart' + clientId) {
-            toggleChart();
-        }
-    });
 
     // chart within the current week
     $(".weekType").click(function() {
