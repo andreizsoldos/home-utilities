@@ -40,7 +40,6 @@ public class IndexServiceImpl implements IndexService {
     private final OldIndexRepository oldIndexRepository;
     private final ClientCodeRepository clientCodeRepository;
 
-
     @Override
     public Optional<Index> findById(final Long indexId) {
         return indexRepository.findById(indexId);
