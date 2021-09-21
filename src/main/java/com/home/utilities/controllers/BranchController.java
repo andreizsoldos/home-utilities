@@ -53,6 +53,16 @@ public class BranchController {
         final var weeklyStats = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getIndexValuesForCurrentWeek(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
 
+        final var lastAvailableIndex = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, weekFirstDay.minusDays(1L)).orElse(0D)));
+        final var beforeLastAvailableIndex = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId,
+                    c -> {
+                        final var lastValueOfIndex = indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, weekFirstDay.minusDays(1L)).orElse(0D);
+                        final var createdDate = indexService.getLastCreatedIndexDate(lastValueOfIndex, c.getId(), Branch.valueOf(branch.toUpperCase()), userId).orElse(weekFirstDay);
+                        return indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, createdDate.minusDays(1L)).orElse(0D);
+                    }));
+
         final var monthFirstDay = indexService.firstDayOfCurrentMonth();
         final var monthLastDay = indexService.lastDayOfCurrentMonth();
         final var monthlyStats = clientCodeList.stream()
@@ -78,6 +88,8 @@ public class BranchController {
         mav.addObject("weekFirstDay", weekFirstDay);
         mav.addObject("weekLastDay", weekLastDay);
         mav.addObject("daysOfWeek", daysOfWeek);
+        mav.addObject("lastAvailableIndex", lastAvailableIndex);
+        mav.addObject("beforeLastAvailableIndex", beforeLastAvailableIndex);
         mav.addObject("weeklyStats", weeklyStats);
         mav.addObject("monthFirstDay", monthFirstDay);
         mav.addObject("monthLastDay", monthLastDay);
@@ -147,7 +159,7 @@ public class BranchController {
         final var mav = new ModelAndView("client-index");
         final var userId = UserPrincipal.getCurrentUser().getId();
         final var lastIndex = indexService.getLastIndexValue(clientId, Branch.valueOf(branch.toUpperCase()), userId);
-        mav.addObject("indexData", new NewIndexRequest(lastIndex.orElse(0D)));
+        mav.addObject("indexData", new NewIndexRequest(lastIndex.orElse(0D), clientId, Branch.valueOf(branch.toUpperCase())));
         mav.addObject(BRANCH, branch);
         mav.addObject("clientId", clientId);
         return mav;
