@@ -15,6 +15,10 @@ public @interface OncePerDay {
 
     String fieldMatch();
 
+    String fieldMatchClientId();
+
+    String fieldMatchBranch();
+
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
