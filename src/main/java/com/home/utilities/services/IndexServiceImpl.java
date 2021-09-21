@@ -1,7 +1,6 @@
 package com.home.utilities.services;
 
 import com.home.utilities.entities.*;
-import com.home.utilities.entities.audit.BaseEntity;
 import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.dto.IndexDetails;
 import com.home.utilities.payload.dto.OldIndexDetails;
@@ -16,10 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
@@ -109,6 +105,15 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
+    public LocalDate getFirstCreatedDate(final Long clientId, final Branch branch, final Long userId) {
+        final var client = clientCodeRepository.findById(clientId)
+              .orElseThrow(() -> new NotFoundException("Client", "id", clientId));
+        return indexRepository.findFirstCreatedDate(branch, userId)
+              .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()))
+              .orElse(LocalDate.ofInstant(client.getCreatedAt(), ZoneId.systemDefault()));
+    }
+
+    @Override
     public LocalDate getLastCreatedDate(final Branch branch, final Long userId) {
         return indexRepository.findLastCreatedDate(branch, userId)
               .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()))
@@ -116,9 +121,8 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Optional<LocalDate> getLastCreatedDate(final Double lastIndex) {
-        return indexRepository.findByValue(lastIndex)
-              .map(BaseEntity::getCreatedAt)
+    public Optional<LocalDate> getLastCreatedIndexDate(final Double lastIndex, final Long clientId, final Branch branch, final Long userId) {
+        return indexRepository.findLastCreatedIndexDate(lastIndex, clientId, branch, userId)
               .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()));
     }
 
@@ -156,6 +160,16 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public Integer lastDayValueOfCurrentMonth() {
         return LocalDate.now(ZoneId.systemDefault()).lengthOfMonth();
+    }
+
+    @Override
+    public Optional<Double> getLastIndexAvailable(final Long clientId, final Branch branch, final Long userId, final LocalDate beforeDate) {
+        return indexRepository.findIndexes(branch, userId).stream()
+              .filter(i -> i.getClientCode().getId().equals(clientId))
+              .filter(i -> filterDates(i, getFirstCreatedDate(clientId, branch, userId), beforeDate))
+              .map(Index::getValue)
+              .filter(v -> v != 0)
+              .max(Double::compareTo);
     }
 
     @Override
