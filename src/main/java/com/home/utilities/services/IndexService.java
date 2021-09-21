@@ -33,9 +33,11 @@ public interface IndexService {
 
     Optional<String> getLastModifiedDate(Branch branch, Long userId);
 
+    LocalDate getFirstCreatedDate(Long clientId, Branch branch, Long userId);
+
     LocalDate getLastCreatedDate(Branch branch, Long userId);
 
-    Optional<LocalDate> getLastCreatedDate(Double lastIndex);
+    Optional<LocalDate> getLastCreatedIndexDate(Double lastIndex, Long clientId, Branch branch, Long userId);
 
     LocalDate firstDayOfCurrentWeek();
 
@@ -48,6 +50,8 @@ public interface IndexService {
     LocalDate lastDayOfCurrentMonth();
 
     Integer lastDayValueOfCurrentMonth();
+
+    Optional<Double> getLastIndexAvailable(Long clientId, Branch branch, Long userId, LocalDate beforeDate);
 
     Map<String, Double> getIndexValuesForCurrentWeek(Long clientId, Branch branch, Long userId, Locale locale);
 
