@@ -21,6 +21,8 @@
                         <div class="col-md-4 mx-3">
                             <label for="oldIndex" th:text="#{index.oldIndex.label}">Old index</label>
                             <input type="text" class="form-control no-select" id="oldIndex" th:field="*{lastIndex}" readonly/>
+                            <input type="text" style="display:none" class="form-control no-select" id="clientIdValue" th:field="*{clientIdValue}" readonly/>
+                            <input type="text" style="display:none" class="form-control no-select" id="branchValue" th:field="*{branchValue}" readonly/>
                         </div>
                         <div class="col-md-6 mx-3">
                             <label for="newIndex" th:text="#{index.newIndex.label}">New index</label>
