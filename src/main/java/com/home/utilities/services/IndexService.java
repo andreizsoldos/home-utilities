@@ -2,6 +2,7 @@ package com.home.utilities.services;
 
 import com.home.utilities.entities.Branch;
 import com.home.utilities.entities.Index;
+import com.home.utilities.entities.ValueRange;
 import com.home.utilities.payload.dto.IndexDetails;
 import com.home.utilities.payload.dto.OldIndexDetails;
 import com.home.utilities.payload.request.NewIndexRequest;
@@ -60,4 +61,6 @@ public interface IndexService {
     Map<String, Double> getMonthlyMinIndexValues(Long clientId, Branch branch, Long userId, Locale locale);
 
     Map<String, Double> getMonthlyMaxIndexValues(Long clientId, Branch branch, Long userId, Locale locale);
+
+    Map<String, Double> getMonthlyConsumptionValues(ValueRange valueRange, Long clientId, Branch branch, Long userId, Locale locale);
 }
