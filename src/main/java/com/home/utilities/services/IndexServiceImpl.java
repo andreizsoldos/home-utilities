@@ -16,10 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
+import java.math.BigDecimal;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
@@ -39,7 +37,6 @@ public class IndexServiceImpl implements IndexService {
     private final IndexRepository indexRepository;
     private final OldIndexRepository oldIndexRepository;
     private final ClientCodeRepository clientCodeRepository;
-
 
     @Override
     public Optional<Index> findById(final Long indexId) {
@@ -110,6 +107,15 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
+    public LocalDate getFirstCreatedDate(final Long clientId, final Branch branch, final Long userId) {
+        final var client = clientCodeRepository.findById(clientId)
+              .orElseThrow(() -> new NotFoundException("Client", "id", clientId));
+        return indexRepository.findFirstCreatedDate(clientId, branch, userId)
+              .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()))
+              .orElse(LocalDate.ofInstant(client.getCreatedAt(), ZoneId.systemDefault()));
+    }
+
+    @Override
     public LocalDate getLastCreatedDate(final Branch branch, final Long userId) {
         return indexRepository.findLastCreatedDate(branch, userId)
               .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()))
@@ -117,9 +123,8 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Optional<LocalDate> getLastCreatedDate(final Double lastIndex) {
-        return indexRepository.findByValue(lastIndex)
-              .map(BaseEntity::getCreatedAt)
+    public Optional<LocalDate> getLastCreatedIndexDate(final Double lastIndex, final Long clientId, final Branch branch, final Long userId) {
+        return indexRepository.findLastCreatedIndexDate(lastIndex, clientId, branch, userId)
               .map(i -> LocalDate.ofInstant(i, ZoneId.systemDefault()));
     }
 
@@ -160,49 +165,127 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
+    public Optional<Double> getLastIndexAvailable(final Long clientId, final Branch branch, final Long userId, final LocalDate beforeDate) {
+        return indexRepository.findIndexes(branch, userId).stream()
+              .filter(i -> i.getClientCode().getId().equals(clientId))
+              .filter(i -> isDateBetween(i, getFirstCreatedDate(clientId, branch, userId), beforeDate))
+              .map(Index::getValue)
+              .filter(v -> v != 0)
+              .max(Double::compareTo);
+    }
+
+    @Override
     public Map<String, Double> getIndexValuesForCurrentWeek(final Long clientId, final Branch branch, final Long userId, final Locale locale) {
         final var indexValuesOfThisWeek = indexRepository.findIndexes(branch, userId).stream()
-              .filter(i -> filterDates(i, firstDayOfCurrentWeek(), lastDayOfCurrentWeek()))
+              .filter(i -> isDateBetween(i, firstDayOfCurrentWeek(), lastDayOfCurrentWeek()))
               .filter(i -> i.getClientCode().getId().equals(clientId))
-              .collect(Collectors.toMap(i -> getDayOfWeekName(i, locale), Index::getValue, (v1, v2) -> v1));
+              .collect(Collectors.toMap(
+                    i -> getDayOfWeekName(i, locale),
+                    Index::getValue,
+                    (v1, v2) -> v1, LinkedHashMap::new));
 
         return Arrays.stream(DaysOfWeek.values())
-              .collect(Collectors.toMap(d -> translation.getMessage(d.description(), locale), d -> indexValuesOfThisWeek.getOrDefault(translation.getMessage(d.description(), locale), 0D), (v1, v2) -> v1, LinkedHashMap::new));
+              .collect(Collectors.toMap(
+                    d -> translation.getMessage(d.description(), locale),
+                    d -> indexValuesOfThisWeek.getOrDefault(translation.getMessage(d.description(), locale), 0D),
+                    (v1, v2) -> v1, LinkedHashMap::new));
     }
 
     @Override
     public Map<Integer, Double> getIndexValuesForCurrentMonth(final Long clientId, final Branch branch, final Long userId) {
         final var indexValuesOfThisMonth = indexRepository.findIndexes(branch, userId).stream()
-              .filter(i -> filterDates(i, firstDayOfCurrentMonth(), lastDayOfCurrentMonth()))
+              .filter(i -> isDateBetween(i, firstDayOfCurrentMonth(), lastDayOfCurrentMonth()))
               .filter(i -> i.getClientCode().getId().equals(clientId))
-              .collect(Collectors.toMap(this::getDayOfMonthValue, Index::getValue, (v1, v2) -> v1));
+              .collect(Collectors.toMap(
+                    this::getDayOfMonthValue,
+                    Index::getValue,
+                    (v1, v2) -> v1, LinkedHashMap::new));
 
         return IntStream.rangeClosed(1, lastDayValueOfCurrentMonth())
               .boxed()
-              .collect(Collectors.toMap(d -> d, d -> indexValuesOfThisMonth.getOrDefault(d, 0D), (v1, v2) -> v1, LinkedHashMap::new));
+              .collect(Collectors.toMap(
+                    d -> d,
+                    d -> indexValuesOfThisMonth.getOrDefault(d, 0D),
+                    (v1, v2) -> v1, LinkedHashMap::new));
     }
 
     @Override
     public Map<String, Double> getMonthlyMinIndexValues(final Long clientId, final Branch branch, final Long userId, final Locale locale) {
-        final var minIndexValues = indexRepository.findMinIndexValues(branch, userId, MONTHS_IN_YEAR).stream()
+        final var minIndexValues = indexRepository.findMinIndexValues(branch, userId, MONTHS_IN_YEAR, Year.now().getValue()).stream()
               .filter(i -> i.getClientCode().getId().equals(clientId))
-              .collect(Collectors.toMap(i -> getDayOfMonthName(i, locale), Index::getValue, (v1, v2) -> v1));
+              .collect(Collectors.toMap(
+                    i -> getDayOfMonthName(i, locale),
+                    Index::getValue,
+                    (v1, v2) -> v1, LinkedHashMap::new));
 
         return Arrays.stream(MonthsOfYear.values())
-              .collect(Collectors.toMap(d -> translation.getMessage(d.description(), locale), d -> minIndexValues.getOrDefault(translation.getMessage(d.description(), locale), 0D), (v1, v2) -> v1, LinkedHashMap::new));
+              .collect(Collectors.toMap(
+                    d -> translation.getMessage(d.description(), locale),
+                    d -> minIndexValues.getOrDefault(translation.getMessage(d.description(), locale), 0D),
+                    (v1, v2) -> v1, LinkedHashMap::new));
     }
 
     @Override
     public Map<String, Double> getMonthlyMaxIndexValues(final Long clientId, final Branch branch, final Long userId, final Locale locale) {
-        final var maxIndexValues = indexRepository.findMaxIndexValues(branch, userId, MONTHS_IN_YEAR).stream()
+        final var maxIndexValues = indexRepository.findMaxIndexValues(branch, userId, MONTHS_IN_YEAR, Year.now().getValue()).stream()
               .filter(i -> i.getClientCode().getId().equals(clientId))
-              .collect(Collectors.toMap(i -> getDayOfMonthName(i, locale), Index::getValue, (v1, v2) -> v1));
+              .collect(Collectors.toMap(
+                    i -> getDayOfMonthName(i, locale),
+                    Index::getValue,
+                    (v1, v2) -> v1, LinkedHashMap::new));
 
         return Arrays.stream(MonthsOfYear.values())
-              .collect(Collectors.toMap(d -> translation.getMessage(d.description(), locale), d -> maxIndexValues.getOrDefault(translation.getMessage(d.description(), locale), 0D), (v1, v2) -> v1, LinkedHashMap::new));
+              .collect(Collectors.toMap(
+                    d -> translation.getMessage(d.description(), locale),
+                    d -> maxIndexValues.getOrDefault(translation.getMessage(d.description(), locale), 0D),
+                    (v1, v2) -> v1, LinkedHashMap::new));
     }
 
-    private boolean filterDates(final Index index, final LocalDate fromDate, final LocalDate toDate) {
+    @Override
+    public Map<String, Double> getMonthlyConsumptionValues(final ValueRange valueRange, final Long clientId, final Branch branch, final Long userId, final Locale locale) {
+        final var indexValues = indexRepository.findIndexes(branch, userId).stream()
+              .filter(i -> i.getClientCode().getId().equals(clientId))
+              .filter(i -> LocalDate.ofInstant(i.getCreatedAt(), ZoneId.systemDefault()).getYear() == Year.now().getValue())
+              .collect(Collectors.toMap(
+                    BaseEntity::getCreatedAt,
+                    Index::getValue,
+                    (v1, v2) -> v1, LinkedHashMap::new));
+
+        final var consumption = Arrays.stream(MonthsOfYear.values())
+              .collect(Collectors.toMap(
+                    d -> translation.getMessage(d.description(), locale),
+                    d -> indexValues.entrySet().stream()
+                          .filter(e -> LocalDate.ofInstant(e.getKey(), ZoneId.systemDefault()).getMonth().getValue() == (d.ordinal() + 1))
+                          .map(Map.Entry::getValue)
+                          .collect(Collectors.toList()),
+                    (v1, v2) -> v1, LinkedHashMap::new));
+
+        return Arrays.stream(MonthsOfYear.values())
+              .collect(Collectors.toMap(
+                    d -> translation.getMessage(d.description(), locale),
+                    d -> calculateConsumption(consumption.getOrDefault(translation.getMessage(d.description(), locale), List.of(0D)), valueRange),
+                    (v1, v2) -> v1, LinkedHashMap::new));
+    }
+
+    private Double calculateConsumption(final List<Double> actualValues, final ValueRange valueRange) {
+        if (!actualValues.isEmpty()) {
+            final var consumption = new ArrayList<>(actualValues);
+            final List<Double> resultValues = new ArrayList<>();
+            consumption.remove(0);
+            consumption.add(actualValues.get(actualValues.size() - 1));
+            actualValues.forEach(v -> resultValues.add(BigDecimal.valueOf(v).subtract(BigDecimal.valueOf(consumption.get(actualValues.indexOf(v)))).doubleValue()));
+            resultValues.removeIf(v -> v.equals(0D));
+            if (valueRange.equals(ValueRange.MIN)) {
+                return resultValues.stream().min(Double::compareTo).orElse(0D);
+            } else {
+                return resultValues.stream().max(Double::compareTo).orElse(0D);
+            }
+        } else {
+            return 0D;
+        }
+    }
+
+    private boolean isDateBetween(final Index index, final LocalDate fromDate, final LocalDate toDate) {
         final var currentDate = LocalDate.ofInstant(index.getModifiedAt(), ZoneId.systemDefault());
         return DateTimeConverter.isDateInBetween(currentDate, fromDate, toDate);
     }

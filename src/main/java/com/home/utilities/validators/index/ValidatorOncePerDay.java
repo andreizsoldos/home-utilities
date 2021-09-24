@@ -1,5 +1,7 @@
 package com.home.utilities.validators.index;
 
+import com.home.utilities.configuration.userdetails.UserPrincipal;
+import com.home.utilities.entities.Branch;
 import com.home.utilities.services.IndexService;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,15 @@ public class ValidatorOncePerDay implements ConstraintValidator<OncePerDay, Obje
 
     private String field;
     private String fieldMatch;
+    private String fieldMatchClientId;
+    private String fieldMatchBranch;
 
     @Override
     public void initialize(final OncePerDay constraintAnnotation) {
         this.field = constraintAnnotation.field();
         this.fieldMatch = constraintAnnotation.fieldMatch();
+        this.fieldMatchClientId = constraintAnnotation.fieldMatchClientId();
+        this.fieldMatchBranch = constraintAnnotation.fieldMatchBranch();
     }
 
     @Override
@@ -29,19 +35,23 @@ public class ValidatorOncePerDay implements ConstraintValidator<OncePerDay, Obje
 
         final var fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
         final var fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
+        final var fieldMatchClientIdValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatchClientId);
+        final var fieldMatchBranchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatchBranch);
 
         var validated = true;
 
-        if ((fieldValue != null && fieldMatchValue != null) && (isLastIndexCreatedToday((Double) fieldMatchValue))) {
+        if ((fieldValue != null && fieldMatchValue != null) && (isLastIndexCreatedToday((Double) fieldMatchValue, (Long) fieldMatchClientIdValue, (Branch) fieldMatchBranchValue))) {
             validated = buildConstraints(context, field, "{message.index.instance}");
         }
 
         return validated;
     }
 
-    private boolean isLastIndexCreatedToday(final Double lastIndex) {
+    private boolean isLastIndexCreatedToday(final Double lastIndex, final Long clientId, final Branch branch) {
         final var today = LocalDate.now(ZoneId.systemDefault());
-        return indexService.getLastCreatedDate(lastIndex)
+        final var userId = UserPrincipal.getCurrentUser().getId();
+
+        return indexService.getLastCreatedIndexDate(lastIndex, clientId, branch, userId)
               .filter(l -> l.isEqual(today))
               .isPresent();
     }

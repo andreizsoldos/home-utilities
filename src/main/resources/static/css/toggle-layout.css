@@ -1,5 +1,5 @@
 #toggle-sidebar #sidebarCollapse {
-  color: black;
+  color: #0d6efd;
   width: max-content;
   height: auto;
   padding: 0;
@@ -18,5 +18,5 @@
 }
 
 #toggle-sidebar #sidebarCollapse:hover {
-  background-color: rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
 }

@@ -2,6 +2,7 @@ package com.home.utilities.services;
 
 import com.home.utilities.entities.Branch;
 import com.home.utilities.entities.Index;
+import com.home.utilities.entities.ValueRange;
 import com.home.utilities.payload.dto.IndexDetails;
 import com.home.utilities.payload.dto.OldIndexDetails;
 import com.home.utilities.payload.request.NewIndexRequest;
@@ -33,9 +34,11 @@ public interface IndexService {
 
     Optional<String> getLastModifiedDate(Branch branch, Long userId);
 
+    LocalDate getFirstCreatedDate(Long clientId, Branch branch, Long userId);
+
     LocalDate getLastCreatedDate(Branch branch, Long userId);
 
-    Optional<LocalDate> getLastCreatedDate(Double lastIndex);
+    Optional<LocalDate> getLastCreatedIndexDate(Double lastIndex, Long clientId, Branch branch, Long userId);
 
     LocalDate firstDayOfCurrentWeek();
 
@@ -49,6 +52,8 @@ public interface IndexService {
 
     Integer lastDayValueOfCurrentMonth();
 
+    Optional<Double> getLastIndexAvailable(Long clientId, Branch branch, Long userId, LocalDate beforeDate);
+
     Map<String, Double> getIndexValuesForCurrentWeek(Long clientId, Branch branch, Long userId, Locale locale);
 
     Map<Integer, Double> getIndexValuesForCurrentMonth(Long clientId, Branch branch, Long userId);
@@ -56,4 +61,6 @@ public interface IndexService {
     Map<String, Double> getMonthlyMinIndexValues(Long clientId, Branch branch, Long userId, Locale locale);
 
     Map<String, Double> getMonthlyMaxIndexValues(Long clientId, Branch branch, Long userId, Locale locale);
+
+    Map<String, Double> getMonthlyConsumptionValues(ValueRange valueRange, Long clientId, Branch branch, Long userId, Locale locale);
 }

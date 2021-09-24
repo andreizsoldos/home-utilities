@@ -103,6 +103,8 @@
 
 #utility-section .clientsInfo.card {
   margin-bottom: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -114,6 +116,8 @@
 
 #utility-section .addInfoClass {
   display: flex;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -141,12 +145,12 @@
 }
 
 #utility-section .clientsIndex.card {
-  max-height: 360px;
+  max-height: 385px;
   overflow-y: auto;
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 0;
+  padding-bottom: 20px;
   margin-top: auto;
   margin-left: auto;
   margin-right: auto;
@@ -314,4 +318,42 @@
   padding-bottom: 0;
   padding-left: 5px;
   padding-right: 10px;
+}
+
+#utility-section .consumption-label, #utility-section .index-label {
+  border-top: solid 1px #0a79df;
+  border-left: solid 1px #0a79df;
+  border-right: solid 1px #0a79df;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .charts {
+    padding-top: 10px;
+  }
+}
+
+@media screen and (max-width: 1465px) {
+  .spaceBottom {
+    padding-bottom: 10px;
+  }
+
+  .justify-content-md-evenly {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1472px) {
+  .spaceTop {
+    padding-top: 10px;
+  }
+
+  .spaceBottom {
+    padding-bottom: 10px;
+  }
+
+  .justify-content-md-evenly {
+    justify-content: center;
+  }
 }

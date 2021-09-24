@@ -23,14 +23,19 @@
 
     <script type="text/javascript" th:inline="javascript">
         $(document).ready(function () {
+            var toggleMode = null;
             $('#sidebarCollapse').click(function (e) {
                 $('#sidebar').toggle();
                 $(this).tooltip('dispose').tooltip();
                 if ($(this).hasClass('bi-arrow-left-square')) {
+                    toggleMode = 'Off';
+                    sessionStorage.setItem("toggleMenuMode", toggleMode);
                     $(this).removeClass('bi-arrow-left-square');
                     $(this).addClass('bi-arrow-right-square');
                     $(this).attr('data-bs-original-title', '[(#{toggle.layout.tooltip.show})]');
                 } else {
+                    toggleMode = 'On';
+                    sessionStorage.setItem("toggleMenuMode", toggleMode);
                     $(this).removeClass('bi-arrow-right-square');
                     $(this).addClass('bi-arrow-left-square');
                     $(this).attr('data-bs-original-title', '[(#{toggle.layout.tooltip.hide})]');
