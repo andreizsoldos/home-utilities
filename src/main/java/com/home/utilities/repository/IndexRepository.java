@@ -59,11 +59,12 @@ public interface IndexRepository extends JpaRepository<Index, Long> {
           WHERE index.id =
               (SELECT min(i.id) from Index i
               INNER JOIN i.clientCode cc
+              ON cc.id = :clientId
               INNER JOIN cc.user u
               ON u.id = :userId
               AND cc.branch = :branch)
           """)
-    Optional<Instant> findFirstCreatedDate(@Param("branch") Branch branch, @Param("userId") Long userId);
+    Optional<Instant> findFirstCreatedDate(@Param("clientId") Long clientId, @Param("branch") Branch branch, @Param("userId") Long userId);
 
     @Query("""
           SELECT index.createdAt FROM Index index
@@ -96,9 +97,10 @@ public interface IndexRepository extends JpaRepository<Index, Long> {
           INNER JOIN cc.user u
           ON u.id = :userId
           AND MONTH(i.createdAt) in (:months)
+          WHERE YEAR(i.createdAt) = :year
           ORDER BY i.value ASC
           """)
-    List<Index> findMinIndexValues(@Param("branch") Branch branch, @Param("userId") Long userId, @Param("months") List<Integer> months);
+    List<Index> findMinIndexValues(@Param("branch") Branch branch, @Param("userId") Long userId, @Param("months") List<Integer> months, @Param("year") Integer year);
 
     @Query("""
           SELECT i FROM Index i
@@ -107,7 +109,8 @@ public interface IndexRepository extends JpaRepository<Index, Long> {
           INNER JOIN cc.user u
           ON u.id = :userId
           AND MONTH(i.createdAt) in (:months)
+          WHERE YEAR(i.createdAt) = :year
           ORDER BY i.value DESC
           """)
-    List<Index> findMaxIndexValues(@Param("branch") Branch branch, @Param("userId") Long userId, @Param("months") List<Integer> months);
+    List<Index> findMaxIndexValues(@Param("branch") Branch branch, @Param("userId") Long userId, @Param("months") List<Integer> months, @Param("year") Integer year);
 }
