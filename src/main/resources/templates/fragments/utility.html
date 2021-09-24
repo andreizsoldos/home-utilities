@@ -272,18 +272,6 @@ $(document).ready(function () {
             options: options
         });
         $('.consumptionWeekType').each(function() {
-            /*[# th:each="client : ${lastAvailableIndex}"]*/
-                if ('[(${client.key})]' == clientId) {
-                    lastAvailableIndex = '[(${client.value})]';
-                }
-            /*[/]*/
-
-            /*[# th:each="client : ${beforeLastAvailableIndex}"]*/
-                if ('[(${client.key})]' == clientId) {
-                    beforeLastAvailableIndex = '[(${client.value})]';
-                }
-            /*[/]*/
-
             $(this).click();
         });
     });
@@ -503,52 +491,53 @@ $(document).ready(function () {
         }
     /*[/]*/
 
-    var lastAvailableIndex = null;
-    /*[# th:each="client : ${lastAvailableIndex}"]*/
+    var lastAvailableWeekIndex = null;
+    /*[# th:each="client : ${lastAvailableWeekIndex}"]*/
         if ('[(${client.key})]' == clientId) {
-            lastAvailableIndex = '[(${client.value})]';
+            lastAvailableWeekIndex = '[(${client.value})]';
         }
     /*[/]*/
 
-    var beforeLastAvailableIndex = null;
-    /*[# th:each="client : ${beforeLastAvailableIndex}"]*/
+    var beforeLastAvailableWeekIndex = null;
+    /*[# th:each="client : ${beforeLastAvailableWeekIndex}"]*/
         if ('[(${client.key})]' == clientId) {
-            beforeLastAvailableIndex = '[(${client.value})]';
+            beforeLastAvailableWeekIndex = '[(${client.value})]';
         }
     /*[/]*/
 
     var weekConsumption = [];
     var currentIndexValue = null;
-    var lastConsumptionValue = parseFloat(lastAvailableIndex - beforeLastAvailableIndex).toFixed(2);
-        /*[# th:each="client : ${weeklyStats}"]*/
-            if ('[(${client.key})]' == clientId) {
-                /*[# th:each="index, item : ${client.value}"]*/
-                    if ('[(${item.index})]' == 0) {
-                        currentIndexValue = '[(${index.value})]';
-                        if (currentIndexValue == 0.0 && lastConsumptionValue == 0.0) {
-                            weekConsumption.push('0.0');
-                        } else if (currentIndexValue == 0.0 && beforeLastAvailableIndex != 0.0) {
-                            weekConsumption.push(lastConsumptionValue);
-                        } else if (currentIndexValue == 0.0 && beforeLastAvailableIndex == 0.0) {
-                            weekConsumption.push('0.0');
-                        } else if (currentIndexValue != 0.0 && lastAvailableIndex == 0.0) {
-                            weekConsumption.push('0.0');
-                        } else if (currentIndexValue != 0.0 && lastAvailableIndex != 0.0) {
-                            weekConsumption.push(parseFloat(currentIndexValue - lastAvailableIndex).toFixed(2));
-                        }
-                    } else {
-                        if ('[(${index.value})]' == 0.0) {
-                            weekConsumption.push(weekConsumption[weekConsumption.length - 1]);
-                        } else if ('[(${index.value})]' != 0.0 && currentIndexValue == 0.0) {
-                            weekConsumption.push(weekConsumption[weekConsumption.length - 1]);
-                        } else if ('[(${index.value})]' != 0.0 && currentIndexValue != 0.0) {
-                            weekConsumption.push(parseFloat('[(${index.value})]' - currentIndexValue).toFixed(2));
-                            currentIndexValue = '[(${index.value})]';
-                        }
+    var lastConsumptionValue = parseFloat(lastAvailableWeekIndex - beforeLastAvailableWeekIndex).toFixed(2);
+    /*[# th:each="client : ${weeklyStats}"]*/
+        if ('[(${client.key})]' == clientId) {
+            /*[# th:each="index, item : ${client.value}"]*/
+                if ('[(${item.index})]' == 0) {
+                    currentIndexValue = '[(${index.value})]';
+                    if (currentIndexValue == 0.0 && lastConsumptionValue == 0.0) {
+                        weekConsumption.push('0.0');
+                    } else if (currentIndexValue == 0.0 && beforeLastAvailableWeekIndex != 0.0) {
+                        weekConsumption.push(lastConsumptionValue);
+                    } else if (currentIndexValue == 0.0 && beforeLastAvailableWeekIndex == 0.0) {
+                        weekConsumption.push('0.0');
+                    } else if (currentIndexValue != 0.0 && lastAvailableWeekIndex == 0.0) {
+                        weekConsumption.push('0.0');
+                    } else if (currentIndexValue != 0.0 && lastAvailableWeekIndex != 0.0) {
+                        weekConsumption.push(parseFloat(currentIndexValue - lastAvailableWeekIndex).toFixed(2));
                     }
-                /*[/]*/
-            }
-        /*[/]*/
+                } else {
+                    if ('[(${index.value})]' == 0.0) {
+                        weekConsumption.push(weekConsumption[weekConsumption.length - 1]);
+                    } else if ('[(${index.value})]' != 0.0 && currentIndexValue == 0.0) {
+                        weekConsumption.push(weekConsumption[weekConsumption.length - 1]);
+                        currentIndexValue = '[(${index.value})]';
+                    } else if ('[(${index.value})]' != 0.0 && currentIndexValue != 0.0) {
+                        weekConsumption.push(parseFloat('[(${index.value})]' - currentIndexValue).toFixed(2));
+                        currentIndexValue = '[(${index.value})]';
+                    }
+                }
+            /*[/]*/
+        }
+    /*[/]*/
 
     var chart_labels = daysOfWeekLabels;
     var temp_dataset = weekConsumption;
@@ -611,6 +600,18 @@ $(document).ready(function () {
     // consumption chart within the current week
     $(".consumptionWeekType").click(function() {
         if ($(this).attr('id') == 'consumptionTypeWeek' + clientId) {
+            /*[# th:each="client : ${lastAvailableWeekIndex}"]*/
+                if ('[(${client.key})]' == clientId) {
+                    lastAvailableWeekIndex = '[(${client.value})]';
+                }
+            /*[/]*/
+
+            /*[# th:each="client : ${beforeLastAvailableWeekIndex}"]*/
+                if ('[(${client.key})]' == clientId) {
+                    beforeLastAvailableWeekIndex = '[(${client.value})]';
+                }
+            /*[/]*/
+
             updateConsumptionWeekChart();
         }
     });
@@ -618,7 +619,7 @@ $(document).ready(function () {
     function updateConsumptionWeekChart() {
         weekConsumption = [];
         currentIndexValue = null;
-        lastConsumptionValue = parseFloat(lastAvailableIndex - beforeLastAvailableIndex).toFixed(2);
+        lastConsumptionValue = parseFloat(lastAvailableWeekIndex - beforeLastAvailableWeekIndex).toFixed(2);
         /*[# th:each="client : ${weeklyStats}"]*/
             if ('[(${client.key})]' == clientId) {
                 /*[# th:each="index, item : ${client.value}"]*/
@@ -626,20 +627,21 @@ $(document).ready(function () {
                         currentIndexValue = '[(${index.value})]';
                         if (currentIndexValue == 0.0 && lastConsumptionValue == 0.0) {
                             weekConsumption.push('0.0');
-                        } else if (currentIndexValue == 0.0 && beforeLastAvailableIndex != 0.0) {
+                        } else if (currentIndexValue == 0.0 && beforeLastAvailableWeekIndex != 0.0) {
                             weekConsumption.push(lastConsumptionValue);
-                        } else if (currentIndexValue == 0.0 && beforeLastAvailableIndex == 0.0) {
+                        } else if (currentIndexValue == 0.0 && beforeLastAvailableWeekIndex == 0.0) {
                             weekConsumption.push('0.0');
-                        } else if (currentIndexValue != 0.0 && lastAvailableIndex == 0.0) {
+                        } else if (currentIndexValue != 0.0 && lastAvailableWeekIndex == 0.0) {
                             weekConsumption.push('0.0');
-                        } else if (currentIndexValue != 0.0 && lastAvailableIndex != 0.0) {
-                            weekConsumption.push(parseFloat(currentIndexValue - lastAvailableIndex).toFixed(2));
+                        } else if (currentIndexValue != 0.0 && lastAvailableWeekIndex != 0.0) {
+                            weekConsumption.push(parseFloat(currentIndexValue - lastAvailableWeekIndex).toFixed(2));
                         }
                     } else {
                         if ('[(${index.value})]' == 0.0) {
                             weekConsumption.push(weekConsumption[weekConsumption.length - 1]);
                         } else if ('[(${index.value})]' != 0.0 && currentIndexValue == 0.0) {
                             weekConsumption.push(weekConsumption[weekConsumption.length - 1]);
+                            currentIndexValue = '[(${index.value})]';
                         } else if ('[(${index.value})]' != 0.0 && currentIndexValue != 0.0) {
                             weekConsumption.push(parseFloat('[(${index.value})]' - currentIndexValue).toFixed(2));
                             currentIndexValue = '[(${index.value})]';
@@ -656,6 +658,146 @@ $(document).ready(function () {
         myChart.data.datasets[0].label = '[(#{chart.consumption.title})]';
         myChart.options.title.text = '[(#{chart.consumption.title.week.text(${#temporals.format(weekFirstDay, 'dd-MM-yyyy')}, ${#temporals.format(weekLastDay, 'dd-MM-yyyy')})})]';
         removeDataSet(myChart.data.datasets[1]);
+        myChart.update();
+    }
+
+    var lastAvailableMonthIndex = null;
+    var beforeLastAvailableMonthIndex = null;
+
+    // consumption chart within the current month
+    $(".consumptionMonthType").click(function() {
+        if ($(this).attr('id') == 'consumptionTypeMonth' + clientId) {
+            /*[# th:each="client : ${lastAvailableMonthIndex}"]*/
+                if ('[(${client.key})]' == clientId) {
+                    lastAvailableMonthIndex = '[(${client.value})]';
+                }
+            /*[/]*/
+
+            /*[# th:each="client : ${beforeLastAvailableMonthIndex}"]*/
+                if ('[(${client.key})]' == clientId) {
+                    beforeLastAvailableMonthIndex = '[(${client.value})]';
+                }
+            /*[/]*/
+
+            updateConsumptionMonthChart();
+        }
+    });
+
+    function updateConsumptionMonthChart() {
+        var daysOfMonthNumbers = [];
+        /*[# th:each="client : ${monthlyStats}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    daysOfMonthNumbers.push('[(${index.key})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        var monthConsumption = [];
+        currentIndexValue = null;
+        lastConsumptionValue = parseFloat(lastAvailableMonthIndex - beforeLastAvailableMonthIndex).toFixed(2);
+        /*[# th:each="client : ${monthlyStats}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index, item : ${client.value}"]*/
+                    if ('[(${item.index})]' == 0) {
+                        currentIndexValue = '[(${index.value})]';
+                        if (currentIndexValue == 0.0 && lastConsumptionValue == 0.0) {
+                            monthConsumption.push('0.0');
+                        } else if (currentIndexValue == 0.0 && beforeLastAvailableMonthIndex != 0.0) {
+                            monthConsumption.push(lastConsumptionValue);
+                        } else if (currentIndexValue == 0.0 && beforeLastAvailableMonthIndex == 0.0) {
+                            monthConsumption.push('0.0');
+                        } else if (currentIndexValue != 0.0 && lastAvailableMonthIndex == 0.0) {
+                            monthConsumption.push('0.0');
+                        } else if (currentIndexValue != 0.0 && lastAvailableMonthIndex != 0.0) {
+                            monthConsumption.push(parseFloat(currentIndexValue - lastAvailableMonthIndex).toFixed(2));
+                        }
+                    } else {
+                        if ('[(${index.value})]' == 0.0) {
+                            monthConsumption.push(monthConsumption[monthConsumption.length - 1]);
+                        } else if ('[(${index.value})]' != 0.0 && currentIndexValue == 0.0) {
+                            monthConsumption.push(monthConsumption[monthConsumption.length - 1]);
+                            currentIndexValue = '[(${index.value})]';
+                        } else if ('[(${index.value})]' != 0.0 && currentIndexValue != 0.0) {
+                            monthConsumption.push(parseFloat('[(${index.value})]' - currentIndexValue).toFixed(2));
+                            currentIndexValue = '[(${index.value})]';
+                        }
+                    }
+                /*[/]*/
+            }
+        /*[/]*/
+
+        chart_labels = daysOfMonthNumbers;
+        temp_dataset = monthConsumption;
+        myChart.data.labels = chart_labels;
+        myChart.data.datasets[0].data = temp_dataset;
+        myChart.data.datasets[0].label = '[(#{chart.consumption.title})]';
+        myChart.options.title.text = '[(#{chart.consumption.title.month.text(${currentMonth})})]';
+        removeDataSet(myChart.data.datasets[1]);
+        myChart.update();
+    }
+
+    // consumption chart within the current year
+    $(".consumptionYearType").click(function() {
+        if ($(this).attr('id') == 'consumptionTypeYear' + clientId) {
+            updateConsumptionYearChart();
+        }
+    });
+
+    function updateConsumptionYearChart() {
+        var monthsOfYearLabels = [];
+        /*[# th:each="client : ${monthlyMinValues}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    monthsOfYearLabels.push('[(${index.key})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        var yearMinIndexes = [];
+        /*[# th:each="client : ${monthlyMinConsumptionValues}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    yearMinIndexes.push('[(${index.value})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        var yearMaxIndexes = [];
+        /*[# th:each="client : ${monthlyMaxConsumptionValues}"]*/
+            if ('[(${client.key})]' == clientId) {
+                /*[# th:each="index : ${client.value}"]*/
+                    yearMaxIndexes.push('[(${index.value})]');
+                /*[/]*/
+            }
+        /*[/]*/
+
+        var temp_dataset1 = yearMinIndexes;
+        var temp_dataset2 = yearMaxIndexes;
+        chart_labels = monthsOfYearLabels;
+        myChart.data.labels = chart_labels;
+        myChart.data.datasets[0].data = temp_dataset1;
+        myChart.data.datasets[0].label = '[(#{chart.consumption.minMax.title(Min)})]';
+        myChart.data.datasets[1] = {
+        label: '[(#{chart.consumption.minMax.title(Max)})]',
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(247, 198, 161, 1)',
+        borderColor: 'rgb(237, 128, 47)',
+        borderCapStyle: 'square',
+        pointBorderColor: "white",
+        pointBackgroundColor: "green",
+        pointBorderWidth: 1,
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: "yellow",
+        pointHoverBorderColor: "green",
+        pointHoverBorderWidth: 2,
+        pointRadius: 4,
+        pointHitRadius: 10,
+        data: temp_dataset2,
+        spanGaps: true,
+        };
+        myChart.options.title.text = '[(#{chart.consumption.title.year.text})]';
         myChart.update();
     }
 
