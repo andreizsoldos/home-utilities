@@ -2,6 +2,7 @@ package com.home.utilities.controllers;
 
 import com.home.utilities.configuration.userdetails.UserPrincipal;
 import com.home.utilities.entities.Branch;
+import com.home.utilities.entities.ValueRange;
 import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.dto.ClientCodeDetails;
 import com.home.utilities.payload.dto.IndexDetails;
@@ -52,10 +53,9 @@ public class BranchController {
         final var daysOfWeek = indexService.currentDaysOfWeek();
         final var weeklyStats = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getIndexValuesForCurrentWeek(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
-
-        final var lastAvailableIndex = clientCodeList.stream()
+        final var lastAvailableWeekIndex = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, weekFirstDay.minusDays(1L)).orElse(0D)));
-        final var beforeLastAvailableIndex = clientCodeList.stream()
+        final var beforeLastAvailableWeekIndex = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId,
                     c -> {
                         final var lastValueOfIndex = indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, weekFirstDay.minusDays(1L)).orElse(0D);
@@ -67,11 +67,25 @@ public class BranchController {
         final var monthLastDay = indexService.lastDayOfCurrentMonth();
         final var monthlyStats = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getIndexValuesForCurrentMonth(c.getId(), Branch.valueOf(branch.toUpperCase()), userId)));
+        final var lastAvailableMonthIndex = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, monthFirstDay.minusDays(1L)).orElse(0D)));
+        final var beforeLastAvailableMonthIndex = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId,
+                    c -> {
+                        final var lastValueOfIndex = indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, monthFirstDay.minusDays(1L)).orElse(0D);
+                        final var createdDate = indexService.getLastCreatedIndexDate(lastValueOfIndex, c.getId(), Branch.valueOf(branch.toUpperCase()), userId).orElse(monthFirstDay);
+                        return indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, createdDate.minusDays(1L)).orElse(0D);
+                    }));
 
         final var monthlyMinValues = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyMinIndexValues(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
         final var monthlyMaxValues = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyMaxIndexValues(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+
+        final var monthlyMinConsumptionValues = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyConsumptionValues(ValueRange.MIN, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+        final var monthlyMaxConsumptionValues = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyConsumptionValues(ValueRange.MAX, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
 
         final var indexIdList = indexList.stream()
               .map(IndexDetails::getId)
@@ -88,14 +102,18 @@ public class BranchController {
         mav.addObject("weekFirstDay", weekFirstDay);
         mav.addObject("weekLastDay", weekLastDay);
         mav.addObject("daysOfWeek", daysOfWeek);
-        mav.addObject("lastAvailableIndex", lastAvailableIndex);
-        mav.addObject("beforeLastAvailableIndex", beforeLastAvailableIndex);
+        mav.addObject("lastAvailableWeekIndex", lastAvailableWeekIndex);
+        mav.addObject("beforeLastAvailableWeekIndex", beforeLastAvailableWeekIndex);
+        mav.addObject("lastAvailableMonthIndex", lastAvailableMonthIndex);
+        mav.addObject("beforeLastAvailableMonthIndex", beforeLastAvailableMonthIndex);
         mav.addObject("weeklyStats", weeklyStats);
         mav.addObject("monthFirstDay", monthFirstDay);
         mav.addObject("monthLastDay", monthLastDay);
         mav.addObject("monthlyStats", monthlyStats);
         mav.addObject("monthlyMinValues", monthlyMinValues);
         mav.addObject("monthlyMaxValues", monthlyMaxValues);
+        mav.addObject("monthlyMinConsumptionValues", monthlyMinConsumptionValues);
+        mav.addObject("monthlyMaxConsumptionValues", monthlyMaxConsumptionValues);
         mav.addObject("oldIndexes", oldIndexes);
 
         return mav;
