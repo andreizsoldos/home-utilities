@@ -1,5 +1,6 @@
 package com.home.utilities.entities.audit;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,10 +28,12 @@ public abstract class BaseEntity implements Serializable {
     private Long id;
 
     @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @JsonFormat(timezone = "Europe/Bucharest")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @LastModifiedDate
-    @Column(name = "modified_at", nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @JsonFormat(timezone = "Europe/Bucharest")
+    @Column(name = "modified_at", nullable = false)
     private Instant modifiedAt;
 }
