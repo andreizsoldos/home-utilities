@@ -27,10 +27,10 @@ public abstract class BaseEntity implements Serializable {
     private Long id;
 
     @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
 
     @LastModifiedDate
-    @Column(name = "modified_at", nullable = false)
+    @Column(name = "modified_at", nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant modifiedAt;
 }
