@@ -20,10 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Controller
@@ -47,6 +50,10 @@ public class BranchController {
         final var indexList = indexService.getIndexes(Branch.valueOf(branch.toUpperCase()), userId);
         final var lastCreatedIndexDate = indexService.getLastCreatedDate(Branch.valueOf(branch.toUpperCase()), userId);
         final var clientCodeList = clientCodeService.getClientCodes(branches, userId);
+
+        final var idZoneList = Arrays.stream(TimeZone.getAvailableIDs()).toList();
+        final var timeZoneName = TimeZone.getDefault().getDisplayName(locale);
+        final var timeZoneId = ZoneId.systemDefault().getId() + " " + OffsetDateTime.now(ZoneId.systemDefault()).getOffset().getId();
 
         final var weekFirstDay = indexService.firstDayOfCurrentWeek();
         final var weekLastDay = indexService.lastDayOfCurrentWeek();
@@ -92,6 +99,8 @@ public class BranchController {
               .collect(Collectors.toList());
         final var oldIndexes = indexService.getOldIndexes(indexIdList);
 
+        mav.addObject("timeZoneName", timeZoneName);
+        mav.addObject("timeZoneId", timeZoneId);
         mav.addObject("branchOrdinal", branchOrdinal);
         mav.addObject("firstClient", firstClient);
         mav.addObject("indexList", indexList);
