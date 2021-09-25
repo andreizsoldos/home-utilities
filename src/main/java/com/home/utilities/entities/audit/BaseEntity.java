@@ -16,10 +16,10 @@ import java.time.Instant;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(
+/*@JsonIgnoreProperties(
       value = {"createdAt", "modifiedAt"},
       allowGetters = true
-)
+)*/
 public abstract class BaseEntity implements Serializable {
 
     @Id
