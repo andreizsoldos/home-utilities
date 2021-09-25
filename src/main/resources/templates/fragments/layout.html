@@ -93,7 +93,11 @@
                 </a>
             </li>
         </ul>
-        <hr>
+        <div class="card card-footer text-center text-muted border-0 p-0 mb-0">
+            <small id="timeZoneName" th:text="${timeZoneName}">Timezone</small>
+            <small id="timeZoneId" th:text="${timeZoneId}">Timezone</small>
+        </div>
+        <hr class="mt-0">
         <div class="languages">
             <a class="mx-2 text-white text-decoration-none" href="#" th:with="url=${#httpServletRequest.requestURI}" th:href="@{${url}+'?lang=ro'}">
                 <img th:src="@{/images/languages/ro-flag.png}" src="../../static/images/languages/ro-flag.png" alt="" width="30" height="15">
