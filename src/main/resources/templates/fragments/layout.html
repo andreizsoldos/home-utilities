@@ -96,6 +96,10 @@
         <div class="card card-footer text-center text-muted border-0 p-0 mb-0">
             <small id="timeZoneName" th:text="${timeZoneName}">Timezone</small>
             <small id="timeZoneId" th:text="${timeZoneId}">Timezone</small>
+            <script type="text/javascript" th:inline="javascript">
+                var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                document.getElementById('timeZoneId').innerHTML = timezone;
+            </script>
         </div>
         <hr class="mt-0">
         <div class="languages">
