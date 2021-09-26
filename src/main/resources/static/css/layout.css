@@ -34,3 +34,7 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+
+#sidebar #localTimeZone, #sidebar #serverTimeZone {
+  font-size: 12px;
+}
