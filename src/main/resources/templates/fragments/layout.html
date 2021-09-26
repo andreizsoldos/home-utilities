@@ -93,7 +93,14 @@
                 </a>
             </li>
         </ul>
-        <hr>
+        <div class="card card-footer text-center text-muted border-0 p-0">
+            <small id="localTimeZone">Local TimeZone</small>
+            <small th:text="#{layout.sidebar.timezone.server(${serverTimeZone})}">Server TimeZone</small>
+            <script type="text/javascript" th:inline="javascript">
+                document.getElementById('localTimeZone').innerHTML = '[(#{layout.sidebar.timezone.local})]' + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
+            </script>
+        </div>
+        <hr class="mt-0">
         <div class="languages">
             <a class="mx-2 text-white text-decoration-none" href="#" th:with="url=${#httpServletRequest.requestURI}" th:href="@{${url}+'?lang=ro'}">
                 <img th:src="@{/images/languages/ro-flag.png}" src="../../static/images/languages/ro-flag.png" alt="" width="30" height="15">
