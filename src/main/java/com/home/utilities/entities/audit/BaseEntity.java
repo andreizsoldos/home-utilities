@@ -16,10 +16,10 @@ import java.time.Instant;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-/*@JsonIgnoreProperties(
+@JsonIgnoreProperties(
       value = {"createdAt", "modifiedAt"},
       allowGetters = true
-)*/
+)
 public abstract class BaseEntity implements Serializable {
 
     @Id
@@ -28,12 +28,10 @@ public abstract class BaseEntity implements Serializable {
     private Long id;
 
     @CreatedDate
-    @JsonFormat(timezone = "Europe/Bucharest")
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @LastModifiedDate
-    @JsonFormat(timezone = "Europe/Bucharest")
     @Column(name = "modified_at", nullable = false)
     private Instant modifiedAt;
 }
