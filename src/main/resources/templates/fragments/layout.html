@@ -95,7 +95,7 @@
         </ul>
         <div class="card card-footer text-center text-muted border-0 p-0">
             <small id="localTimeZone">Local TimeZone</small>
-            <small th:text="#{layout.sidebar.timezone.server(${serverTimeZone})}">Server TimeZone</small>
+            <small id="serverTimeZone" th:text="#{layout.sidebar.timezone.server(${serverTimeZone})}">Server TimeZone</small>
             <script type="text/javascript" th:inline="javascript">
                 document.getElementById('localTimeZone').innerHTML = '[(#{layout.sidebar.timezone.local})]' + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
             </script>
