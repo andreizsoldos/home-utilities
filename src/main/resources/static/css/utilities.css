@@ -58,19 +58,6 @@
   background-color: rgba(230, 230, 230, 0.5);
 }
 
-.utilityTitleText {
-  color: #0d6efd;
-  font-family: "Helvetica Neue";
-  font-weight: bold;
-  font-size: 65px;
-  line-height: normal;
-  height: fit-content;
-  margin-top: -20px;
-  margin-bottom: -20px;
-  margin-left: 10px;
-  text-align: center;
-}
-
 #utility-section .top-buttons {
   width: 100%;
 }
@@ -87,6 +74,42 @@
   margin-bottom: -5px;
   margin-left: -5px;
   margin-right: -5px;
+}
+
+#utility-section .utilityTitleText {
+  color: #0d6efd;
+  font-family: "Helvetica Neue";
+  font-weight: bold;
+  font-size: 65px;
+  line-height: normal;
+  height: fit-content;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+#utility-section .consumption-stats {
+  display: flex;
+  margin-top: -15px;
+  margin-left: 10px;
+  width: 100%;
+}
+
+#utility-section .box-shadow {
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: normal;
+  height: fit-content;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#utility-section .box-shadow tr:hover td, #utility-section .box-shadow tr:hover th {
+  cursor: default;
+}
+
+#utility-section .colored {
+  color: #0d6efd;
 }
 
 #utility-section .card-group {
@@ -134,6 +157,10 @@
 #utility-section .cln {
   padding: 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#utility-section .table-no-border {
+  border-width: 0;
 }
 
 #utility-section .table-no-bottom-border {
@@ -197,21 +224,25 @@
 #utility-section .clientsInfo .table tbody tr th {
   font-size: 14px;
   vertical-align: middle;
+  cursor: default;
 }
 
 #utility-section .clientsInfo .table tbody tr td {
   font-size: 12px;
   vertical-align: middle;
+  cursor: default;
 }
 
 #utility-section .clientsIndex .table thead tr th {
   font-size: 14px;
   vertical-align: middle;
+  cursor: default;
 }
 
 #utility-section .clientsIndex .table tbody tr td {
   font-size: 12px;
   vertical-align: middle;
+  cursor: default;
 }
 
 #utility-section button {

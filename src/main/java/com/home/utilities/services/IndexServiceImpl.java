@@ -165,7 +165,7 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Optional<Double> getLastIndexAvailable(final Long clientId, final Branch branch, final Long userId, final LocalDate beforeDate) {
+    public Optional<Double> getPreviousLastIndex(final Long clientId, final Branch branch, final Long userId, final LocalDate beforeDate) {
         return indexRepository.findIndexes(branch, userId).stream()
               .filter(i -> i.getClientCode().getId().equals(clientId))
               .filter(i -> isDateBetween(i, getFirstCreatedDate(clientId, branch, userId), beforeDate))
@@ -263,22 +263,54 @@ public class IndexServiceImpl implements IndexService {
         return Arrays.stream(MonthsOfYear.values())
               .collect(Collectors.toMap(
                     d -> translation.getMessage(d.description(), locale),
-                    d -> calculateConsumption(consumption.getOrDefault(translation.getMessage(d.description(), locale), List.of(0D)), valueRange),
+                    d -> calculateConsumption(consumption.getOrDefault(translation.getMessage(d.description(), locale), List.of(0D)), consumption.getOrDefault(translation.getMessage(MonthsOfYear.values()[(d.ordinal() - 1) == -1 ? 0 : d.ordinal() - 1].description(), locale), List.of(0D)), valueRange),
                     (v1, v2) -> v1, LinkedHashMap::new));
     }
 
-    private Double calculateConsumption(final List<Double> actualValues, final ValueRange valueRange) {
+    @Override
+    public Map<String, Double> getYearlyConsumptionValues(final ValueRange valueRange, final Long clientId, final Branch branch, final Long userId, final Locale locale) {
+        final var indexValues = indexRepository.findIndexes(branch, userId).stream()
+              .filter(i -> i.getClientCode().getId().equals(clientId))
+              .filter(i -> LocalDate.ofInstant(i.getCreatedAt(), ZoneId.systemDefault()).getYear() == Year.now().getValue())
+              .collect(Collectors.toMap(
+                    BaseEntity::getCreatedAt,
+                    Index::getValue,
+                    (v1, v2) -> v1, LinkedHashMap::new));
+
+        final var consumption = Arrays.stream(MonthsOfYear.values())
+              .collect(Collectors.toMap(
+                    d -> translation.getMessage(d.description(), locale),
+                    d -> indexValues.entrySet().stream()
+                          .filter(e -> LocalDate.ofInstant(e.getKey(), ZoneId.systemDefault()).getMonth().getValue() == (d.ordinal() + 1))
+                          .map(Map.Entry::getValue)
+                          .collect(Collectors.toList()),
+                    (v1, v2) -> v1, LinkedHashMap::new));
+
+        return Arrays.stream(MonthsOfYear.values())
+              .collect(Collectors.toMap(
+                    d -> translation.getMessage(d.description(), locale),
+                    d -> calculateConsumption(consumption.getOrDefault(translation.getMessage(d.description(), locale), List.of(0D)), consumption.getOrDefault(translation.getMessage(MonthsOfYear.values()[(d.ordinal() - 1) == -1 ? 0 : d.ordinal() - 1].description(), locale), List.of(0D)), valueRange),
+                    (v1, v2) -> v1, LinkedHashMap::new));
+    }
+
+    private Double calculateConsumption(final List<Double> actualValues, final List<Double> previousMonthValues, final ValueRange valueRange) {
         if (!actualValues.isEmpty()) {
             final var consumption = new ArrayList<>(actualValues);
             final List<Double> resultValues = new ArrayList<>();
             consumption.remove(0);
-            consumption.add(actualValues.get(actualValues.size() - 1));
+            if (!previousMonthValues.isEmpty()) {
+                consumption.add(previousMonthValues.get(0));
+            } else {
+                consumption.add(actualValues.get(actualValues.size() - 1));
+            }
             actualValues.forEach(v -> resultValues.add(BigDecimal.valueOf(v).subtract(BigDecimal.valueOf(consumption.get(actualValues.indexOf(v)))).doubleValue()));
             resultValues.removeIf(v -> v.equals(0D));
             if (valueRange.equals(ValueRange.MIN)) {
                 return resultValues.stream().min(Double::compareTo).orElse(0D);
-            } else {
+            } else if (valueRange.equals(ValueRange.MAX)) {
                 return resultValues.stream().max(Double::compareTo).orElse(0D);
+            } else {
+                return resultValues.stream().reduce(0D, Double::sum);
             }
         } else {
             return 0D;
