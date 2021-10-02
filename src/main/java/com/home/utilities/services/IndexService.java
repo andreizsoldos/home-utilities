@@ -52,7 +52,7 @@ public interface IndexService {
 
     Integer lastDayValueOfCurrentMonth();
 
-    Optional<Double> getLastIndexAvailable(Long clientId, Branch branch, Long userId, LocalDate beforeDate);
+    Optional<Double> getPreviousLastIndex(Long clientId, Branch branch, Long userId, LocalDate beforeDate);
 
     Map<String, Double> getIndexValuesForCurrentWeek(Long clientId, Branch branch, Long userId, Locale locale);
 
@@ -63,4 +63,6 @@ public interface IndexService {
     Map<String, Double> getMonthlyMaxIndexValues(Long clientId, Branch branch, Long userId, Locale locale);
 
     Map<String, Double> getMonthlyConsumptionValues(ValueRange valueRange, Long clientId, Branch branch, Long userId, Locale locale);
+
+    Map<String, Double> getYearlyConsumptionValues(ValueRange valueRange, Long clientId, Branch branch, Long userId, Locale locale);
 }
