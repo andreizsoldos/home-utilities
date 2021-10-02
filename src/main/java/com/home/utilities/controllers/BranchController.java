@@ -53,29 +53,15 @@ public class BranchController {
         final var daysOfWeek = indexService.currentDaysOfWeek();
         final var weeklyStats = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getIndexValuesForCurrentWeek(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
-        final var lastAvailableWeekIndex = clientCodeList.stream()
-              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, weekFirstDay.minusDays(1L)).orElse(0D)));
-        final var beforeLastAvailableWeekIndex = clientCodeList.stream()
-              .collect(Collectors.toMap(ClientCodeDetails::getId,
-                    c -> {
-                        final var lastValueOfIndex = indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, weekFirstDay.minusDays(1L)).orElse(0D);
-                        final var createdDate = indexService.getLastCreatedIndexDate(lastValueOfIndex, c.getId(), Branch.valueOf(branch.toUpperCase()), userId).orElse(weekFirstDay);
-                        return indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, createdDate.minusDays(1L)).orElse(0D);
-                    }));
+        final var previousWeekLastIndex = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getPreviousLastIndex(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, weekFirstDay.minusDays(1L)).orElse(0D)));
 
         final var monthFirstDay = indexService.firstDayOfCurrentMonth();
         final var monthLastDay = indexService.lastDayOfCurrentMonth();
         final var monthlyStats = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getIndexValuesForCurrentMonth(c.getId(), Branch.valueOf(branch.toUpperCase()), userId)));
-        final var lastAvailableMonthIndex = clientCodeList.stream()
-              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, monthFirstDay.minusDays(1L)).orElse(0D)));
-        final var beforeLastAvailableMonthIndex = clientCodeList.stream()
-              .collect(Collectors.toMap(ClientCodeDetails::getId,
-                    c -> {
-                        final var lastValueOfIndex = indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, monthFirstDay.minusDays(1L)).orElse(0D);
-                        final var createdDate = indexService.getLastCreatedIndexDate(lastValueOfIndex, c.getId(), Branch.valueOf(branch.toUpperCase()), userId).orElse(monthFirstDay);
-                        return indexService.getLastIndexAvailable(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, createdDate.minusDays(1L)).orElse(0D);
-                    }));
+        final var previousMonthLastIndex = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getPreviousLastIndex(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, monthFirstDay.minusDays(1L)).orElse(0D)));
 
         final var monthlyMinValues = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyMinIndexValues(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
@@ -86,6 +72,8 @@ public class BranchController {
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyConsumptionValues(ValueRange.MIN, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
         final var monthlyMaxConsumptionValues = clientCodeList.stream()
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyConsumptionValues(ValueRange.MAX, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+        final var yearlyStats = clientCodeList.stream()
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getYearlyConsumptionValues(ValueRange.SUM, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
 
         final var indexIdList = indexList.stream()
               .map(IndexDetails::getId)
@@ -102,16 +90,15 @@ public class BranchController {
         mav.addObject("weekFirstDay", weekFirstDay);
         mav.addObject("weekLastDay", weekLastDay);
         mav.addObject("daysOfWeek", daysOfWeek);
-        mav.addObject("lastAvailableWeekIndex", lastAvailableWeekIndex);
-        mav.addObject("beforeLastAvailableWeekIndex", beforeLastAvailableWeekIndex);
-        mav.addObject("lastAvailableMonthIndex", lastAvailableMonthIndex);
-        mav.addObject("beforeLastAvailableMonthIndex", beforeLastAvailableMonthIndex);
+        mav.addObject("previousWeekLastIndex", previousWeekLastIndex);
+        mav.addObject("previousMonthLastIndex", previousMonthLastIndex);
         mav.addObject("weeklyStats", weeklyStats);
         mav.addObject("monthFirstDay", monthFirstDay);
         mav.addObject("monthLastDay", monthLastDay);
         mav.addObject("monthlyStats", monthlyStats);
         mav.addObject("monthlyMinValues", monthlyMinValues);
         mav.addObject("monthlyMaxValues", monthlyMaxValues);
+        mav.addObject("yearlyStats", yearlyStats);
         mav.addObject("monthlyMinConsumptionValues", monthlyMinConsumptionValues);
         mav.addObject("monthlyMaxConsumptionValues", monthlyMaxConsumptionValues);
         mav.addObject("oldIndexes", oldIndexes);
