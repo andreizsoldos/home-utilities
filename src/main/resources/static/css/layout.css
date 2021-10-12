@@ -11,6 +11,7 @@ body {
 
 #sidebar div.d-flex {
   height: 100%;
+  width: max-content;
 }
 
 #sidebar div.languages {
