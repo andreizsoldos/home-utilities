@@ -2,7 +2,7 @@ body {
   display: flex;
   min-height: 100vh;
   background-color: lavender!important;
-  font-family: "Helvetica Neue"!important;
+  font-family: "Times New Roman"!important;
 }
 
 #sidebar div ul li:hover, #sidebar div.languages a img:hover {
