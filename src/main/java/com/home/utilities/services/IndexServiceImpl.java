@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -104,6 +105,14 @@ public class IndexServiceImpl implements IndexService {
     public Optional<String> getLastModifiedDate(final Branch branch, final Long userId) {
         return indexRepository.findLastModifiedDate(branch, userId)
               .map(d -> " → " + d.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+    }
+
+    @Override
+    public Long getLastModificationDuration(final Branch branch, final Long userId) {
+        final var today = Instant.now();
+        final var lastModifiedDate = indexRepository.findLastModifiedDate(branch, userId)
+              .orElse(Instant.now().plus(1L, ChronoUnit.DAYS));
+        return Duration.between(lastModifiedDate, today).toDaysPart();
     }
 
     @Override
@@ -242,33 +251,7 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Map<String, Double> getMonthlyConsumptionValues(final ValueRange valueRange, final Long clientId, final Branch branch, final Long userId, final Locale locale) {
-        final var indexValues = indexRepository.findIndexes(branch, userId).stream()
-              .filter(i -> i.getClientCode().getId().equals(clientId))
-              .filter(i -> LocalDate.ofInstant(i.getCreatedAt(), ZoneId.systemDefault()).getYear() == Year.now().getValue())
-              .collect(Collectors.toMap(
-                    BaseEntity::getCreatedAt,
-                    Index::getValue,
-                    (v1, v2) -> v1, LinkedHashMap::new));
-
-        final var consumption = Arrays.stream(MonthsOfYear.values())
-              .collect(Collectors.toMap(
-                    d -> translation.getMessage(d.description(), locale),
-                    d -> indexValues.entrySet().stream()
-                          .filter(e -> LocalDate.ofInstant(e.getKey(), ZoneId.systemDefault()).getMonth().getValue() == (d.ordinal() + 1))
-                          .map(Map.Entry::getValue)
-                          .collect(Collectors.toList()),
-                    (v1, v2) -> v1, LinkedHashMap::new));
-
-        return Arrays.stream(MonthsOfYear.values())
-              .collect(Collectors.toMap(
-                    d -> translation.getMessage(d.description(), locale),
-                    d -> calculateConsumption(consumption.getOrDefault(translation.getMessage(d.description(), locale), List.of(0D)), consumption.getOrDefault(translation.getMessage(MonthsOfYear.values()[(d.ordinal() - 1) == -1 ? 0 : d.ordinal() - 1].description(), locale), List.of(0D)), valueRange),
-                    (v1, v2) -> v1, LinkedHashMap::new));
-    }
-
-    @Override
-    public Map<String, Double> getYearlyConsumptionValues(final ValueRange valueRange, final Long clientId, final Branch branch, final Long userId, final Locale locale) {
+    public Map<String, Double> getConsumptionValues(final ValueRange valueRange, final Long clientId, final Branch branch, final Long userId, final Locale locale) {
         final var indexValues = indexRepository.findIndexes(branch, userId).stream()
               .filter(i -> i.getClientCode().getId().equals(clientId))
               .filter(i -> LocalDate.ofInstant(i.getCreatedAt(), ZoneId.systemDefault()).getYear() == Year.now().getValue())
