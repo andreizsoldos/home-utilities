@@ -26,6 +26,4 @@ public interface ClientCodeService {
     Optional<ClientCode> editClientCode(ClientCodeRequest request, Branch branch, Long clientId, Long userId);
 
     ClientCode findByBranchAndClientIdAndUserId(Branch branch, Long clientId, Long userId);
-
-    Long getLastModificationDuration(Branch branch, Long userId);
 }
