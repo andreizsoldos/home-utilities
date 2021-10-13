@@ -11,9 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,14 +78,5 @@ public class ClientCodeServiceImpl implements ClientCodeService {
     public ClientCode findByBranchAndClientIdAndUserId(final Branch branch, final Long clientId, final Long userId) {
         return clientCodeRepository.findByBranchAndIdAndUserId(branch, clientId, userId)
               .orElseThrow(() -> new NotFoundException("Client", "id", clientId));
-    }
-
-    @Override
-    public Long getLastModificationDuration(final Branch branch, final Long userId) {
-        final var today = Instant.now();
-        final var lastModifiedDate = clientCodeRepository.findLastModifiedDate(branch.name().toUpperCase(), userId)
-              .map(Instant::ofEpochMilli)
-              .orElse(Instant.now().plus(1L, ChronoUnit.DAYS));
-        return Duration.between(lastModifiedDate, today).toDaysPart();
     }
 }

@@ -69,11 +69,11 @@ public class BranchController {
               .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyMaxIndexValues(c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
 
         final var monthlyMinConsumptionValues = clientCodeList.stream()
-              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyConsumptionValues(ValueRange.MIN, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getConsumptionValues(ValueRange.MIN, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
         final var monthlyMaxConsumptionValues = clientCodeList.stream()
-              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getMonthlyConsumptionValues(ValueRange.MAX, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getConsumptionValues(ValueRange.MAX, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
         final var yearlyStats = clientCodeList.stream()
-              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getYearlyConsumptionValues(ValueRange.SUM, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
+              .collect(Collectors.toMap(ClientCodeDetails::getId, c -> indexService.getConsumptionValues(ValueRange.SUM, c.getId(), Branch.valueOf(branch.toUpperCase()), userId, locale)));
 
         final var indexIdList = indexList.stream()
               .map(IndexDetails::getId)
