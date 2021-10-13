@@ -34,6 +34,7 @@
                 <button class="d-grid nav-link" id="nav-1-tab" th:each="client : ${clientCodeList}" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'active':''" th:id="'nav' + ${client.getId()} + 'tab'" data-bs-toggle="tab" data-bs-target="#nav-1" th:data-bs-target="'#nav' + ${client.getId()}" type="button" role="tab" aria-controls="nav-1" th:aria-controls="'nav' + ${client.getId()}" aria-selected="true">
                     <div class="d-flex">
                         <a id="put1" th:id="'put' + ${client.getId()}" th:title="#{utility.button.edit.tooltip}" class="btn-primary text-primary text-decoration-none scaleHover bi bi-pencil-square"></a>
+                        <a class="px-3"></a>
                         <a id="delete1" th:id="'delete' + ${client.getId()}" th:title="#{utility.button.delete.tooltip}" class="btn-primary text-decoration-none scaleHover bi bi-trash"></a>
                     </div>
                     <div th:title="#{utility.contractSince.title} + ': <br>' + ${#temporals.format(client.getContractDate(), 'dd-MM-yyyy')}">
