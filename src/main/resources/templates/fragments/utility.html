@@ -17,16 +17,16 @@
     </div>
     <div class="card-group" th:unless="${clientCodeList.size == 0}">
         <div class="d-flex top-buttons">
-            <div class="img-utility">
-                <a href="#" th:href="@{/user/dashboard/__${branch}__/client-code}" class="text-decoration-none">
-                    <img th:src="@{/images/user-dashboard/__${branch}__.png}" src="../../static/images/user-dashboard/__${branch}__.png" class="scaleHover" alt="" width="75" height="75" th:title="#{utility.addClientCode.label}" data-bs-placement="bottom">
-                </a>
+            <div class="d-block">
+                <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goDashboard text-decoration-none scaleHover bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="left"></a>
             </div>
 
             <p class="utilityTitleText" th:text="#{utility.title(${branchOrdinal})}"></p>
 
-            <div class="ms-4 d-block w-100">
-                <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goDashboard float-end text-decoration-none scaleHover bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="left"></a>
+            <div class="img-utility">
+                <a href="#" th:href="@{/user/dashboard/__${branch}__/client-code}" class="text-decoration-none">
+                    <img th:src="@{/images/user-dashboard/__${branch}__.png}" src="../../static/images/user-dashboard/__${branch}__.png" class="scaleHover" alt="" width="75" height="75" th:title="#{utility.addClientCode.label}" data-bs-placement="bottom">
+                </a>
             </div>
         </div>
         <nav>
@@ -111,7 +111,7 @@
                         <div class="card col-md-auto graphInfo" id="clientGraph" th:id="'clientGraph' + ${client.getId()}">
                             <div class="d-flex">
                                 <a id="switchChart" th:id="'switchChart' + ${client.getId()}" th:title="#{chart.button.switch.tooltip.line}" class="switch btn btn-primary text-decoration-none text-center scaleHover bi bi-graph-up"></a>
-                                <table class="m-0 ms-3 p-0 d-flex table table-sm text-center align-middle justify-content-md-evenly">
+                                <table class="ms-3 p-0 d-flex table table-sm text-center align-middle justify-content-md-evenly">
                                     <tbody class="box-shadow">
                                         <tr>
                                             <td class="table-no-border" th:text="#{utility.week.consumption.total}">Total Week</td>
@@ -140,13 +140,13 @@
                                     </div>
                                     <div class="btn-group m-0" role="group" aria-label="Basic radio toggle button group">
                                         <input type="radio" class="btn-check consumptionWeekType" name="btnRadio" th:id="'consumptionTypeWeek' + ${client.getId()}" autocomplete="off" checked>
-                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-week" th:for="'consumptionTypeWeek' + ${client.getId()}" th:text="'  ' + #{chart.week.button.label}">Week</label>
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-week minWidth" th:for="'consumptionTypeWeek' + ${client.getId()}" th:text="'  ' + #{chart.week.button.label}">Week</label>
 
                                         <input type="radio" class="btn-check consumptionMonthType" name="btnRadio" th:id="'consumptionTypeMonth' + ${client.getId()}" autocomplete="off">
-                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-month" th:for="'consumptionTypeMonth' + ${client.getId()}" th:text="'  ' + #{chart.month.button.label}">Month</label>
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-month minWidth" th:for="'consumptionTypeMonth' + ${client.getId()}" th:text="'  ' + #{chart.month.button.label}">Month</label>
 
                                         <input type="radio" class="btn-check consumptionYearType" name="btnRadio" th:id="'consumptionTypeYear' + ${client.getId()}" autocomplete="off">
-                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar3" th:for="'consumptionTypeYear' + ${client.getId()}" th:text="'  ' + #{chart.year.button.label}">Year</label>
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar3 minWidth" th:for="'consumptionTypeYear' + ${client.getId()}" th:text="'  ' + #{chart.year.button.label}">Year</label>
                                     </div>
                                 </div>
 
@@ -156,13 +156,13 @@
                                     </div>
                                     <div class="btn-group m-0" role="group" aria-label="Basic radio toggle button group">
                                         <input type="radio" class="btn-check indexWeekType" name="btnRadio" th:id="'indexTypeWeek' + ${client.getId()}" autocomplete="off" checked>
-                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-week" th:for="'indexTypeWeek' + ${client.getId()}" th:text="'  ' + #{chart.week.button.label}">Week</label>
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-week minWidth" th:for="'indexTypeWeek' + ${client.getId()}" th:text="'  ' + #{chart.week.button.label}">Week</label>
 
                                         <input type="radio" class="btn-check indexMonthType" name="btnRadio" th:id="'indexTypeMonth' + ${client.getId()}" autocomplete="off">
-                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-month" th:for="'indexTypeMonth' + ${client.getId()}" th:text="'  ' + #{chart.month.button.label}">Month</label>
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar-month minWidth" th:for="'indexTypeMonth' + ${client.getId()}" th:text="'  ' + #{chart.month.button.label}">Month</label>
 
                                         <input type="radio" class="btn-check indexYearType" name="btnRadio" th:id="'indexTypeYear' + ${client.getId()}" autocomplete="off">
-                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar3" th:for="'indexTypeYear' + ${client.getId()}" th:text="'  ' + #{chart.year.button.label}">Year</label>
+                                        <label class="btn btn-outline-primary scaleHover bi bi-calendar3 minWidth" th:for="'indexTypeYear' + ${client.getId()}" th:text="'  ' + #{chart.year.button.label}">Year</label>
                                     </div>
                                 </div>
                             </div>
@@ -510,6 +510,14 @@ $(document).ready(function () {
 
             //Enable the textbox again if needed.
             $(this).removeAttr("disabled");
+        }
+    });
+
+    $(document).on('keyup', '.saveInput', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        var indexValueId = $(this).parent('td.editableValue').attr('id');
+        if ((keycode == '27') && ($(this).attr('id') == 'saveInputId' + indexValueId)) {
+            $(this).parent('td.editableValue').siblings('.cancelMode').click();
         }
     });
 
