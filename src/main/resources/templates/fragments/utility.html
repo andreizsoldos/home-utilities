@@ -226,8 +226,8 @@ $(document).ready(function () {
 
         initChart();
         $('[data-bs-toggle=tooltip]').tooltip();
-        $('.consumptionWeekType').each(function() {
-            if ($(this).attr('id') == 'consumptionTypeWeek' + clientId) {
+        $('.consumptionMonthType').each(function() {
+            if ($(this).attr('id') == 'consumptionTypeMonth' + clientId) {
                 $(this).click();
                 $(this).focus();
 
@@ -348,8 +348,8 @@ $(document).ready(function () {
             data: data,
             options: options
         });
-        $('.consumptionWeekType').each(function() {
-            if ($(this).attr('id') == 'consumptionTypeWeek' + clientId) {
+        $('.consumptionMonthType').each(function() {
+            if ($(this).attr('id') == 'consumptionTypeMonth' + clientId) {
                 $(this).click();
                 $(this).focus();
 
