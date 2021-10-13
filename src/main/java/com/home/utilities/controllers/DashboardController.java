@@ -32,7 +32,7 @@ public class DashboardController {
             mav.addObject(b.name().toLowerCase() + "ClientNameForLastIndex",
                   clientCodeService.getClientCodeNameWhoInsertedLastIndex(b, userId).orElse("-"));
             mav.addObject(b.name().toLowerCase() + "LastModificationDate",
-                  clientCodeService.getLastModificationDuration(b, userId));
+                  indexService.getLastModificationDuration(b, userId));
         });
         return mav;
     }
