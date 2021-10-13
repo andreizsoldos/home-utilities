@@ -34,6 +34,8 @@ public interface IndexService {
 
     Optional<String> getLastModifiedDate(Branch branch, Long userId);
 
+    Long getLastModificationDuration(Branch branch, Long userId);
+
     LocalDate getFirstCreatedDate(Long clientId, Branch branch, Long userId);
 
     LocalDate getLastCreatedDate(Branch branch, Long userId);
@@ -62,7 +64,5 @@ public interface IndexService {
 
     Map<String, Double> getMonthlyMaxIndexValues(Long clientId, Branch branch, Long userId, Locale locale);
 
-    Map<String, Double> getMonthlyConsumptionValues(ValueRange valueRange, Long clientId, Branch branch, Long userId, Locale locale);
-
-    Map<String, Double> getYearlyConsumptionValues(ValueRange valueRange, Long clientId, Branch branch, Long userId, Locale locale);
+    Map<String, Double> getConsumptionValues(ValueRange valueRange, Long clientId, Branch branch, Long userId, Locale locale);
 }
