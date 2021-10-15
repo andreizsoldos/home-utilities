@@ -38,4 +38,5 @@ body {
 
 #sidebar #localTimeZone, #sidebar #serverTimeZone {
   font-size: 12px;
+  text-align: center;
 }
