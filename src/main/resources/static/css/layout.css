@@ -1,13 +1,8 @@
-@font-face {
-  font-family: "Times New Roman";
-  src: url("/fonts/times new roman/times new roman.ttf") format('truetype');
-}
-
 body {
   display: flex;
   min-height: 100vh;
   background-color: lavender!important;
-  font-family: "Times New Roman"!important;
+  font-family: "Droid Serif"!important;
 }
 
 #sidebar div ul li:hover, #sidebar div.languages a img:hover {
