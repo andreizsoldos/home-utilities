@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Times New Roman";
+  src: url("/fonts/times new roman/times new roman.ttf") format('truetype');
+}
+
 body {
   display: flex;
   min-height: 100vh;

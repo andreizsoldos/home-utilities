@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Times New Roman";
+  src: url("/fonts/times new roman/times new roman.ttf") format('truetype');
+}
+
 #dashboard-section {
   display: flex;
   margin: auto;
@@ -31,7 +36,6 @@
   font-weight: bold;
   padding-bottom: 20px;
   color: #6c757d;
-  font-family: "Times New Roman";
   line-height: normal;
 }
 
