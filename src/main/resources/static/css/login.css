@@ -7,9 +7,8 @@
 }
 
 #login-section div.card {
-  width: 100%;
   max-width: 330px;
-  min-width: 235px;
+  min-width: 301px;
   margin: auto;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
