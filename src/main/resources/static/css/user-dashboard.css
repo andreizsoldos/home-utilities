@@ -13,7 +13,7 @@
 }
 
 #dashboard-section div.card-group .card {
-  width: 247px;
+  width: 250px;
   margin: 15px;
   border-top-left-radius: 247px;
   border-top-right-radius: 247px;
@@ -26,14 +26,9 @@
   transform: scale(1.05);
 }
 
-#dashboard-section #fontBase {
-  max-height: 500px;
-  overflow: auto;
-}
-
 #dashboard-section div.card-group .card-title {
   text-align: center;
-  font-family: "Droid Serif";
+  font-family: "Serif";
   font-weight: bold;
   padding-bottom: 20px;
   color: #6c757d;

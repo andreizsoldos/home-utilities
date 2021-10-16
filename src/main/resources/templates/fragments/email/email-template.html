@@ -27,12 +27,12 @@
                           <table border="0" cellpadding="30" cellspacing="0" width="100%">
                             <tr>
                               <td style="padding-top:10px;padding-bottom:10px;" align="center" valign="top">
-                                <div style="display:flex;text-align:center;font-family:Monotype,arial,sans-serif;font-size:15px;margin-bottom:0;color:#ffffff;line-height:135%;">
-                                  <div style="text-align:center;font-family:Monotype,arial,sans-serif;font-size:15px;margin:auto;color:#ffffff;line-height:135%;width:auto;align-self:center;padding-right:20px;">
+                                <div style="display:flex;text-align:center;font-family:Serif,arial,sans-serif;font-size:15px;margin-bottom:0;color:#ffffff;line-height:135%;">
+                                  <div style="text-align:center;font-family:Serif,arial,sans-serif;font-size:15px;margin:auto;color:#ffffff;line-height:135%;width:auto;align-self:center;padding-right:20px;">
                                     <img th:src="|cid:${headerLogo}|" src="../../../static/images/header/logo2.png" width="150" style="max-width:150px;display:block;" alt="HomeUtilities Logo" title="HomeUtilities" />
                                   </div>
-                                  <div style="text-align:center;font-family:Monotype,arial,sans-serif;font-size:15px;color:#ffffff;line-height:135%;width:auto;margin:auto;">
-                                    <h1 style="color:#FFFFFF;line-height:100%;font-family:Monotype,arial,sans-serif;font-size:35px;text-align:center;width:auto;margin:auto;" th:text="${emailSubject}">Activate account</h1>
+                                  <div style="text-align:center;font-family:Serif,arial,sans-serif;font-size:15px;color:#ffffff;line-height:135%;width:auto;margin:auto;">
+                                    <h1 style="color:#FFFFFF;line-height:100%;font-family:Serif,arial,sans-serif;font-size:35px;text-align:center;width:auto;margin:auto;" th:text="${emailSubject}">Activate account</h1>
                                   </div>
                                 </div>
                               </td>
@@ -62,7 +62,7 @@
                           <table border="0" cellpadding="30" cellspacing="0" width="100%">
                             <tr>
                               <td valign="top" bgcolor="#e1e1e1" style="padding:20px;">
-                                <div style="font-family:Monotype,arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
+                                <div style="font-family:Serif,arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
                                   <div th:text="#{footer.copyright}">© 2021. All rights reserved.</div>
                                   <span th:text="#{email.layout.class.footer.copyright}" style="font-size:10px;">If you don't want to receive these emails from us in the future, please</span>
                                   <a href="#" th:href="@{${applicationAddress}+'/user/profile/unsubscribe'}" th:text="#{email.layout.class.footer.copyright.unsubscribe}" style="text-decoration:none;color:#828282;">unsubscribe</a>
