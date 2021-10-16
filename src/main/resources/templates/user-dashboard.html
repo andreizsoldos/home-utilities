@@ -16,7 +16,7 @@
       <div class="card bg-electricity">
         <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png" alt="" width="245" height="245">
         <div class="card-body">
-          <h5 class="card-title fs-1" th:text="#{user.dashboard.electricity.card.title}">Electricity</h5>
+          <h1 class="card-title" th:text="#{user.dashboard.electricity.card.title}">Electricity</h1>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${electricityTotalClientCodes})}">x</p>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
@@ -33,7 +33,7 @@
       <div class="card bg-water">
         <img th:src="@{/images/user-dashboard/water.png}" src="../static/images/user-dashboard/water.png" alt="" width="245" height="245">
         <div class="card-body">
-          <h5 class="card-title fs-1" th:text="#{user.dashboard.water.card.title}">Water</h5>
+          <h1 class="card-title" th:text="#{user.dashboard.water.card.title}">Water</h1>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${waterTotalClientCodes})}">x</p>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
@@ -50,7 +50,7 @@
       <div class="card bg-gas">
         <img th:src="@{/images/user-dashboard/gas.png}" src="../static/images/user-dashboard/gas.png" alt="" width="245" height="245">
         <div class="card-body">
-          <h5 class="card-title fs-1" th:text="#{user.dashboard.gas.card.title}">Gas</h5>
+          <h1 class="card-title" th:text="#{user.dashboard.gas.card.title}">Gas</h1>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${gasTotalClientCodes})}">x</p>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
