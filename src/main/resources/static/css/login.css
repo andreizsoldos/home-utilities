@@ -15,6 +15,10 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+#login-section div.card .card-title {
+  font-size: calc(2rem + 0.5vw);
+}
+
 #login-section .input-group {
   display: flex;
   align-items: center;
@@ -99,6 +103,7 @@
 
 #login-section a small {
   font-size: 15px;
+  white-space: nowrap;
 }
 
 #login-section .errors {

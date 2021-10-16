@@ -32,8 +32,3 @@ function revealPassword() {
         y.classList.add("bi-eye");
     }
 }
-
-window.addEventListener('load', function() {
-    var test = document.getElementById('test');
-    alert(test.offsetWidth);
-})
