@@ -26,6 +26,11 @@
   transform: scale(1.05);
 }
 
+#dashboard-section #fontBase {
+  max-height: 500px;
+  overflow: auto;
+}
+
 #dashboard-section div.card-group .card-title {
   text-align: center;
   font-family: "Droid Serif";

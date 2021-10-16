@@ -16,7 +16,7 @@
       <div class="card bg-electricity">
         <img th:src="@{/images/user-dashboard/electricity.png}" src="../static/images/user-dashboard/electricity.png" alt="" width="245" height="245">
         <div class="card-body">
-          <h5 class="card-title fs-1" th:text="#{user.dashboard.electricity.card.title}">Electricity</h5>
+          <h5 class="card-title fs-1" id="test" th:text="#{user.dashboard.electricity.card.title}">Electricity</h5>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p1}">Client codes:</p>
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p1.1(${electricityTotalClientCodes})}">x</p>
           <p class="m-0 p-0 fw-bold" style="color: #0d6efd;" th:text="#{user.dashboard.card.p2}">Last registered index:</p>
@@ -63,18 +63,24 @@
       </div>
     </a>
   </div>
-  <div>
-    <p id="fontName"></p>
+  <div id="fontBase" class="d-grid">
   </div>
 </section>
 <script type="text/javascript" th:inline="javascript">
   window.addEventListener('load', function() {
-      var elem = document.getElementById("fontName");
+      var elemTest = document.getElementById("test");
       var fontArray = [];
           /*[# th:each="font : ${electricityFontFamily}"]*/
-              fontArray.push('<br>' + '[(${font})]');
+              var newElem = document.createElement("a");
+              newElem.classList.add('fontName');
+              newElem.innerHTML ='[(${font})]';
+              newElem.style.cursor = 'pointer';
+              document.getElementById('fontBase').appendChild(newElem);
           /*[/]*/
-          elem.innerHTML = fontArray;
+          $(document).on('click', '.fontName', function (e) {
+              elemTest.style.fontFamily = e.target.innerHTML;
+              e.target.style.color = 'red';
+          });
   });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
