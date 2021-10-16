@@ -16,7 +16,7 @@
 }
 
 #login-section div.card .card-title {
-  font-size: calc(2rem + 0.5vw);
+  font-size: calc(1.3rem + 0.5vw);
 }
 
 #login-section .input-group {
@@ -102,7 +102,6 @@
 }
 
 #login-section a small {
-  font-size: 15px;
   white-space: nowrap;
 }
 
