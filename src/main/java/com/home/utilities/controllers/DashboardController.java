@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,10 +23,6 @@ public class DashboardController {
         final var mav = new ModelAndView("user-dashboard");
         final var userId = UserPrincipal.getCurrentUser().getId();
 
-        // Get all available font family names from GraphicsEnvironment
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String[] familyNames = ge.getAvailableFontFamilyNames();
-
         List.of(Branch.values()).forEach(b -> {
             mav.addObject(b.name().toLowerCase() + "TotalClientCodes",
                   clientCodeService.getTotalClientCodes(b, userId));
@@ -40,8 +34,6 @@ public class DashboardController {
                   clientCodeService.getClientCodeNameWhoInsertedLastIndex(b, userId).orElse("-"));
             mav.addObject(b.name().toLowerCase() + "LastModificationDate",
                   indexService.getLastModificationDuration(b, userId));
-            mav.addObject(b.name().toLowerCase() + "FontFamily",
-                  new ArrayList<>(List.of(familyNames)));
         });
         return mav;
     }
