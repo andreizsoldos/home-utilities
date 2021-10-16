@@ -102,7 +102,7 @@
 }
 
 #login-section a small {
-  white-space: nowrap;
+  font-size: 0.85rem;
 }
 
 #login-section .errors {
