@@ -6,7 +6,6 @@
 
 <body th:fragment="utility">
 <header th:replace="~{fragments/layout :: sidebar}"></header>
-<section th:replace="~{fragments/toggle-layout :: toggle-sidebar}"></section>
 <section th:id="utility-section" id="utility-section">
     <div class="noClient" th:if="${clientCodeList.size == 0}">
         <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goBack text-decoration-none scaleHover bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="right"></a>
@@ -17,8 +16,8 @@
     </div>
     <div class="card-group" th:unless="${clientCodeList.size == 0}">
         <div class="d-flex top-buttons">
-            <div class="d-block">
-                <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goDashboard text-decoration-none scaleHover bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="left"></a>
+            <div class="d-block scaleHover">
+                <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goDashboard text-decoration-none bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="left"></a>
             </div>
 
             <p class="utilityTitleText" th:text="#{utility.title(${branchOrdinal})}"></p>
@@ -282,27 +281,12 @@ $(document).ready(function () {
         });
     });
 
-    var togMenu = sessionStorage.getItem("toggleMenuMode");
-    if (togMenu == 'On' && togMenu != null) {
-        $('#sidebarCollapse').tooltip('dispose').tooltip();
-        $('#sidebarCollapse').removeClass('bi-arrow-right-square');
-        $('#sidebarCollapse').addClass('bi-arrow-left-square');
-        $('#sidebarCollapse').attr('data-bs-original-title', '[(#{toggle.layout.tooltip.hide})]');
-        $('#sidebar').show();
-    } else if (togMenu == 'Off' && togMenu != null) {
-        $('#sidebarCollapse').tooltip('dispose').tooltip();
-        $('#sidebarCollapse').removeClass('bi-arrow-left-square');
-        $('#sidebarCollapse').addClass('bi-arrow-right-square');
-        $('#sidebarCollapse').attr('data-bs-original-title', '[(#{toggle.layout.tooltip.show})]');
-        $('#sidebar').hide();
-    }
-
     /* iOS re-orientation fix */
     if (navigator.userAgent.match('/iPhone/i') || navigator.userAgent.match('/iPad/i')) {
         /* iOS hides Safari address bar */
         window.addEventListener("load",function() {
             setTimeout(function() {
-                window.scrollTo(0, 40);
+                window.scrollTo(0, 100);
             }, 1000);
         });
     }
