@@ -30,7 +30,7 @@
             <button type="button" class="btn-close text-white" data-bs-dismiss="offcanvas" aria-label="Close">
                 <span class="bi bi-arrow-left-circle" data-bs-toggle="tooltip" th:title="#{toggle.layout.tooltip.hide}" data-bs-placement="right"></span>
             </button>
-            <div class="d-flex flex-sm-column p-3 text-white bg-dark">
+            <div class="d-flex flex-column p-3 text-white bg-dark">
                 <a class="d-flex align-items-center text-white">
                     <img class="bi d-block mx-auto mb-1" th:src="@{/images/header/logo2.png}" src="../../static/images/header/logo2.png" alt="" width="200" height="100">
                 </a>
@@ -39,7 +39,7 @@
                 </div>
                 <hr class="mt-0" sec:authorize="isAuthenticated()">
                 <hr sec:authorize="isAnonymous()">
-                <ul class="nav nav-pills flex-sm-column mb-auto">
+                <ul class="nav nav-pills flex-column mb-auto">
                     <li>
                         <a href="#" th:href="@{/}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/' ? 'active':''}">
                             <i class="bi bi-house-door me-2"></i>
