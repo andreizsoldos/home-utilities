@@ -1,5 +1,6 @@
 #utility-section {
   width: 100%;
+  min-width: 560px;
   padding: 20px;
   margin: 20px;
   background-color: white;

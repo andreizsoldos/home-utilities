@@ -79,6 +79,7 @@ body {
 
 #sidebar .offcanvas-start {
   width: max-content;
+  height: 100vh;
 }
 
 #sidebar .offcanvas-body {
