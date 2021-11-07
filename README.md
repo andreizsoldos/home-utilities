@@ -36,19 +36,23 @@ To build this project you will need Maven. You can get it at:
    
          e.g. C:\Users\`username`\Desktop\`home-utilities`\ 
 
-2. Clean project:
+2. You should run below command to skip steps 3-5:
+
+        mvn clean install
+
+3. Clean project:
 
         mvn clean
-
-3. If you are looking to package the project, then you should run:
-
-        mvn package
 
 4. Compile:
 
         mvn compile
 
-5. Execute:
+5. If you are looking to package the project, then you should run:
+
+        mvn package
+
+6. Execute:
 
         mvn exec:java -Dexec.mainClass=com.home.utilities.UtilitiesApplication
 
