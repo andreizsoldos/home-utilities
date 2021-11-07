@@ -36,7 +36,7 @@
                         <a class="px-3"></a>
                         <a id="delete1" th:id="'delete' + ${client.getId()}" th:title="#{utility.button.delete.tooltip}" class="btn-primary text-decoration-none scaleHover bi bi-trash"></a>
                     </div>
-                    <div th:title="#{utility.contractSince.title} + ': <br>' + ${#temporals.format(client.getContractDate(), 'dd-MM-yyyy')}">
+                    <div th:title="${client.getClientName()}">
                         <div>
                             <span th:text="${client.getClientNumber()}">client-code</span>
                         </div>
@@ -50,13 +50,13 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-1" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'show active':''" th:each="client : ${clientCodeList}" th:id="'nav' + ${client.getId()}" role="tabpanel" aria-labelledby="nav-1-tab" th:aria-labelledby="'nav' + ${client.getId()} + 'tab'">
                 <div class="row">
-                    <div class="col-md-5 pe-0 justify-content-md-center spaceBottom">
+                    <div class="col-lg-6 px-1 justify-content-md-center spaceBottom">
                         <div class="card col clientsInfo" id="clientInfo" th:id="'clientInfo' + ${client.getId()}">
                             <div class="col bottom-info">
                                 <div class="addInfoClass">
                                     <button class="addNewIndexButton btn btn-primary scaleHover" id="addIndexId" th:id="'addIndexId' + ${client.getId()}" th:text="#{utility.addIndex.label}" th:disabled="${#temporals.format(client.lastIndexDate(indexList), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">Add new index</button>
                                 </div>
-                                <div class="cln container-fluid">
+                                <div class="d-flex cln container-fluid">
                                     <table class="table table-sm table-hover table-bordered text-center align-middle">
                                         <tbody>
                                             <tr class="table-no-bottom-border">
@@ -73,6 +73,17 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <table class="cln-contract table table-sm table-hover table-bordered text-center">
+                                        <tbody>
+                                            <tr class="table-no-bottom-border">
+                                                <th class="align-middle" th:text="#{utility.contractSince.title}">Contract</th>
+                                            </tr>
+                                            <tr class="table-no-top-border">
+                                                <td class="align-top" th:utext="${#temporals.format(client.getContractDate(), 'dd MMMM yyyy')}">Date</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
                                 </div>
                             </div>
                         </div>
@@ -83,7 +94,7 @@
                                         <tr>
                                             <th th:text="#{utility.index.createdDate.title}">Created on</th>
                                             <th th:text="#{utility.index.modifiedDate.title}">Modified on</th>
-                                            <th class="optimizeWidth" th:text="#{utility.index.title} + ' (' + ${client.count(indexList)} + ')'" th:colspan="${#temporals.format(lastCreatedIndexDate, 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 2 : 1">Index</th>
+                                            <th class="optimizeWidth" th:text="#{utility.index.title(${client.count(indexList)})} + ' (' + ${client.count(indexList)} + ')'" th:colspan="${#temporals.format(lastCreatedIndexDate, 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 2 : 1">Index</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,7 +118,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-7 justify-content-md-center charts">
+                    <div class="col-lg-6 p-0 justify-content-md-center charts">
                         <div class="card col-md-auto graphInfo" id="clientGraph" th:id="'clientGraph' + ${client.getId()}">
                             <div class="d-flex">
                                 <a id="switchChart" th:id="'switchChart' + ${client.getId()}" th:title="#{chart.button.switch.tooltip.line}" class="switch btn btn-primary text-decoration-none text-center scaleHover bi bi-graph-up"></a>
