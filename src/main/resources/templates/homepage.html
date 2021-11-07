@@ -11,12 +11,12 @@
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="home-section" id="home-section">
     <div class="card">
-        <div class="px-5 mx-5" sec:authorize="isAnonymous()">
+        <div class="started" sec:authorize="isAnonymous()">
             <div class="col text-center fit-content">
-                <p class="fs-3 lead text-black-50 pt-3 mb-3" th:text="#{homepage.content.h1.p1.label}">All utilities in one place!</p>
-                <p class="fs-3 lead text-black-50 mb-3" th:text="#{homepage.content.h1.p2.label}">Don't lose track of your utilities consumption. You might save some money.</p>
-                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                    <a class="btn btn-primary btn-lg px-4 me-sm-3 mb-3" href="#" th:href="@{/login}" th:text="#{homepage.button.getStarted}">Get Started</a>
+                <p class="fs-3 text-black-50 pt-3 mb-3" th:text="#{homepage.content.h1.p1.label}">All utilities in one place!</p>
+                <p class="fs-3 text-black-50 mb-3" th:text="#{homepage.content.h1.p2.label}">Don't lose track of your utilities consumption. You might save some money.</p>
+                <div class="d-grid justify-content-center">
+                    <a class="btn btn-primary btn-lg mb-3" href="#" th:href="@{/login}" th:text="#{homepage.button.getStarted}">Get Started</a>
                 </div>
             </div>
         </div>
