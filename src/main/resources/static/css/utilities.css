@@ -1,8 +1,12 @@
 #utility-section {
   width: 100%;
-  min-width: 560px;
+  height: 100%;
+  min-width: 580px;
   padding: 20px;
-  margin: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+  margin-right: 20px;
   background-color: white;
   border-top-left-radius: 70px;
   border-top-right-radius: 35px;
@@ -169,6 +173,10 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+#utility-section .cln .cln-contract {
+  width: fit-content;
+}
+
 #utility-section .table-no-border {
   border-width: 0;
 }
@@ -182,7 +190,7 @@
 }
 
 #utility-section .clientsIndex.card {
-  max-height: 385px;
+  max-height: 355px;
   overflow-y: auto;
   padding-top: 20px;
   padding-left: 20px;
@@ -195,13 +203,11 @@
 }
 
 #utility-section div.charts .card {
-  max-width: 94.75%;
   padding-top: 20px;
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -369,9 +375,13 @@
   border-top-right-radius: 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   .charts {
     padding-top: 10px;
+  }
+  #utility-section {
+    margin-top: 20px;
+    margin-bottom: 18px;
   }
 }
 

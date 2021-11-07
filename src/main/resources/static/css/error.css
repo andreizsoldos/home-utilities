@@ -1,17 +1,14 @@
-body {
-  background: lavender;
-}
 
 #error-section {
-  display: flex;
   margin: auto;
+  width: calc(495px + 40px);
 }
 
 #error-section .card {
   position: relative;
   width: 495px;
   min-width: 495px;
-  display: block;
+  display: flex;
   margin: auto;
   text-align: center;
   font-family: "Serif"!important;
@@ -30,7 +27,6 @@ body {
 }
 
 #error-section .status {
-  position: relative;
   font-weight: lighter;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -41,21 +37,27 @@ body {
 }
 
 #error-section #c0 {
+  position: absolute;
+  width: fit-content;
   font-size: 3.5em;
-  top: 130px;
-  left: -180px;
+  margin-top: 129px;
+  margin-left: 52px;
 }
 
 #error-section #c1 {
+  position: absolute;
+  width: fit-content;
   font-size: 5.5em;
-  top: -20.5px;
-  left: -57.5px;
+  margin-top: 47px;
+  margin-left: 167px;
 }
 
 #error-section #c2 {
+  position: absolute;
+  width: fit-content;
   font-size: 7.5em;
-  top: -125px;
-  left: 129.5px;
+  margin-top: 49px;
+  margin-left: 342px;
 }
 
 #error-section .lower-side {
