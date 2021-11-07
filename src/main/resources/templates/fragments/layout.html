@@ -140,8 +140,11 @@
 
     <script type="text/javascript" th:inline="javascript">
         $(document).ready(function () {
-            $(window).on("load", function() {
-                $('[data-bs-toggle=tooltip]').tooltip();
+            $('.toggleMenuButton').click(function() {
+                $('[data-bs-toggle=tooltip]').tooltip('dispose').tooltip();
+            });
+            $('[data-bs-dismiss=offcanvas]').click(function() {
+                $('[data-bs-toggle=tooltip]').tooltip('dispose').tooltip();
             });
         });
     </script>
