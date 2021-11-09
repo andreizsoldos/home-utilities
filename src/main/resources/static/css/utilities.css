@@ -375,6 +375,51 @@
   border-top-right-radius: 20px;
 }
 
+@media screen and (max-width: 412px) {
+  #utility-section {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px !important;
+    min-width: 365px;
+  }
+
+  .utilityTitleText {
+    font-size: 50px !important;
+    margin-top: -10px !important;
+  }
+
+  .graphInfo {
+    margin-left: 0 !important;
+  }
+
+  .graphInfo div table {
+    display: block !important;
+  }
+
+  .box-shadow {
+    display: flex;
+    margin-bottom: 5px;
+  }
+
+  .graphInfo div table tbody tr {
+    margin: auto;
+  }
+
+  .clientConsumptionData {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .charts {
+    width: max-content;
+  }
+
+  .margin-left-responsive, .margin-right-responsive {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
 @media screen and (max-width: 992px) {
   .charts {
     padding-top: 10px;
@@ -382,6 +427,15 @@
   #utility-section {
     margin-top: 20px;
     margin-bottom: 18px;
+  }
+}
+
+@media screen and (max-width: 1005px) {
+  .margin-left-responsive {
+    padding-left: 5px;
+  }
+  .margin-right-responsive {
+    padding-right: 5px;
   }
 }
 
