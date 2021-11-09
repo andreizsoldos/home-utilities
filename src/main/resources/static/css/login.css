@@ -123,3 +123,10 @@
 #login-section .scaleHover:hover {
   transform: scale(1.05);
 }
+
+@media screen and (max-width: 412px) {
+  #login-section {
+    margin: auto;
+    min-width: auto;
+  }
+}

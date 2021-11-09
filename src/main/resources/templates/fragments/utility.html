@@ -6,7 +6,7 @@
 
 <body th:fragment="utility">
 <header th:replace="~{fragments/layout :: sidebar}"></header>
-<section th:id="utility-section" id="utility-section">
+<section th:id="utility-section" id="utility-section" th:style="${clientCodeList.size == 0} ? 'margin-top:20px;margin-bottom:20px;border-bottom-right-radius:35px;border-bottom-left-radius:35px;height:auto;' : ''">
     <div class="noClient" th:if="${clientCodeList.size == 0}">
         <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goBack text-decoration-none scaleHover bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="right"></a>
         <div class="d-flex-inline" th:title="#{utility.addFirstClientCode.label}" data-bs-placement="bottom">
@@ -50,7 +50,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-1" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'show active':''" th:each="client : ${clientCodeList}" th:id="'nav' + ${client.getId()}" role="tabpanel" aria-labelledby="nav-1-tab" th:aria-labelledby="'nav' + ${client.getId()} + 'tab'">
                 <div class="row">
-                    <div class="col-lg-6 px-1 justify-content-md-center spaceBottom">
+                    <div class="col-lg-6 justify-content-md-center spaceBottom clientConsumptionData">
                         <div class="card col clientsInfo" id="clientInfo" th:id="'clientInfo' + ${client.getId()}">
                             <div class="col bottom-info">
                                 <div class="addInfoClass">
@@ -145,7 +145,7 @@
                             </div>
                             <canvas id="indexChart" th:id="'indexChart' + ${client.getId()}"></canvas>
                             <div class="row p-0 justify-content-md-evenly">
-                                <div class="col-auto justify-content-md-evenly text-center spaceBottom spaceTop">
+                                <div class="col-auto justify-content-md-evenly text-center spaceBottom spaceTop margin-left-responsive">
                                     <div class="consumption-label">
                                         <small th:text="#{chart.consumption.label}">Consumption</small>
                                     </div>
@@ -161,7 +161,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-auto justify-content-md-evenly text-center spaceBottom spaceTop">
+                                <div class="col-auto justify-content-md-evenly text-center spaceBottom spaceTop margin-right-responsive">
                                     <div class="index-label">
                                         <small th:text="#{chart.index.label}">Index</small>
                                     </div>

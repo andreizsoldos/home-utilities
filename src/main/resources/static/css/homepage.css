@@ -32,3 +32,19 @@
 #home-section .scaleHover:hover, #home-section .feature:hover {
   transform: scale(1.05);
 }
+
+@media screen and (max-width: 412px) {
+  #home-section {
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #home-section .card {
+    border-top-left-radius: 70px !important;
+  }
+
+  #features div div div {
+    padding: 0 !important;
+  }
+}
