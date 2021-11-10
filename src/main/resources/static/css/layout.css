@@ -115,7 +115,7 @@ body {
   right: 10px;
 }
 
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 414px) {
   .toggleMenuButton {
     width: 30px !important;
     height: 30px !important;
