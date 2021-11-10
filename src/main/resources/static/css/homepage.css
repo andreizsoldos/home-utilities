@@ -33,7 +33,7 @@
   transform: scale(1.05);
 }
 
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 413px) {
   #home-section {
     padding: 5px;
     margin-top: 5px;
