@@ -78,3 +78,73 @@
 #register-section div a {
   cursor: pointer;
 }
+
+@media screen and (max-width: 414px) {
+  #register-section {
+    padding: 5px;
+  }
+
+  #register-section div.card {
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-top-left-radius: 70px !important;
+  }
+
+  #register-section form div {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #register-section form div.row {
+    padding-left: 0;
+  }
+
+  #register-section form div.row div {
+    padding-left: 20px;
+  }
+
+  #register-section form {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-bottom: 10px;
+  }
+}
+
+@media screen and (min-width: 414px) and (max-width: 500px) {
+  #register-section {
+    padding: 15px;
+  }
+
+  #register-section div.card {
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-top-left-radius: 70px !important;
+  }
+
+  #register-section form div {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #register-section form div.row {
+    padding-left: 0;
+  }
+
+  #register-section form div.row div {
+    padding-left: 20px;
+  }
+
+  #register-section form {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-bottom: 10px;
+  }
+}

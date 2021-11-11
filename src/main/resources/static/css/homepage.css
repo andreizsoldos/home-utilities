@@ -48,3 +48,19 @@
     padding: 0 !important;
   }
 }
+
+@media screen and (min-width: 414px) and (max-width: 500px) {
+  #home-section {
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  #home-section .card {
+    border-top-left-radius: 70px !important;
+  }
+
+  #features div div div {
+    padding: 0 !important;
+  }
+}

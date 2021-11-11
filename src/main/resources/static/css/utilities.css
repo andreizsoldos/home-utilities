@@ -375,11 +375,56 @@
   border-top-right-radius: 20px;
 }
 
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 414px) {
   #utility-section {
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 5px !important;
+    min-width: 365px;
+  }
+
+  .utilityTitleText {
+    font-size: 50px !important;
+    margin-top: -10px !important;
+  }
+
+  .graphInfo {
+    margin-left: 0 !important;
+  }
+
+  .graphInfo div table {
+    display: block !important;
+  }
+
+  .box-shadow {
+    display: flex;
+    margin-bottom: 5px;
+  }
+
+  .graphInfo div table tbody tr {
+    margin: auto;
+  }
+
+  .clientConsumptionData {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .charts {
+    width: max-content;
+  }
+
+  .margin-left-responsive, .margin-right-responsive {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+@media screen and (min-width: 414px) and (max-width: 500px) {
+  #utility-section {
+    margin-left: 15px;
+    margin-right: 5px;
+    margin-top: 15px !important;
     min-width: 365px;
   }
 
