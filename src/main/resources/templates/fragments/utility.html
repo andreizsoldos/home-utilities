@@ -56,7 +56,7 @@
                                 <div class="addInfoClass">
                                     <button class="addNewIndexButton btn btn-primary scaleHover" id="addIndexId" th:id="'addIndexId' + ${client.getId()}" th:text="#{utility.addIndex.label}" th:disabled="${#temporals.format(client.lastIndexDate(indexList), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}">Add new index</button>
                                 </div>
-                                <div class="d-flex cln">
+                                <div class="cln">
                                     <table class="table table-sm table-hover table-bordered text-center align-middle">
                                         <tbody>
                                             <tr class="table-no-bottom-border">
@@ -83,7 +83,6 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
