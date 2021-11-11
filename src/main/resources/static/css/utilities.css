@@ -170,8 +170,20 @@
 
 #utility-section .cln {
   width: 100%;
-  display: block;
+  display: flex;
   padding: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#utility-section .cln-contract {
+  width: max-content;
+}
+
+#utility-section .cln-contract:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#utility-section .cln-consumption:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -218,6 +230,11 @@
   align-items: center;
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#utility-section .clientConsumptionData {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 #utility-section .clientsIndex table tbody tr a {
@@ -378,12 +395,17 @@
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 5px !important;
+    margin-bottom: 5px;
     min-width: 365px;
   }
 
   .utilityTitleText {
     font-size: 50px !important;
     margin-top: -10px !important;
+  }
+
+  #utility-section .clientsIndex.card {
+    margin-bottom: 10px;
   }
 
   .graphInfo {
@@ -408,8 +430,8 @@
     padding-right: 0 !important;
   }
 
-  .charts {
-    width: max-content;
+  .margin-left-responsive {
+    margin-bottom: 10px;
   }
 
   .margin-left-responsive, .margin-right-responsive {
@@ -418,17 +440,22 @@
   }
 }
 
-@media screen and (min-width: 414px) and (max-width: 500px) {
+@media screen and (min-width: 414px) and (max-width: 580px) {
   #utility-section {
     margin-left: 15px;
-    margin-right: 5px;
-    margin-top: 15px !important;
+    margin-right: 20px;
+    margin-top: 15px;
+    margin-bottom: 20px;
     min-width: 365px;
   }
 
   .utilityTitleText {
     font-size: 50px !important;
     margin-top: -10px !important;
+  }
+
+  #utility-section .clientsIndex.card {
+    margin-bottom: 10px;
   }
 
   .graphInfo {
@@ -453,8 +480,8 @@
     padding-right: 0 !important;
   }
 
-  .charts {
-    width: max-content;
+  .margin-left-responsive {
+    margin-bottom: 10px;
   }
 
   .margin-left-responsive, .margin-right-responsive {
@@ -463,32 +490,108 @@
   }
 }
 
-@media screen and (max-width: 992px) {
-  .charts {
-    padding-top: 10px;
-  }
+@media screen and (min-width: 580px) and (max-width: 991px) {
   #utility-section {
-    margin-top: 20px;
-    margin-bottom: 18px;
+    margin-left: 15px;
+    margin-right: 20px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    min-width: 365px;
   }
-}
 
-@media screen and (max-width: 1005px) {
+  .utilityTitleText {
+    font-size: 50px !important;
+    margin-top: -10px !important;
+  }
+
+  #utility-section .clientsIndex.card {
+    margin-bottom: 10px;
+  }
+
+  .graphInfo {
+    margin-left: 0 !important;
+  }
+
+  .graphInfo div table {
+    display: flex;
+  }
+
+  .box-shadow {
+    display: flex;
+    margin-bottom: 5px;
+  }
+
+  .graphInfo div table tbody tr {
+    margin: auto;
+  }
+
+  .clientConsumptionData {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   .margin-left-responsive {
-    padding-left: 5px;
+    margin-bottom: 10px;
   }
-  .margin-right-responsive {
-    padding-right: 5px;
+
+  .margin-left-responsive, .margin-right-responsive {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 }
 
-@media screen and (max-width: 1270px) {
+@media screen and (min-width: 991px) and (max-width: 992px) {
+  #utility-section {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .utilityTitleText {
+    font-size: 50px !important;
+    margin-top: -10px !important;
+  }
+
+  #utility-section .clientsIndex.card {
+    margin-bottom: 10px;
+  }
+
+  .graphInfo div table {
+    display: flex;
+  }
+
+  .box-shadow {
+    display: flex;
+    margin-bottom: 5px;
+  }
+
+  .graphInfo div table tbody tr {
+    margin: auto;
+  }
+
+  .clientConsumptionData {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .margin-left-responsive {
+    margin-bottom: 10px;
+  }
+
+  .margin-left-responsive, .margin-right-responsive {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+@media screen and (min-width: 1005px) and (max-width: 1270px) {
   .minWidth {
     width: min-content;
   }
 }
 
-@media screen and (max-width: 1465px) {
+@media screen and (min-width: 1270px) and (max-width: 1465px) {
   .spaceBottom {
     padding-bottom: 10px;
   }
@@ -498,7 +601,7 @@
   }
 }
 
-@media screen and (max-width: 1472px) {
+@media screen and (min-width: 1465px) and (max-width: 1472px) {
   .spaceTop {
     padding-top: 10px;
   }
