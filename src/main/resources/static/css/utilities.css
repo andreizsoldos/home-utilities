@@ -250,6 +250,7 @@
 
 #utility-section .clientsInfo .table {
   margin-bottom: 0;
+  width: 50%;
 }
 
 #utility-section .clientsInfo .table tbody tr th {
