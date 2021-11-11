@@ -81,7 +81,7 @@
 
 @media screen and (max-width: 414px) {
   #register-section {
-    padding: 5px;
+    padding: 5px !important;
   }
 
   #register-section div.card {
