@@ -174,7 +174,7 @@
 }
 
 #utility-section .cln .cln-contract {
-  width: fit-content;
+  width: max-content;
 }
 
 #utility-section .table-no-border {

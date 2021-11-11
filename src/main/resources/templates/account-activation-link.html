@@ -3,12 +3,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/layout :: title(#{support.activate.account.link.title}, ~{::link})}">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}" href="../static/css/register.css">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/account-activation-link.css}" href="../static/css/account-activation-link.css">
 </head>
 
 <body>
 <header th:replace="~{fragments/layout :: sidebar}"></header>
-<section th:id="register-section" id="register-section">
+<section th:id="activation-link-section" id="activation-link-section">
     <div class="card">
         <h1 class="py-2 text-center no-select" th:text="#{support.activate.account.link.title}">Title</h1>
         <form class="row card" th:action="@{/support/account/activate/link}" th:method="post" id="registerForm" th:object="${supportRequest}">

@@ -1,0 +1,77 @@
+#activation-link-section {
+  display: flex;
+  margin: auto;
+  padding: 35px;
+}
+
+#activation-link-section div.card {
+  width: 100%;
+  padding-top: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 30px;
+  margin: auto;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#activation-link-section form {
+  padding-top: 20px;
+  flex-direction: row;
+}
+
+#activation-link-section .form-control {
+  margin-bottom: 3px;
+}
+
+#activation-link-section input[type="text"] {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+#activation-link-section input[type="text"]:focus {
+  box-shadow: 0 3px 0 -2px blue;
+}
+
+#activation-link-section .no-select {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#activation-link-section div.row {
+  margin-left: 5px;
+}
+
+#activation-link-section .alert {
+  color: red;
+  font-size: 15px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+#activation-link-section button.btn {
+  width: auto;
+}
+
+#activation-link-section .scaleHover:hover {
+  transform: scale(1.05);
+}
+
+#activation-link-section div a {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 351px) {
+  #activation-link-section div a {
+    margin-bottom: 5px !important;
+  }
+}
