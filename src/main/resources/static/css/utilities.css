@@ -170,20 +170,7 @@
 
 #utility-section .cln {
   width: 100%;
-  display: flex;
   padding: 0;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#utility-section .cln-contract {
-  width: max-content;
-}
-
-#utility-section .cln-contract:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#utility-section .cln-consumption:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -250,7 +237,6 @@
 
 #utility-section .clientsInfo .table {
   margin-bottom: 0;
-  width: 50%;
 }
 
 #utility-section .clientsInfo .table tbody tr th {

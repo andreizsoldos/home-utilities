@@ -61,25 +61,21 @@
                                         <tbody>
                                             <tr class="table-no-bottom-border">
                                                 <th th:text="#{utility.consumptionNumber.title}">Number</th>
+                                                <th class="align-middle" th:text="#{utility.contractSince.title}">Contract</th>
                                             </tr>
                                             <tr class="table-no-top-border">
                                                 <td th:text="${client.getConsumptionLocationNumber()}">Number</td>
-                                            </tr>
-                                            <tr class="table-no-bottom-border">
-                                                <th th:text="#{utility.consumptionAddress.title}">Address</th>
-                                            </tr>
-                                            <tr class="table-no-top-border">
-                                                <td th:text="${client.getConsumptionAddress()}">Address</td>
+                                                <td class="align-top" th:utext="${#temporals.format(client.getContractDate(), 'dd MMMM yyyy')}">Date</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <table class="cln-contract table table-sm table-hover table-bordered text-center align-middle">
                                         <tbody>
                                             <tr class="table-no-bottom-border">
-                                                <th class="align-middle" th:text="#{utility.contractSince.title}">Contract</th>
+                                                <th th:text="#{utility.consumptionAddress.title}">Address</th>
                                             </tr>
                                             <tr class="table-no-top-border">
-                                                <td class="align-top" th:utext="${#temporals.format(client.getContractDate(), 'dd MMMM yyyy')}">Date</td>
+                                                <td th:text="${client.getConsumptionAddress()}">Address</td>
                                             </tr>
                                         </tbody>
                                     </table>
