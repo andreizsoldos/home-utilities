@@ -14,23 +14,23 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editBackdropLabel" th:text="#{clientCode.edit.title}">Edit client code</h5>
+                    <h1 class="modal-title text-center no-select" id="editBackdropLabel" th:text="#{clientCode.edit.title}">Edit client code</h1>
                 </div>
                 <div class="modal-body">
                     <form class="row card" id="clientCodeEditForm" th:id="clientCodeEditForm" th:action="@{/user/dashboard/__${branch}__/client-code-edit/__${clientId}__}" th:method="post" th:object="${clientCodeData}">
-                        <div class="col-md-3 mx-3">
+                        <div class="col-md-4 mx-3">
                             <label for="clientNumber" th:text="#{clientCode.number.label}">Number</label>
                             <input type="text" class="form-control" id="clientNumber" placeholder="123456789" th:placeholder="#{clientCode.number.placeholder}" th:field="*{clientNumber}" autofocus/>
                             <div class="alert" th:if="${#fields.hasErrors('clientNumber')}" th:errors="*{clientNumber}">* Eroare</div>
                         </div>
 
-                        <div class="col-md-3 mx-3">
+                        <div class="col-md-4 mx-3">
                             <label for="clientName" th:text="#{clientCode.name.label}">Client name</label>
                             <input type="text" class="form-control" id="clientName" placeholder="John Doe" th:placeholder="#{clientCode.name.placeholder}" th:field="*{clientName}"/>
                             <div class="alert" th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}">* Eroare</div>
                         </div>
 
-                        <div class="col-md-4 mx-3">
+                        <div class="col-md-11 mx-3">
                             <label for="consumptionNumber" th:text="#{clientCode.consumption.number.label}">Consumption number</label>
                             <input type="text" class="form-control" id="consumptionNumber" placeholder="123456789" th:placeholder="#{clientCode.consumption.number.placeholder}" th:field="*{consumptionLocationNumber}"/>
                             <div class="alert" th:if="${#fields.hasErrors('consumptionLocationNumber')}" th:errors="*{consumptionLocationNumber}">* Eroare</div>
@@ -42,7 +42,7 @@
                             <div class="alert" th:if="${#fields.hasErrors('consumptionAddress')}" th:errors="*{consumptionAddress}">* Eroare</div>
                         </div>
 
-                        <div class="col-md-5 mx-3 mb-3">
+                        <div class="col-md-6 mx-3 mb-3">
                             <label for="contractDate" th:text="#{clientCode.consumption.contractDate.label}">Contract date</label>
                             <input type="date" class="form-control" id="contractDate" placeholder="yyyy-MM-dd" th:placeholder="#{clientCode.consumption.contractDate.placeholder}" th:field="*{contractDate}" />
                             <div class="alert" th:if="${#fields.hasErrors('contractDate')}" th:errors="*{contractDate}">* Eroare</div>

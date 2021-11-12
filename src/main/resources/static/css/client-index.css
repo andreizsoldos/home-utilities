@@ -6,12 +6,32 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.modalPopUp .modal-content {
+#index-section .modal-header {
+  display: block;
+  text-align: center;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+}
+
+#index-section .modalPopUp .modal-dialog {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#index-section .modalPopUp .modal-content {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.modalPopUp form {
+#index-section .modalPopUp form {
   text-align: center;
   padding: 10px;
   margin: 10px;
@@ -19,7 +39,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.modalPopUp form input[type="text"] {
+#index-section .modalPopUp form input[type="text"] {
   font-weight: bold;
   text-align: center;
   border-top: none;
@@ -27,25 +47,25 @@
   border-right: none;
 }
 
-.modalPopUp form #oldIndex {
+#index-section .modalPopUp form #oldIndex {
   border: none;
   box-shadow: none;
   cursor: default;
 }
 
-.modalPopUp form #newIndex:focus {
+#index-section .modalPopUp form #newIndex:focus {
   box-shadow: 0 3px 0 -2px blue;
 }
 
-.modalPopUp .form-control {
+#index-section .modalPopUp .form-control {
   margin-bottom: 3px;
 }
 
-.modalPopUp label {
+#index-section .modalPopUp label {
   font-weight: bold;
 }
 
-.modalPopUp #oldIndex.no-select {
+#index-section .modalPopUp #oldIndex.no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -54,11 +74,11 @@
   user-select: none;
 }
 
-.scaleHover:hover {
+#index-section .scaleHover:hover {
   transform: scale(1.05);
 }
 
-.modalPopUp .alert {
+#index-section .modalPopUp .alert {
   color: red;
   font-size: 15px;
   padding-top: 0;
@@ -67,7 +87,7 @@
   padding-right: 10px;
 }
 
-.modalPopUp .errors {
+#index-section .modalPopUp .errors {
   margin-top: 5px;
   width: auto;
 }
