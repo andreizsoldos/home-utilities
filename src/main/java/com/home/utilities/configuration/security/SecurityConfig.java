@@ -28,7 +28,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] VIEW_MAPPING = {"/", "/#", "/register", "/login/**", "/register/account/activate/**", "/terms-and-conditions", "/privacy-policy", "/support/**", "/contact"};
-    private static final String[] STATIC_CONTENT = {"/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg",
+    private static final String[] STATIC_CONTENT = {"/static/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg",
           "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js"};
 
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
