@@ -1,7 +1,9 @@
 package com.home.utilities.configuration.security;
 
+import com.home.utilities.configuration.security.authentication.AuthFailureHandler;
+import com.home.utilities.configuration.security.authentication.AuthSuccessHandler;
+import com.home.utilities.configuration.security.filters.AuthenticationFilter;
 import com.home.utilities.configuration.security.filters.RedirectPageFilter;
-import com.home.utilities.configuration.userdetails.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +14,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -30,8 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] VIEW_MAPPING = {"/", "/#", "/register", "/login/**", "/register/account/activate/**", "/terms-and-conditions", "/privacy-policy", "/support/**", "/contact"};
     private static final String[] STATIC_CONTENT = {"/appIcon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js"};
 
-    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-    private final CustomUserDetailsService customUserDetailsService;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -44,11 +50,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public AuthenticationFailureHandler authFailureHandler() {
+        return new AuthFailureHandler();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authSuccessHandler() {
+        return new AuthSuccessHandler();
+    }
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth
-              .userDetailsService(customUserDetailsService)
+              .userDetailsService(userDetailsService)
               .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public UsernamePasswordAuthenticationFilter authenticationFilter() throws Exception {
+        final var filter = new AuthenticationFilter();
+        filter.setAuthenticationManager(authenticationManagerBean());
+        filter.setAuthenticationFailureHandler(authFailureHandler());
+        filter.setAuthenticationSuccessHandler(authSuccessHandler());
+        return filter;
     }
 
     @Override
@@ -66,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
               // Set unauthorized requests exception handler
               .exceptionHandling()
-              .authenticationEntryPoint(customAuthenticationEntryPoint)
+              .authenticationEntryPoint(authenticationEntryPoint)
               .and()
 
               // Set permissions on endpoints
@@ -90,7 +115,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .logoutSuccessUrl("/?logout").permitAll()
               .and()
 
-              // Redirect from login page if user is authenticated
+              // Unlock account if lock duration time has expired due to multiple failed login attempts
+              .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
+              // Redirect from login/register page if user is authenticated
               .addFilterAfter(new RedirectPageFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
