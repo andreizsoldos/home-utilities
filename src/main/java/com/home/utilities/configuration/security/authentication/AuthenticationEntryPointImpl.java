@@ -1,4 +1,4 @@
-package com.home.utilities.configuration.security;
+package com.home.utilities.configuration.security.authentication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomAuthenticationEntryPoint.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationEntryPointImpl.class);
 
     @Override
     public void commence(final HttpServletRequest httpServletRequest,
