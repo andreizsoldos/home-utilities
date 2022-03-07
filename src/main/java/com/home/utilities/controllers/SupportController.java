@@ -1,5 +1,6 @@
 package com.home.utilities.controllers;
 
+import com.home.utilities.entities.Gender;
 import com.home.utilities.exceptions.EmailException;
 import com.home.utilities.exceptions.NotFoundException;
 import com.home.utilities.payload.request.SupportRequest;
@@ -70,7 +71,9 @@ public class SupportController {
                   model.addAttribute("accountTitle", "support.account.title");
                   model.addAttribute("accountMessageTop", "support.account.message.top");
                   model.addAttribute("redirectDuration", REDIRECT_DURATION);
-                  model.addAttribute("gender", userService.findByEmail(request.getEmail()).getGender().name().toUpperCase());
+                  model.addAttribute("gender", userService.findByEmail(request.getEmail()).isPresent() ?
+                        userService.findByEmail(request.getEmail()).get().getGender().name().toUpperCase() :
+                        Gender.OTHER.name().toUpperCase());
                   return "account-created";
               })
               .orElseThrow(() -> new EmailException("Error sending email to: ", request.getEmail()));
