@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface UserService {
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     Optional<User> createAccount(RegisterRequest request);
 

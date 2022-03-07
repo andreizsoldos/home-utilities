@@ -8,7 +8,6 @@ import com.home.utilities.payload.request.RegisterRequest;
 import com.home.utilities.payload.request.SupportRequest;
 import com.home.utilities.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,16 +25,15 @@ public class UserServiceImpl implements UserService {
     private final ConfirmationTokenService confirmationTokenService;
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-              .orElseThrow(() -> new UsernameNotFoundException("No user found with this email: " + email));
+    public Optional<User> findByEmail(final String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public Optional<User> createAccount(final RegisterRequest request) {
         final var encodedPassword = passwordEncoder.encode(request.getPassword());
         final var user = new User(request.getEmail(), encodedPassword, request.getFirstName(), request.getLastName(),
-              request.getGender(), request.getTerms(), request.getGdpr(), UserRole.USER, AccountStatus.LOCKED);
+              request.getGender(), request.getTerms(), request.getGdpr(), UserRole.USER, AccountStatus.DISABLED, 0, null);
         return Optional.of(userRepository.save(user));
     }
 
@@ -67,9 +65,9 @@ public class UserServiceImpl implements UserService {
     public Optional<User> checkAccount(final SupportRequest request) {
         return userRepository.findByEmail(request.getEmail())
               .map(u -> {
-                  if (u.getStatus() == AccountStatus.ACTIVE) {
+                  if (u.getStatus().equals(AccountStatus.ACTIVE)) {
                       throw new AccountActivatedException("Account already activated");
-                  } else if (u.getStatus() == AccountStatus.LOCKED) {
+                  } else if (u.getStatus().equals(AccountStatus.DISABLED)) {
                       final var confirmationToken = confirmationTokenService.findByUserId(u.getId());
                       if (confirmationToken.isEmpty()) {
                           throw new TokenNotFoundException("Token");

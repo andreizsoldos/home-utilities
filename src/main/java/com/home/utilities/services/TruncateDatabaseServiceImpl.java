@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class TruncateDatabaseServiceImpl implements TruncateDatabaseService {
 
@@ -68,10 +69,10 @@ public class TruncateDatabaseServiceImpl implements TruncateDatabaseService {
         final String adminEncodedPassword = passwordEncoder.encode(adminPassword);
         final String studentEncodedPassword = passwordEncoder.encode(studentPassword);
         final var userAdmin = new User(adminUsername, adminEncodedPassword, "Admin",
-              "User", Gender.MALE, true, true, UserRole.ADMIN, AccountStatus.ACTIVE);
+              "User", Gender.MALE, true, true, UserRole.ADMIN, AccountStatus.ACTIVE, 0, null);
         userRepository.save(userAdmin);
         final var userStudent = new User(studentUsername, studentEncodedPassword, "Student",
-              "User", Gender.FEMALE, true, true, UserRole.USER, AccountStatus.ACTIVE);
+              "User", Gender.FEMALE, true, true, UserRole.USER, AccountStatus.ACTIVE, 0, null);
         userRepository.save(userStudent);
     }
 }
