@@ -42,61 +42,61 @@
                 <hr sec:authorize="isAnonymous()">
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li>
-                        <a href="#" th:href="@{/}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/' ? 'active':''}">
+                        <a href="#" th:href="@{/}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/' ? 'active' : ''}">
                             <i class="bi bi-house-door me-2"></i>
                             <span th:text="#{layout.sidebar.home}">Home</span>
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a href="#" th:href="@{/user/dashboard}" sec:authorize="hasRole('USER')" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/user/dashboard' ? 'active':''}">
+                        <a href="#" th:href="@{/user/dashboard}" sec:authorize="hasRole('USER')" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/user/dashboard' ? 'active' : ''}">
                             <i class="bi bi-speedometer2 me-2"></i>
                             <span th:text="#{layout.sidebar.dashboard}">Dashboard</span>
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a href="#" th:href="@{/admin/dashboard}" sec:authorize="hasRole('ADMIN')" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/admin/dashboard' ? 'active':''}">
+                        <a href="#" th:href="@{/admin/dashboard}" sec:authorize="hasRole('ADMIN')" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/admin/dashboard' ? 'active' : ''}">
                             <i class="bi bi-speedometer2 me-2"></i>
                             <span th:text="#{layout.sidebar.dashboard}">Dashboard</span>
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a href="#" th:href="@{/user/profile}" sec:authorize="hasRole('USER')" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/user/profile' ? 'active':''}">
+                        <a href="#" th:href="@{/user/profile}" sec:authorize="hasRole('USER')" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/user/profile' ? 'active' : ''}">
                             <i class="bi bi-person-circle me-2"></i>
                             <span th:text="#{layout.sidebar.profile}">Profile</span>
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a href="#" th:href="@{/admin/profile}" sec:authorize="hasRole('ADMIN')" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/admin/profile' ? 'active':''}">
+                        <a href="#" th:href="@{/admin/profile}" sec:authorize="hasRole('ADMIN')" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/admin/profile' ? 'active' : ''}">
                             <i class="bi bi-person-circle me-2"></i>
                             <span th:text="#{layout.sidebar.profile}">Profile</span>
                         </a>
                     </li>
                     <li sec:authorize="isAnonymous()">
-                        <a href="#" th:href="@{/login}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/login' ? 'active':''}">
+                        <a href="#" th:href="@{/login}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/login' ? 'active' : ''}">
                             <i class="bi bi-box-arrow-right me-2"></i>
                             <span th:text="#{layout.sidebar.login}">Sign in</span>
                         </a>
                     </li>
                     <li sec:authorize="isAnonymous()">
-                        <a href="#" th:href="@{/register}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/register' ? 'active':''}">
+                        <a href="#" th:href="@{/register}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/register' ? 'active' : ''}">
                             <i class="bi bi-box-arrow-in-up me-2"></i>
                             <span th:text="#{layout.sidebar.register}">Register</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" th:href="@{/support}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/support' ? 'active':''}">
+                        <a href="#" th:href="@{/support}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/support' ? 'active' : ''}">
                             <i class="bi bi-info-circle me-2"></i>
                             <span th:text="#{layout.sidebar.support}">Support</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" th:href="@{/contact}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/contact' ? 'active':''}">
+                        <a href="#" th:href="@{/contact}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/contact' ? 'active' : ''}">
                             <i class="bi bi-envelope me-2"></i>
                             <span th:text="#{layout.sidebar.contact}">Contact</span>
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a href="#" th:href="@{/logout}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/logout' ? 'active':''}">
+                        <a href="#" th:href="@{/logout}" class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI == '/logout' ? 'active' : ''}">
                             <i class="bi bi-power me-2"></i>
                             <span th:text="#{layout.sidebar.logout}">Sign out</span>
                         </a>

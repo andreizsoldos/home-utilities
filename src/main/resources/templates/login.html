@@ -16,7 +16,9 @@
 
         <div class="card-body">
             <form th:action="@{/login}" th:method="post" th:id="loginForm">
-                <div class="errors" th:if="${param.error}" th:text="#{${session[SPRING_SECURITY_LAST_EXCEPTION]?.message}}">error</div>
+                <div class="errors" th:id="exceptionError" th:classappend="${session[LOCK_DURATION] != null ? 'mb-0' : ''}" th:if="${param.error}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+                <div class="errors" th:id="counterError" th:if="${param.error} and ${session[LOCK_DURATION] != null}" th:data-counter="${session[LOCK_DURATION]}"></div>
+
                 <div class="mb-3 input-group">
                     <div class="input-group-prepend col-auto">
                         <span class="input-group-text bi-person-fill"></span>
