@@ -2,14 +2,14 @@ package com.home.utilities.payload.dto;
 
 import com.home.utilities.services.util.DateTimeConverter;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class IndexDetails {

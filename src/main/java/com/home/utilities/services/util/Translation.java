@@ -13,4 +13,8 @@ public class Translation {
     public String getMessage(final String message, final Locale locale) {
         return messageSource.getMessage(message, null, locale);
     }
+
+    public String getMessage(final String message, final Object[] objects, final Locale locale) {
+        return messageSource.getMessage(message, objects, locale);
+    }
 }

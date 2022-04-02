@@ -2,9 +2,9 @@ package com.home.utilities.entities;
 
 import com.home.utilities.entities.audit.UserAudit;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -12,10 +12,10 @@ import javax.validation.constraints.PositiveOrZero;
 
 @Audited
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 @Table(name = "old_indexes")
 public class OldIndex extends UserAudit {
 

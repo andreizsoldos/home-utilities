@@ -1,12 +1,12 @@
 package com.home.utilities.payload.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class OldIndexDetails {

@@ -2,9 +2,9 @@ package com.home.utilities.entities;
 
 import com.home.utilities.entities.audit.UserAudit;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -14,10 +14,10 @@ import java.util.List;
 
 @Audited
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 @Table(name = "indexes")
 public class Index extends UserAudit {
 
