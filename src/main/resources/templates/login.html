@@ -38,7 +38,7 @@
                         <input type="password" class="form-control" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********">
                         <label for="password" th:text="#{login.password.label}">PW</label>
                     </div>
-                    <span class="px-2 m-auto bi-eye" id="togglePassword" th:title="#{login.password.tooltip.show}" th:onclick="revealPassword()" onclick="revealPassword()"></span>
+                    <span class="px-2 m-auto bi-eye-slash-fill" id="togglePassword" th:title="#{login.password.tooltip.show}" data-bs-placement="right"></span>
                 </div>
 
                 <div class="mb-2">
@@ -62,11 +62,24 @@
     </div>
 </section>
 
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 
 <script th:src="@{/scripts/login.js}" src="../static/scripts/login.js"></script>
 
+<script type="text/javascript" th:inline="javascript">
+$(document).ready(function () {
+    $("#togglePassword").click(function() {
+        $(this).tooltip('dispose').tooltip();
+        pass.setAttribute('type', pass.getAttribute("type") === "password" ? "text" : "password");
+        $(this).toggleClass('bi-eye bi-eye-slash-fill');
+        $(this).attr('data-bs-original-title', $(this).attr('data-bs-original-title') === '[(#{login.password.tooltip.hide})]' ? '[(#{login.password.tooltip.show})]' : '[(#{login.password.tooltip.hide})]');
+    });
+})
+</script>
 </body>
 </html>
