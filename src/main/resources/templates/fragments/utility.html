@@ -230,7 +230,7 @@ $(document).ready(function () {
         }
 
         initChart();
-        $('[data-bs-toggle=tooltip]').tooltip();
+        $('[data-bs-toggle=tooltip]').tooltip('dispose').tooltip();
         $('.consumptionMonthType').each(function() {
             if ($(this).attr('id') == 'consumptionTypeMonth' + clientId) {
                 $(this).click();
