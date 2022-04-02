@@ -13,12 +13,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+@Audited
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Audited
-@Entity
 @Table(name = "users", uniqueConstraints = {
       @UniqueConstraint(columnNames = {"email"})
 })

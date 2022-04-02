@@ -1,9 +1,9 @@
 package com.home.utilities.services.email;
 
+import com.home.utilities.services.util.Translation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
@@ -35,7 +35,7 @@ public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender javaMailSender;
     private final Environment environment;
-    private final MessageSource messageSource;
+    private final Translation translation;
     private final ThymeleafEmailBuilder thymeleafEmailBuilder;
 
     /**
@@ -51,7 +51,7 @@ public class EmailServiceImpl implements EmailService {
      */
     @Override
     public boolean sendEmail(final List<String> to, final String subject, final String emailTemplate, final Map<String, String> content, final String attachmentFilePath, final Locale locale) {
-        final var subjectMessage = messageSource.getMessage(subject, null, locale);
+        final var subjectMessage = translation.getMessage(subject, null, locale);
         final Map<Boolean, List<String>> result = to.stream()
               .collect(Collectors.partitioningBy(recipient -> sendMail(buildMail(recipient, subjectMessage, thymeleafEmailBuilder.build(emailTemplate, content, locale), attachmentFilePath))));
         return result.containsKey(true);
@@ -85,7 +85,7 @@ public class EmailServiceImpl implements EmailService {
      */
     @Override
     public boolean sendEmail(final List<String> to, final String subject, final String emailTemplate, final Map<String, String> content, final Locale locale) {
-        final var subjectMessage = messageSource.getMessage(subject, null, locale);
+        final var subjectMessage = translation.getMessage(subject, null, locale);
         final Map<Boolean, List<String>> result = to.stream()
               .collect(Collectors.partitioningBy(recipient -> sendMail(buildMail(recipient, subjectMessage, thymeleafEmailBuilder.build(emailTemplate, content, locale), ""))));
         return result.containsKey(true);

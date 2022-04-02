@@ -1,4 +1,4 @@
-package com.home.utilities.controllers.error;
+package com.home.utilities.controllers.exception;
 
 import com.home.utilities.exceptions.ExpiredTokenException;
 import org.springframework.http.HttpStatus;

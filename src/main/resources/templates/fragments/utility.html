@@ -30,7 +30,7 @@
         </div>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="d-grid nav-link" id="nav-1-tab" th:each="client : ${clientCodeList}" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'active':''" th:id="'nav' + ${client.getId()} + 'tab'" data-bs-toggle="tab" data-bs-target="#nav-1" th:data-bs-target="'#nav' + ${client.getId()}" type="button" role="tab" aria-controls="nav-1" th:aria-controls="'nav' + ${client.getId()}" aria-selected="true">
+                <button class="d-grid nav-link" id="nav-1-tab" th:each="client : ${clientCodeList}" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'active' : ''" th:id="'nav' + ${client.getId()} + 'tab'" data-bs-toggle="tab" data-bs-target="#nav-1" th:data-bs-target="'#nav' + ${client.getId()}" type="button" role="tab" aria-controls="nav-1" th:aria-controls="'nav' + ${client.getId()}" aria-selected="true">
                     <div class="d-flex">
                         <a id="put1" th:id="'put' + ${client.getId()}" th:title="#{utility.button.edit.tooltip}" class="btn-primary text-primary text-decoration-none scaleHover bi bi-pencil-square"></a>
                         <a class="px-3"></a>
@@ -48,7 +48,7 @@
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade" id="nav-1" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'show active':''" th:each="client : ${clientCodeList}" th:id="'nav' + ${client.getId()}" role="tabpanel" aria-labelledby="nav-1-tab" th:aria-labelledby="'nav' + ${client.getId()} + 'tab'">
+            <div class="tab-pane fade" id="nav-1" th:classappend="${firstClient.getId()} == ${client.getId()} ? 'show active' : ''" th:each="client : ${clientCodeList}" th:id="'nav' + ${client.getId()}" role="tabpanel" aria-labelledby="nav-1-tab" th:aria-labelledby="'nav' + ${client.getId()} + 'tab'">
                 <div class="row">
                     <div class="col-lg-6 justify-content-center spaceBottom clientConsumptionData">
                         <div class="card col clientsInfo" id="clientInfo" th:id="'clientInfo' + ${client.getId()}">
@@ -99,7 +99,7 @@
                                             <td class="cancelMode scaleHover border-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}" th:title="#{utility.index.button.edit.cancel.tooltip}">
                                                 <a id="cancelEditingIndexButton" th:id="'cancelEditingIndexButton' + ${index.getId()}" class="buttonCancelEdit text-decoration-none bi bi-x-lg"></a>
                                             </td>
-                                            <td class="editableValue noWrap border-start-0" th:classappend="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 'border-end-0':''" th:id="${index.getId()}" th:text="${index.getValue()}" th:colspan="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 1 : 2" th:style="${index.getCreatedAt() != index.getModifiedAt()} ? 'color: #FF0000' : 'color: #000000'" data-bs-toggle="tooltip" data-bs-placement="right" th:title="${index.getCreatedAt() != index.getModifiedAt()} ? #{utility.oldIndex.title.tooltip} + '<br>' + '<div class=' + 'text-start' + '>' + ${index.insertTooltipTitle('__#{utility.oldIndex.hour.tooltip}__', '__#{utility.oldIndex.value.tooltip}__', oldIndexes)} + '<br>' + ${index.getOldIndex(oldIndexes)} + '</div>'"></td>
+                                            <td class="editableValue noWrap border-start-0" th:classappend="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 'border-end-0' : ''" th:id="${index.getId()}" th:text="${index.getValue()}" th:colspan="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')} ? 1 : 2" th:style="${index.getCreatedAt() != index.getModifiedAt()} ? 'color: #FF0000' : 'color: #000000'" data-bs-toggle="tooltip" data-bs-placement="right" th:title="${index.getCreatedAt() != index.getModifiedAt()} ? #{utility.oldIndex.title.tooltip} + '<br>' + '<div class=' + 'text-start' + '>' + ${index.insertTooltipTitle('__#{utility.oldIndex.hour.tooltip}__', '__#{utility.oldIndex.value.tooltip}__', oldIndexes)} + '<br>' + ${index.getOldIndex(oldIndexes)} + '</div>'"></td>
                                             <td class="editMode scaleHover border-start-0" th:if="${#temporals.format(index.getCreatedAt(), 'dd-MM-yyyy')} == ${#temporals.format(today, 'dd-MM-yyyy')}" th:title="#{utility.index.button.edit.tooltip}">
                                                 <a id="editIndexButton" th:id="'editIndexButton' + ${index.getId()}" class="buttonEdit text-decoration-none bi bi-pen"></a>
                                             </td>
@@ -230,7 +230,7 @@ $(document).ready(function () {
         }
 
         initChart();
-        $('[data-bs-toggle=tooltip]').tooltip();
+        $('[data-bs-toggle=tooltip]').tooltip('dispose').tooltip();
         $('.consumptionMonthType').each(function() {
             if ($(this).attr('id') == 'consumptionTypeMonth' + clientId) {
                 $(this).click();
