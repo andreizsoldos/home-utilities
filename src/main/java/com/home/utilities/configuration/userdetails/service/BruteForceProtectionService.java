@@ -1,5 +1,6 @@
 package com.home.utilities.configuration.userdetails.service;
 
+import com.home.utilities.entities.IpInfo;
 import com.home.utilities.entities.User;
 
 import java.util.Optional;
@@ -8,17 +9,31 @@ public interface BruteForceProtectionService {
 
     Optional<User> findByEmail(String email);
 
-    void registerFailedLoginAttempts(User user);
+    Optional<IpInfo> findByIp(String ipAddress);
 
-    void resetFailedLoginAttempts(User user);
+    void registerUserFailedLoginAttempts(User user);
 
-    void lockAccount(User user);
+    void resetUserFailedLoginAttempts(User user);
 
-    void unlockAccount(User user);
+    void registerIpFailedLoginAttempts(IpInfo ipInfo);
 
-    boolean isLockDurationExpired(User user);
+    void resetIpFailedLoginAttempts(IpInfo ipInfo);
 
-    Integer getMaximumFailedAttempts();
+    void lockUserAccount(User user);
 
-    long getLockTimeDurationInHours();
+    void lockIp(IpInfo ipInfo);
+
+    void unlockUserAccount(User user);
+
+    void unlockIp(IpInfo ipInfo);
+
+    boolean isUserLockDurationExpired(User user);
+
+    boolean isIpLockDurationExpired(IpInfo ipInfo);
+
+    Integer getMaximumUserFailedAttempts();
+
+    Integer getMaximumIpFailedAttempts();
+
+    void incrementTotalIpAttempts(IpInfo ipInfo);
 }
