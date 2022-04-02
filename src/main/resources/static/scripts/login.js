@@ -1,38 +1,24 @@
 const event = document.createEvent('Event');
 event.initEvent('input', true, true);
-var x = document.getElementById("password");
-var y = document.getElementById("togglePassword");
+var pass = document.getElementById("password");
+var togglePass = document.getElementById("togglePassword");
 
-x.addEventListener('input', function() {
-    if (x.value.length > 0) {
-        document.getElementById("togglePassword").style.display = "block";
+pass.addEventListener('input', function() {
+    if (pass.value.length > 0) {
+        togglePass.style.display = "block";
     } else {
-        x.type = "password";
-        y.title = "Show password";
-        y.classList.remove("bi-eye-slash-fill");
-        y.classList.add("bi-eye");
-        document.getElementById("togglePassword").style.display = "none";
+        togglePass.style.display = "none";
     }
 }, false);
-x.dispatchEvent(event);
-
-function revealPassword() {
-    var x = document.getElementById("password");
-    if (x.type === "password") {
-        x.type = "text";
-        x.focus();
-        y.title = "Hide password";
-        y.classList.remove("bi-eye");
-        y.classList.add("bi-eye-slash-fill");
-    } else {
-        x.type = "password";
-        y.title = "Show password";
-        y.classList.remove("bi-eye-slash-fill");
-        y.classList.add("bi-eye");
-    }
-}
+pass.dispatchEvent(event);
 
 $(window).on("load", function() {
+    $('[title]').each(function() {
+        $(this).attr('data-bs-toggle', 'tooltip');
+    });
+
+    $('[data-bs-toggle=tooltip]').tooltip('dispose').tooltip();
+
     var exceptionErrorId = document.getElementById("exceptionError");
     if (exceptionErrorId != null) {
         var counterErrorId = document.getElementById("counterError");
