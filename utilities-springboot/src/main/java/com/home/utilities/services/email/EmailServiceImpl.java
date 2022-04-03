@@ -31,7 +31,7 @@ public class EmailServiceImpl implements EmailService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailServiceImpl.class);
     private static final String CONTENT_ID_HEADER = "headerLogo";
     private static final String CONTENT_TYPE = "image/png";
-    private static final String HEADER_LOGO_PATH = "static/images/header/logo2.png";
+    private static final String HEADER_LOGO_PATH = "src/main/resources/static/images/header/logo2.png";
 
     private final JavaMailSender javaMailSender;
     private final Environment environment;

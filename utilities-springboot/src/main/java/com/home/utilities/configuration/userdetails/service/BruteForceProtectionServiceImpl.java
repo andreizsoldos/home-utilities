@@ -108,14 +108,22 @@ public class BruteForceProtectionServiceImpl implements BruteForceProtectionServ
     public boolean isUserLockDurationExpired(final User user) {
         final var lockTime = user.getEndLockTime();
         final var currentTime = LocalDateTime.now(ZoneId.systemDefault());
-        return (lockTime != null && currentTime.isAfter(lockTime));
+        if (lockTime == null) {
+            return true;
+        } else {
+            return currentTime.isAfter(lockTime);
+        }
     }
 
     @Override
     public boolean isIpLockDurationExpired(final IpInfo ipInfo) {
         final var lockTime = ipInfo.getEndLockTime();
         final var currentTime = LocalDateTime.now(ZoneId.systemDefault());
-        return (lockTime != null && currentTime.isAfter(lockTime));
+        if (lockTime == null) {
+            return true;
+        } else {
+            return currentTime.isAfter(lockTime);
+        }
     }
 
     @Override
