@@ -68,3 +68,7 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+#dashboard-section .small-font {
+  font-size: 0.8em;
+}
