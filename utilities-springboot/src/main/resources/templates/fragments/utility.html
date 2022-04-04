@@ -20,7 +20,9 @@
                 <a href="#" th:href="@{/user/dashboard}" class="m-0 p-0 goDashboard text-decoration-none bi bi-arrow-left-circle" th:title="#{utility.button.back.tooltip}" data-bs-placement="left"></a>
             </div>
 
-            <p class="utilityTitleText" th:text="#{utility.title(${branchOrdinal})}"></p>
+            <div class="fixed-width">
+                <p class="utilityTitleText possibly-scaled" th:text="#{utility.title(${branchOrdinal})}"></p>
+            </div>
 
             <div class="img-utility">
                 <a href="#" th:href="@{/user/dashboard/__${branch}__/client-code}" class="text-decoration-none">
@@ -286,6 +288,14 @@ $(document).ready(function () {
             }
         });
     });
+
+    els = document.querySelectorAll(".possibly-scaled");
+    for (let el of els) {
+        let xScale = el.clientWidth / el.scrollWidth;
+        if (xScale < 1) {
+            el.style.transform = "scaleX(" + xScale + ")";
+        }
+    }
 
     /* iOS re-orientation fix */
     if (navigator.userAgent.match('/iPhone/i') || navigator.userAgent.match('/iPad/i')) {

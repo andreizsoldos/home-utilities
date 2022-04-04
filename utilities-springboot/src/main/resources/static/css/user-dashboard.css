@@ -69,6 +69,13 @@
   user-select: none;
 }
 
-#dashboard-section .small-font {
-  font-size: 0.8em;
+#dashboard-section .fixed-width {
+  font-size: 16px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#dashboard-section .possibly-scaled {
+  display: block;
+  transform-origin: 0 0;
 }
