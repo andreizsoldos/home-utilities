@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>utilities</artifactId>
         <groupId>com.home</groupId>
+        <artifactId>utilities</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>utilities-springboot</artifactId>
+    <artifactId>home-utilities-springboot</artifactId>
 
-    <name>utilities-springboot</name>
+    <name>home-utilities-springboot</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

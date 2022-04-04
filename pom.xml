@@ -20,7 +20,7 @@
     <description>Statistics for monthly home utilities</description>
 
     <modules>
-        <module>utilities-springboot</module>
+        <module>home-utilities-springboot</module>
     </modules>
 
     <properties>
