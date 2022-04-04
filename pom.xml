@@ -21,6 +21,7 @@
 
     <modules>
         <module>home-utilities-springboot</module>
+        <module>home-utilities-captcha</module>
     </modules>
 
     <properties>
