@@ -22,7 +22,7 @@
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${electricityClientNameForLastIndex})}"> --> for:</p>
         </div>
         <div class="card-footer">
-          <small class="text-muted no-select" th:text="${electricityLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${electricityLastModificationDate})}">Last updated x days ago</small>
+          <div class="text-muted no-select small-font" th:text="${electricityLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${electricityLastModificationDate})}">Last updated x days ago</div>
         </div>
       </div>
     </a>
@@ -39,7 +39,7 @@
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${waterClientNameForLastIndex})}"> --> for:</p>
         </div>
         <div class="card-footer">
-          <small class="text-muted no-select" th:text="${waterLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${waterLastModificationDate})}">Last updated x days ago</small>
+          <div class="text-muted no-select small-font" th:text="${waterLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${waterLastModificationDate})}">Last updated x days ago</div>
         </div>
       </div>
     </a>
@@ -56,7 +56,7 @@
           <p class="ms-2 card-text bi-arrow-return-right" th:text="#{user.dashboard.card.p2.2(${gasClientNameForLastIndex})}"> --> for:</p>
         </div>
         <div class="card-footer">
-          <small class="text-muted no-select" th:text="${gasLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${gasLastModificationDate})}">Last updated x days ago</small>
+          <div class="text-muted no-select small-font" th:text="${gasLastModificationDate} < 0 ? #{user.dashboard.card.footer.emptyData} : #{user.dashboard.card.footer(${gasLastModificationDate})}">Last updated x days ago</div>
         </div>
       </div>
     </a>
