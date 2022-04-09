@@ -126,7 +126,7 @@
                 </div>
                 <footer th:fragment="footer">
                     <div class="card card-footer text-center text-muted border-0 p-0">
-                        <small th:text="#{footer.copyright}">© 2021. All rights reserved.</small>
+                        <small th:utext="#{footer.copyright(${#temporals.format(#temporals.createNow(), 'yyyy')})}">© All rights reserved.</small>
                     </div>
                 </footer>
                 <div class="card card-footer text-center text-muted border-0 p-0">

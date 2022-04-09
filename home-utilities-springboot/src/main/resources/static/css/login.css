@@ -120,6 +120,26 @@
   width: 256px;
 }
 
+#login-section .reload-keyCode {
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #e0e0e0;
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+}
+
+#login-section .form-keyCode {
+  height: 100%;
+  font-size: 20px;
+}
+
+#login-section .img-keyCode {
+  width: 100%;
+}
+
 #login-section .scaleHover:hover {
   transform: scale(1.05);
 }

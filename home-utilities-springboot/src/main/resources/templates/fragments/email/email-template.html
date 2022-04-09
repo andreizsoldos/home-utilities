@@ -63,7 +63,7 @@
                             <tr>
                               <td valign="top" bgcolor="#e1e1e1" style="padding:20px;">
                                 <div style="font-family:Serif,arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-                                  <div th:text="#{footer.copyright}">© 2021. All rights reserved.</div>
+                                  <div th:utext="#{footer.copyright(${#temporals.format(#temporals.createNow(), 'yyyy')})}">© All rights reserved.</div>
                                   <span th:text="#{email.layout.class.footer.copyright}" style="font-size:10px;">If you don't want to receive these emails from us in the future, please</span>
                                   <a href="#" th:href="@{${applicationAddress}+'/user/profile/unsubscribe'}" th:text="#{email.layout.class.footer.copyright.unsubscribe}" style="text-decoration:none;color:#828282;">unsubscribe</a>
                                 </div>
