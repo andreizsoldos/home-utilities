@@ -48,6 +48,7 @@ body {
   border-radius: 0;
   padding: 0;
   border-bottom-right-radius: 50px;
+  background: linear-gradient(#141e30, #243b55);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -56,6 +57,7 @@ body {
   font-size: 35px;
   margin-left: -10px;
   margin-top: -10px;
+  color: white;
 }
 
 #sidebar .toggleMenuButton:hover {

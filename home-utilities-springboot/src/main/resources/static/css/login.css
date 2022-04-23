@@ -13,10 +13,15 @@
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: linear-gradient(#141e30, #243b55);
 }
 
 #login-section div.card .card-title {
-  font-size: calc(1.3em + 0.5vw);
+  text-align: center;
+  color: white;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 100%;
 }
 
 #login-section .input-group {
@@ -26,35 +31,49 @@
 
 #login-section .input-group-text {
   font-size: 35px;
-  background-color: #e0e0e0;
+  color: #0D6EFD;
+  background: linear-gradient(#141e30, #243b55);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #login-section label {
-  width: calc(100% - 6px);
-  height: auto;
+  width: calc(100% - 1px);
+  height: 47px;
+  line-height: 47px;
   opacity: 1;
-  background-color: white;
+  color: white;
+  background: none;
   font-size: 20px;
-  margin-top: 10px;
-  margin-bottom: 0;
-  margin-left: 5px;
+  border: none;
+  margin-top: 1px;
   padding-top: 0;
   padding-bottom: 0;
-  padding-left: 1px;
-  padding-right: 1px;
+  padding-left: 10px;
+  padding-right: 5px;
+  transition: 1s;
 }
 
 #login-section input::placeholder {
-  color: rgba(0,0,0,50%);
+  color: none;
+}
+
+#login-section input:focus::placeholder {
+  color: rgba(255,255,255,40%);
 }
 
 #login-section input[type="password"]::-ms-reveal, #login-section input[type="password"]::-ms-clear {
   display: none;
 }
 
-#login-section input#email.form-control, #login-section input#password.form-control {
-  height: 48px;
+#login-section input#email.form-control, #login-section input#password.form-control, #login-section input#keyCode.form-control {
+  height: 49px;
   font-size: 20px;
+  color: white;
+  background: linear-gradient(#141e30, #243b55);
+  border: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 #login-section .form-floating>.form-control, #login-section .form-floating>.form-select {
@@ -63,13 +82,15 @@
 }
 
 #login-section .form-control:focus {
-  box-shadow: 0 0 0 1px blue;
+  box-shadow: 0 0 0 0 white;
 }
 
 #login-section .form-floating>.form-control:focus~label, #login-section .form-floating>.form-control:not(:placeholder-shown)~label, #login-section .form-floating>.form-select~label {
-  transform: scale(.85) translateY(-28px) translateX(.15rem);
-  color: rgba(0,0,0,65%);
+  transform: scale(.85) translateY(-25px) translateX(.15rem);
+  color: white;
   width: auto;
+  height: auto;
+  transition: .5s;
 }
 
 #login-section #togglePassword {
@@ -77,12 +98,13 @@
   text-align: center;
   font-size: 30px;
   height: 44px;
-  line-height: 48px;
+  line-height: 49px;
   cursor: pointer;
+  color: #0D6EFD;
 }
 
 #login-section #togglePassword:hover {
-  color: blue;
+  color: white;
 }
 
 #login-section .no-select {
@@ -95,14 +117,9 @@
   user-select: none;
 }
 
-#login-section .btn {
-  font-size: 20px;
-  line-height: 20px;
-  width: 100%;
-}
-
 #login-section a small {
   font-size: 0.85rem;
+  color: white;
 }
 
 #login-section .errors {
@@ -120,28 +137,141 @@
   width: 256px;
 }
 
-#login-section .reload-keyCode {
+#login-section .keyCodeIcon {
   text-align: center;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  background-color: #e0e0e0;
-  border-radius: 0.25rem;
+  background: linear-gradient(#141e30, #243b55);
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   border: 1px solid #ced4da;
 }
 
-#login-section .form-keyCode {
+#login-section .keyCodeGroup {
   height: 100%;
   font-size: 20px;
 }
 
 #login-section .img-keyCode {
+  color: white;
+  height: 98px;
   width: 100%;
+}
+
+#login-section .passwordGroup, #login-section .keyCodeGroup {
+  display: none;
+}
+
+#login-section #nextUsername {
+  width: 100%;
+}
+
+#login-section #nextPassword, #login-section #submitKeyCode {
+  width: 60%;
+}
+
+#login-section #backPassword, #login-section #backKeyCode {
+  width: 35%;
 }
 
 #login-section .scaleHover:hover {
   transform: scale(1.05);
+}
+
+#login-section button {
+  position: relative;
+  display: inline-block;
+  color: white;
+  background: linear-gradient(#243b55, #141e30);
+  border: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+}
+
+#login-section button span {
+  position: absolute;
+  display: block;
+}
+
+#login-section button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0D6EFD);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+#login-section button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #0D6EFD);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+#login-section button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #0D6EFD);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+#login-section button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #0D6EFD);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
 }
 
 @media screen and (max-width: 412px) {

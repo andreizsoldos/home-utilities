@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.GenericFilterBean;
 
 @Configuration
 @EnableWebSecurity
@@ -58,6 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationSuccessHandler authSuccessHandler() {
         return new AuthSuccessHandler();
+    }
+
+    @Bean
+    public GenericFilterBean redirectPageFilter() {
+        return new RedirectPageFilter();
     }
 
     @Override
@@ -119,6 +125,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 
               // Redirect from login/register page if user is authenticated
-              .addFilterAfter(new RedirectPageFilter(), UsernamePasswordAuthenticationFilter.class);
+              .addFilterAfter(redirectPageFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
