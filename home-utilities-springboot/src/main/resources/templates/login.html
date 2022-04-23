@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: title(#{login.title}, ~{::link})}">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/login.css}" href="../static/css/login.css">
+</head>
+
+<body>
+<header th:replace="~{fragments/layout :: sidebar}"></header>
+<section th:id="login-section" id="login-section">
+    <div class="card">
+        <img class="mt-3 mb-3 card-img-top px-5" th:src="@{/images/login/login-logo.png}" src="../static/images/login/login-logo.png" alt="" width="50" height="150">
+
+        <div class="card-title no-select" th:text="#{login.content.title(1)}">Please enter credentials</div>
+
+        <div class="card-body">
+            <form th:action="@{/login}" th:method="post" th:id="loginForm">
+                <div class="errors" th:id="exceptionError" th:classappend="${session[LOCK_DURATION] != null ? 'mb-0' : ''}" th:if="${param.error}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+                <div class="errors" th:id="counterError" th:if="${param.error} and ${session[LOCK_DURATION] != null}" th:data-counter="${session[LOCK_DURATION]}"></div>
+
+                <div class="mb-3 usernameGroup">
+                    <div class="mb-3 d-flex">
+                        <div class="input-group-prepend col-auto">
+                            <span class="input-group-text bi-person-fill"></span>
+                        </div>
+                        <div class="form-floating col">
+                            <input type="text" class="form-control userGroup" id="email" th:name="#{login.email.name}" th:placeholder="#{email.placeholder}" placeholder="name@example.com" autofocus>
+                            <label for="email" th:text="#{login.email.label}">EM</label>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn scaleHover animated-border" th:id="nextUsername" th:text="#{login.submit.next.value}">Next</button>
+                    </div>
+                </div>
+
+                <div class="mb-3 passwordGroup">
+                    <div class="mb-3 d-flex">
+                        <div class="input-group-prepend col-auto">
+                            <span class="input-group-text bi-shield-lock-fill"></span>
+                        </div>
+                        <div class="form-floating col">
+                            <input type="password" class="form-control passGroup" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********">
+                            <label for="password" th:text="#{login.password.label}">PW</label>
+                        </div>
+                        <span class="px-2 m-auto bi-eye-slash-fill" id="togglePassword" th:title="#{login.password.tooltip.show}" data-bs-placement="right"></span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn scaleHover" th:id="backPassword" th:text="#{login.submit.back.value}">Back</button>
+                        <button type="button" class="btn scaleHover animated-border" th:id="nextPassword" th:text="#{login.submit.next.value}">Next</button>
+                    </div>
+                </div>
+
+                <div class="mb-2 keyCodeGroup">
+                    <div class="mb-4 text-center">
+                        <img class="img-keyCode" th:src="@{/images/keyCode/keyCode.jpg}" src="../static/images/keyCode/keyCode.jpg" th:alt="#{login.keycode.image.alt}">
+                    </div>
+
+                    <div class="p-0">
+                        <div class="mb-3 d-flex">
+                            <img class="keyCodeIcon" th:src="@{/images/login/keycode-icon.png}" src="../static/images/login/keycode-icon.png" alt="" width="61" height="49">
+                            <div class="form-floating col">
+                                <input type="text" class="me-2 form-control keyGroup" id="keyCode" th:placeholder="#{keycode.placeholder}" placeholder="code ->">
+                                <label for="keyCode" th:text="#{login.keycode.label}">EM</label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn scaleHover" th:id="backKeyCode" th:text="#{login.submit.back.value}">Back</button>
+                            <button type="submit" class="btn scaleHover animated-border" th:id="submitKeyCode" th:text="#{login.submit.value}">Sign in</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 mb-2 mx-0 d-flex text-center justify-content-md-evenly">
+                    <div class="col scaleHover">
+                        <a class="px-2 text-decoration-none" href="#" th:href="@{/support/reset-password}">
+                            <small th:text="#{login.forgotPassword.label}">Forgot password?</small>
+                        </a>
+                    </div>
+                    <div class="col scaleHover">
+                        <a class="text-decoration-none" href="#" th:href="@{/register}">
+                            <small th:text="#{login.newAccount.label}">Create account</small>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+<script th:src="@{/scripts/login.js}" src="../static/scripts/login.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+$(document).ready(function () {
+    $(window).on('load', function() {
+        var span = $('<span /><span /><span /><span />').appendTo('.animated-border');
+    });
+
+    $("#togglePassword").click(function() {
+        $(this).tooltip('dispose').tooltip();
+        pass.setAttribute('type', pass.getAttribute("type") === "password" ? "text" : "password");
+        $(this).toggleClass('bi-eye bi-eye-slash-fill');
+        $(this).attr('data-bs-original-title', $(this).attr('data-bs-original-title') === '[(#{login.password.tooltip.hide})]' ? '[(#{login.password.tooltip.show})]' : '[(#{login.password.tooltip.hide})]');
+    });
+
+    // username group
+    $(document).on('keypress', '.userGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            e.preventDefault();
+            $("#nextUsername").click();
+        }
+    });
+    $("#nextUsername").click(function() {
+        $(".usernameGroup").attr('style', 'display: none');
+        $(".passwordGroup").attr('style', 'display: block');
+        $(".card-title").html('[(#{login.content.title(2)})]');
+        $(".passGroup").focus();
+    });
+
+    // password group
+    $(document).on('keyup', '.passGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '27') {
+            $("#backPassword").click();
+        }
+    });
+    $(document).on('keypress', '.passGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            e.preventDefault();
+            $("#nextPassword").click();
+        }
+    });
+    $("#backPassword").click(function() {
+        $(".usernameGroup").attr('style', 'display: block');
+        $(".passwordGroup").attr('style', 'display: none');
+        $(".card-title").html('[(#{login.content.title(1)})]');
+        $(".userGroup").focus();
+    });
+    $("#nextPassword").click(function() {
+        $(".passwordGroup").attr('style', 'display: none');
+        $(".keyCodeGroup").attr('style', 'display: block');
+        $(".card-title").html('[(#{login.content.title(3)})]');
+        $(".keyGroup").focus();
+    });
+
+    // keycode group
+    $(document).on('keyup', '.keyGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '27') {
+            $("#backKeyCode").click();
+        }
+    });
+    $("#backKeyCode").click(function() {
+        $(".passwordGroup").attr('style', 'display: block');
+        $(".keyCodeGroup").attr('style', 'display: none');
+        $(".card-title").html('[(#{login.content.title(2)})]');
+        $(".passGroup").focus();
+    });
+})
+</script>
+</body>
+</html>
