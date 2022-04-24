@@ -123,7 +123,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
 
     private File getInputFile() {
         final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
-        return Paths.get(sanitizePath(path).concat(ORIGINAL_KEYCODE_FILE_NAME).replace("file:","")).toFile();
+        return Paths.get(sanitizePath(path).concat(ORIGINAL_KEYCODE_FILE_NAME).replace("home-utilities-keycode-1.0.0.jar!/","")).toFile();
     }
 
     private File saveOutputFile() {
