@@ -199,6 +199,13 @@
   display: block;
 }
 
+#login-section input:-webkit-autofill,
+#login-section input:-webkit-autofill:hover,
+#login-section input:-webkit-autofill:focus,
+#login-section input:-webkit-autofill:active  {
+    background: transparent !important;
+}
+
 #login-section button span:nth-child(1) {
   top: 0;
   left: -100%;
