@@ -128,7 +128,8 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private File saveOutputFile() throws URISyntaxException {
-        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH).concat(GENERATED_KEYCODE_FILE_NAME)));
+        final var path = Objects.requireNonNull(this.getClass().getResource("/"));
+        System.out.println(path);
         return new File(path.toURI());
     }
 
