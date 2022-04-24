@@ -27,13 +27,13 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     private static final String JPG = "jpg";
     private static final String COLOR = "#0D6EFD";
     private static final String KEYCODE_TITLE = "KeyCode";
-    private static final String ORIGINAL_KEYCODE_PATH = "static/images/keycode/keycode-background.jpg";
+    private static final String ORIGINAL_KEYCODE_PATH = "static/images/keycode/";
+    private static final String ORIGINAL_KEYCODE_FILE_NAME = "keycode-background.jpg";
+    private static final String GENERATED_KEYCODE_FILE_NAME = "keycode.jpg";
     private static final long KEYCODE_SECURITY_CHARACTER_LENGTH = 10L;
     private static final double ANGLE = 0;
     private static final String SPACE = " ";
     private static final String ENCODED_SPACE = "%20";
-    private static final String GENERATED_KEYCODE_FILE_NAME = "keycode.jpg";
-    private static final String KEYCODE_OUTPUT_PATH = "static/images/keycode/";
 
     @Value("${application.keycode.pixel.size}")
     private int pixelSize;
@@ -120,12 +120,13 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         return dest;
     }
 
-    private File getInputFile() throws IOException {
-        return new ClassPathResource(ORIGINAL_KEYCODE_PATH).getFile();
+    private File getInputFile() {
+        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
+        return new File(sanitizePath(path), ORIGINAL_KEYCODE_FILE_NAME);
     }
 
     private File saveOutputFile() {
-        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(KEYCODE_OUTPUT_PATH))).getPath();
+        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
         return new File(sanitizePath(path), GENERATED_KEYCODE_FILE_NAME);
     }
 
