@@ -127,9 +127,10 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private File saveOutputFile() throws IOException {
-        final var path = new ClassPathResource("/");
+        final var path = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         System.out.println("Path: -> " + path.getPath());
-        return new File(path.getURI());
+        System.out.println("Classloader: -> " + this.getClass().getClassLoader().getParent().getResource("/").getPath());
+        return new File(path.getFile());
     }
 
     private String sanitizePath(final String path) {
