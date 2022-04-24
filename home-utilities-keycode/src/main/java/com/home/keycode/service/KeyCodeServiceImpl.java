@@ -123,7 +123,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private URL getInputFile() {
-        return this.getClass().getResource(sanitizePath("/".concat(ORIGINAL_KEYCODE_PATH.concat(ORIGINAL_KEYCODE_FILE_NAME))));
+        return this.getClass().getResource("/".concat(sanitizePath(ORIGINAL_KEYCODE_PATH.concat(ORIGINAL_KEYCODE_FILE_NAME))));
     }
 
     private File saveOutputFile() {
