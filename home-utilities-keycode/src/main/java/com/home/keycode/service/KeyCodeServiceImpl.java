@@ -3,7 +3,6 @@ package com.home.keycode.service;
 import ij.ImagePlus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -27,8 +26,10 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     private static final String JPG = "jpg";
     private static final String COLOR = "#0D6EFD";
     private static final String KEYCODE_TITLE = "KeyCode";
+    private static final String PATH_TO_REPLACE = "home-utilities-springboot-1.0.0-exec.jar!/BOOT-INF/lib";
     private static final String ORIGINAL_KEYCODE_PATH = "static/images/keycode/";
     private static final String ORIGINAL_KEYCODE_FILE_NAME = "keycode-background.jpg";
+    private static final String GENERATED_KEYCODE_PATH = "classes/static/images/keycode/";
     private static final String GENERATED_KEYCODE_FILE_NAME = "keycode.jpg";
     private static final long KEYCODE_SECURITY_CHARACTER_LENGTH = 10L;
     private static final double ANGLE = 0;
@@ -50,9 +51,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private BufferedImage writeToKeyCode(final File outputFile) throws IOException {
-        System.out.println("Input file: -> " + getInputFile());
-        System.out.println("Absolut parent file: -> " + saveOutputFile().getAbsoluteFile().getParent());
-        System.out.println("Parent file: -> " + saveOutputFile().getParent());
+        System.out.println("Output file: -> " + saveOutputFile());
         final var image = ImageIO.read(getInputFile());
         final var font = new Font("Arial Bold", Font.ITALIC, textSize);
 
@@ -88,9 +87,9 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         positionX = (image.getWidth() - metrics.stringWidth(keyCodeString)) / 2;
         graphics.drawString(keyCodeString, positionX, ((image.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent());
 
-        final var demoKeyCodeBtootmString = String.join(" ", randomKeyCodeText(KEYCODE_SECURITY_CHARACTER_LENGTH));
-        positionX = (image.getWidth() - metrics.stringWidth(demoKeyCodeBtootmString)) / 2;
-        graphics.drawString(demoKeyCodeBtootmString, positionX, image.getHeight() - (metrics.getAscent() / 2));
+        final var demoKeyCodeBottomString = String.join(" ", randomKeyCodeText(KEYCODE_SECURITY_CHARACTER_LENGTH));
+        positionX = (image.getWidth() - metrics.stringWidth(demoKeyCodeBottomString)) / 2;
+        graphics.drawString(demoKeyCodeBottomString, positionX, image.getHeight() - (metrics.getAscent() / 2));
 
         graphics.dispose();
 
@@ -127,11 +126,9 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         return this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH.concat(ORIGINAL_KEYCODE_FILE_NAME)));
     }
 
-    private File saveOutputFile() throws IOException {
+    private File saveOutputFile() {
         final var path = this.getClass().getProtectionDomain().getCodeSource().getLocation();
-        System.out.println("Path: -> " + path.getPath());
-        System.out.println("Classloader: -> " + this.getClass().getClassLoader().getParent().getResource("/"));
-        return new File(path.getFile());
+        return new File(path.getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME)));
     }
 
     private String sanitizePath(final String path) {
