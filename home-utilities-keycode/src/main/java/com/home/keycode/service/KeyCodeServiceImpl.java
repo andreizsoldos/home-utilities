@@ -51,7 +51,8 @@ public class KeyCodeServiceImpl implements KeyCodeService {
 
     private BufferedImage writeToKeyCode(final File outputFile) throws IOException {
         System.out.println("Input file: -> " + getInputFile());
-        System.out.println("Output file: -> " + saveOutputFile());
+        System.out.println("Absolut parent file: -> " + saveOutputFile().getAbsoluteFile().getParent());
+        System.out.println("Parent file: -> " + saveOutputFile().getParent());
         final var image = ImageIO.read(getInputFile());
         final var font = new Font("Arial Bold", Font.ITALIC, textSize);
 
