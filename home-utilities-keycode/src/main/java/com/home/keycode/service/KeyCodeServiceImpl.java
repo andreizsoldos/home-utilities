@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Collections;
@@ -126,9 +127,9 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         return this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH.concat(ORIGINAL_KEYCODE_FILE_NAME)));
     }
 
-    private File saveOutputFile() {
-        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
-        return new File(sanitizePath(path.replace("file:","jar:file:")), GENERATED_KEYCODE_FILE_NAME);
+    private File saveOutputFile() throws URISyntaxException {
+        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH).concat(GENERATED_KEYCODE_FILE_NAME)));
+        return new File(path.toURI());
     }
 
     private String sanitizePath(final String path) {
