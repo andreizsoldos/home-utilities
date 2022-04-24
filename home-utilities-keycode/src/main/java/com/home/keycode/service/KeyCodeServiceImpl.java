@@ -46,11 +46,11 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     private long textLength;
 
     @Override
-    public void generateKeyCode() throws IOException {
+    public void generateKeyCode() throws IOException, URISyntaxException {
         new ImagePlus(KEYCODE_TITLE, writeToKeyCode(saveOutputFile()));
     }
 
-    private BufferedImage writeToKeyCode(final File outputFile) throws IOException {
+    private BufferedImage writeToKeyCode(final File outputFile) throws IOException, URISyntaxException {
         System.out.println("Input file: -> " + getInputFile());
         System.out.println("Output file: -> " + saveOutputFile());
         final var image = ImageIO.read(getInputFile());
