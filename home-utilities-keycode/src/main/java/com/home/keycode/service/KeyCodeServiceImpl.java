@@ -3,7 +3,6 @@ package com.home.keycode.service;
 import ij.ImagePlus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -13,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +27,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     private static final String JPG = "jpg";
     private static final String COLOR = "#0D6EFD";
     private static final String KEYCODE_TITLE = "KeyCode";
-    private static final String ORIGINAL_KEYCODE_PATH = "/static/images/keycode/";
+    private static final String ORIGINAL_KEYCODE_PATH = "static/images/keycode/";
     private static final String ORIGINAL_KEYCODE_FILE_NAME = "keycode-background.jpg";
     private static final String GENERATED_KEYCODE_FILE_NAME = "keycode.jpg";
     private static final long KEYCODE_SECURITY_CHARACTER_LENGTH = 10L;
@@ -120,9 +120,9 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         return dest;
     }
 
-    private File getInputFile() throws IOException {
+    private File getInputFile() {
         final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
-        return new ClassPathResource(sanitizePath(path).concat(ORIGINAL_KEYCODE_FILE_NAME)).getFile();
+        return Paths.get(sanitizePath(path).concat(ORIGINAL_KEYCODE_FILE_NAME)).toFile();
     }
 
     private File saveOutputFile() {
