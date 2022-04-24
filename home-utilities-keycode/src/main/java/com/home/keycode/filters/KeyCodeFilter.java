@@ -1,6 +1,7 @@
 package com.home.keycode.filters;
 
 import com.home.keycode.service.KeyCodeService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -23,6 +24,7 @@ public class KeyCodeFilter implements Filter {
     @Autowired
     private KeyCodeService keyCodeService;
 
+    @SneakyThrows
     @Override
     public void doFilter(final ServletRequest servletRequest,
                          final ServletResponse servletResponse,
