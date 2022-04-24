@@ -47,10 +47,10 @@ public class KeyCodeServiceImpl implements KeyCodeService {
 
     @Override
     public void generateKeyCode() throws IOException {
-        new ImagePlus(KEYCODE_TITLE, writeToKeyCode(saveOutputFile()));
+        new ImagePlus(KEYCODE_TITLE, writeToKeyCode());
     }
 
-    private BufferedImage writeToKeyCode(final File outputFile) throws IOException {
+    private BufferedImage writeToKeyCode() throws IOException {
         System.out.println("Output file: -> " + saveOutputFile());
         final var image = ImageIO.read(getInputFile());
         final var font = new Font("Arial Bold", Font.ITALIC, textSize);
@@ -67,7 +67,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         image.setData(dest);
 
         // Write the new file
-        ImageIO.write(image, JPG, outputFile);
+        ImageIO.write(image, JPG, saveOutputFile());
 
         return image;
     }
@@ -123,12 +123,12 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private URL getInputFile() {
-        return this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH.concat(ORIGINAL_KEYCODE_FILE_NAME)));
+        return this.getClass().getResource(sanitizePath("/".concat(ORIGINAL_KEYCODE_PATH.concat(ORIGINAL_KEYCODE_FILE_NAME))));
     }
 
     private File saveOutputFile() {
-        final var path = this.getClass().getProtectionDomain().getCodeSource().getLocation();
-        return new File(path.getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME)));
+        final var path = sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME))).getParent());
+        return new File(path);
     }
 
     private String sanitizePath(final String path) {
