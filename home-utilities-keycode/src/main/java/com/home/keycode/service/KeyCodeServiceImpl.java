@@ -126,7 +126,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private File saveOutputFile() {
-        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
+        final var path = Objects.requireNonNull(this.getClass().getResource("/static/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
         return new File(sanitizePath(path), GENERATED_KEYCODE_FILE_NAME);
     }
 
