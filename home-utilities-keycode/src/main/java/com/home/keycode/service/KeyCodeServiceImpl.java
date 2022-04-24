@@ -3,6 +3,7 @@ package com.home.keycode.service;
 import ij.ImagePlus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -12,12 +13,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -46,11 +45,11 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     private long textLength;
 
     @Override
-    public void generateKeyCode() throws IOException, URISyntaxException {
+    public void generateKeyCode() throws IOException {
         new ImagePlus(KEYCODE_TITLE, writeToKeyCode(saveOutputFile()));
     }
 
-    private BufferedImage writeToKeyCode(final File outputFile) throws IOException, URISyntaxException {
+    private BufferedImage writeToKeyCode(final File outputFile) throws IOException {
         System.out.println("Input file: -> " + getInputFile());
         System.out.println("Output file: -> " + saveOutputFile());
         final var image = ImageIO.read(getInputFile());
@@ -127,10 +126,10 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         return this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH.concat(ORIGINAL_KEYCODE_FILE_NAME)));
     }
 
-    private File saveOutputFile() throws URISyntaxException {
-        final var path = Objects.requireNonNull(this.getClass().getResource("/"));
+    private File saveOutputFile() throws IOException {
+        final var path = new ClassPathResource("/");
         System.out.println(path);
-        return new File(path.toURI());
+        return new File(path.getURI());
     }
 
     private String sanitizePath(final String path) {
