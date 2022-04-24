@@ -120,9 +120,9 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         return dest;
     }
 
-    private File getInputFile() {
+    private File getInputFile() throws IOException {
         final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
-        return new File(sanitizePath(path), ORIGINAL_KEYCODE_FILE_NAME);
+        return new ClassPathResource(sanitizePath(path).concat(ORIGINAL_KEYCODE_FILE_NAME)).getFile();
     }
 
     private File saveOutputFile() {
