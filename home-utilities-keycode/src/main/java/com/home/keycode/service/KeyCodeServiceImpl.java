@@ -128,7 +128,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private File saveOutputFile() throws IOException {
-        return new ClassPathResource(GENERATED_KEYCODE_FILE_NAME).getFile();
+        return new ClassPathResource(sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME))).getParent())).getFile();
 /*        final var path = sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME))).getParent());
         return new File(path);*/
     }
