@@ -50,7 +50,8 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private BufferedImage writeToKeyCode(final File outputFile) throws IOException {
-        System.out.println(getInputFile());
+        System.out.println("Input file: -> " + getInputFile());
+        System.out.println("Output file: -> " + saveOutputFile());
         final var image = ImageIO.read(getInputFile());
         final var font = new Font("Arial Bold", Font.ITALIC, textSize);
 
@@ -127,7 +128,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
 
     private File saveOutputFile() {
         final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
-        return new File(sanitizePath(path), GENERATED_KEYCODE_FILE_NAME);
+        return new File(sanitizePath(path.replace("file:","jar:file:")), GENERATED_KEYCODE_FILE_NAME);
     }
 
     private String sanitizePath(final String path) {
