@@ -62,6 +62,18 @@
   color: rgba(255,255,255,40%);
 }
 
+#login-section input:autofill,
+#login-section input:autofill:hover,
+#login-section input:autofill:focus,
+#login-section input:autofill:active,
+#login-section input:-webkit-autofill,
+#login-section input:-webkit-autofill:hover,
+#login-section input:-webkit-autofill:focus,
+#login-section input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fff !important;
+}
+
 #login-section input[type="password"]::-ms-reveal, #login-section input[type="password"]::-ms-clear {
   display: none;
 }
@@ -197,19 +209,6 @@
 #login-section button span {
   position: absolute;
   display: block;
-}
-
-input.form-control:autofill,
-input.form-control:autofill:hover,
-input.form-control:autofill:focus,
-input.form-control:autofill:active,
-input.form-control:-webkit-autofill,
-input.form-control:-webkit-autofill:hover,
-input.form-control:-webkit-autofill:focus,
-input.form-control:-webkit-autofill:active {
-  background: transparent !important;
-  border: none !important;
-  color: white !important;
 }
 
 #login-section button span:nth-child(1) {
