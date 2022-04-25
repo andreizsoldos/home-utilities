@@ -62,12 +62,6 @@
   color: rgba(255,255,255,40%);
 }
 
-#login-section .fixed-width {
-  font-size: 16px;
-  text-align: center;
-  white-space: nowrap;
-}
-
 #login-section .possibly-scaled {
   display: block;
   transform-origin: 0 0;
