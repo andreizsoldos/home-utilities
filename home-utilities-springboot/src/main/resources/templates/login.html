@@ -25,7 +25,7 @@
                             <span class="input-group-text bi-person-fill"></span>
                         </div>
                         <div class="form-floating col">
-                            <input type="text" class="form-control userGroup" id="email" th:name="#{login.email.name}" th:placeholder="#{email.placeholder}" placeholder="name@example.com" autofocus>
+                            <input type="text" class="form-control userGroup" id="email" th:name="#{login.email.name}" th:placeholder="#{email.placeholder}" placeholder="name@example.com" autofocus autocomplete="off">
                             <label for="email" th:text="#{login.email.label}">EM</label>
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         </div>
@@ -41,7 +41,7 @@
                             <span class="input-group-text bi-shield-lock-fill"></span>
                         </div>
                         <div class="form-floating col">
-                            <input type="password" class="form-control passGroup" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********">
+                            <input type="password" class="form-control passGroup" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********" autocomplete="off">
                             <label for="password" th:text="#{login.password.label}">PW</label>
                         </div>
                         <span class="px-2 m-auto bi-eye-slash-fill" id="togglePassword" th:title="#{login.password.tooltip.show}" data-bs-placement="right"></span>
