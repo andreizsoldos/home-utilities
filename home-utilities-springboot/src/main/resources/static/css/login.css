@@ -66,14 +66,6 @@
   display: none;
 }
 
-#login-section input::-internal-autofill,
-#login-section input::-webkit-internal-autofill,
-#login-section input::-webkit-autofill:hover,
-#login-section input::-webkit-autofill:focus,
-#login-section input::-webkit-autofill:active  {
-    background: transparent !important;
-}
-
 #login-section input#email.form-control, #login-section input#password.form-control, #login-section input#keyCode.form-control {
   height: 49px;
   font-size: 20px;
@@ -91,6 +83,10 @@
 
 #login-section .form-control:focus {
   box-shadow: 0 0 0 0 white;
+}
+
+#login-section .form-control:-webkit-autofill {
+  -webkit-background-clip: text;
 }
 
 #login-section .form-floating>.form-control:focus~label, #login-section .form-floating>.form-control:not(:placeholder-shown)~label, #login-section .form-floating>.form-select~label {
