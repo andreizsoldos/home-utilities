@@ -128,7 +128,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     }
 
     private File saveOutputFile() throws IOException {
-        return new File("/".concat("app/home-utilities-springboot/src/main/resources/static/images/keycode/keycode.jpg"));
+        return new File("/".concat("app/home-utilities-springboot/src/main/resources/static/images/keycode/keycode1.jpg"));
 /*
         return new ClassPathResource(sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME))).getParent())).getFile();
 */

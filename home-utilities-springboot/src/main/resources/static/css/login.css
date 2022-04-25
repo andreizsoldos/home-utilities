@@ -199,7 +199,8 @@
   display: block;
 }
 
-#login-section input:-webkit-autofill,
+#login-section input:-internal-autofill,
+#login-section input:-webkit-internal-autofill,
 #login-section input:-webkit-autofill:hover,
 #login-section input:-webkit-autofill:focus,
 #login-section input:-webkit-autofill:active  {
