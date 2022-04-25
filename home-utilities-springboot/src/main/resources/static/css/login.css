@@ -199,16 +199,15 @@
   display: block;
 }
 
-input:autofill,
-input:autofill:hover,
-input:autofill:focus,
-input:autofill:active,
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+input.form-control:autofill,
+input.form-control:autofill:hover,
+input.form-control:autofill:focus,
+input.form-control:autofill:active,
+input.form-control:-webkit-autofill,
+input.form-control:-webkit-autofill:hover,
+input.form-control:-webkit-autofill:focus,
+input.form-control:-webkit-autofill:active {
   background: transparent !important;
-  background-color: transparent !important;
   border: none !important;
   color: white !important;
 }
