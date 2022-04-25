@@ -26,10 +26,10 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     private static final String JPG = "jpg";
     private static final String COLOR = "#0D6EFD";
     private static final String KEYCODE_TITLE = "KeyCode";
-    private static final String PATH_TO_REPLACE = "target/home-utilities-springboot-1.0.0-exec.jar!/BOOT-INF/lib";
+    private static final String PATH_TO_REPLACE = "home-utilities-springboot-1.0.0-exec.jar!/BOOT-INF/lib";
     private static final String ORIGINAL_KEYCODE_PATH = "static/images/keycode/";
     private static final String ORIGINAL_KEYCODE_FILE_NAME = "keycode-background.jpg";
-    private static final String GENERATED_KEYCODE_PATH = "target/classes/images/keycode/";
+    private static final String GENERATED_KEYCODE_PATH = "classes/images/keycode/";
     private static final String GENERATED_KEYCODE_FILE_NAME = "keycode.jpg";
     private static final long KEYCODE_SECURITY_CHARACTER_LENGTH = 10L;
     private static final double ANGLE = 0;
