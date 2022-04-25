@@ -66,9 +66,8 @@
 #login-section input:-webkit-autofill:hover,
 #login-section input:-webkit-autofill:focus,
 #login-section input:-webkit-autofill:active {
-  -webkit-box-shadow:0 0 0 50px linear-gradient(#141e30, #243b55) inset;
+  -webkit-box-shadow:0 0 0 50px #141e30 inset, 0 0 0 50px #243b55 inset;
   -webkit-text-fill-color: white !important;
-  font-size: 20px;
 }
 
 #login-section input[type="password"]::-ms-reveal, #login-section input[type="password"]::-ms-clear {
