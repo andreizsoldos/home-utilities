@@ -199,17 +199,24 @@
   display: block;
 }
 
+input:autofill,
+input:-autofill:hover,
+input:-autofill:focus,
+input:-autofill:active,
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-animation: autofill 0s forwards;
+  -webkit-border: none;
   animation: autofill 0s forwards;
+  border: none;
 }
 
 @keyframes autofill {
   100% {
     background: transparent;
+    background-color: transparent;
     color: inherit;
   }
 }
@@ -217,6 +224,7 @@ input:-webkit-autofill:active {
 @-webkit-keyframes autofill {
   100% {
     background: transparent;
+    background-color: transparent;
     color: inherit;
   }
 }
