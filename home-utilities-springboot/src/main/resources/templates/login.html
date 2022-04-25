@@ -12,7 +12,7 @@
     <div class="card">
         <img class="mt-3 mb-3 card-img-top px-5" th:src="@{/images/login/login-logo.png}" src="../static/images/login/login-logo.png" alt="" width="50" height="150">
 
-        <div class="card-title no-select" th:text="#{login.content.title(1)}">Please enter credentials</div>
+        <div class="card-title no-select possibly-scaled" th:text="#{login.content.title(1)}">Please enter credentials</div>
 
         <div class="card-body">
             <form th:action="@{/login}" th:method="post" th:id="loginForm">
@@ -110,6 +110,14 @@ $(document).ready(function () {
         $(this).toggleClass('bi-eye bi-eye-slash-fill');
         $(this).attr('data-bs-original-title', $(this).attr('data-bs-original-title') === '[(#{login.password.tooltip.hide})]' ? '[(#{login.password.tooltip.show})]' : '[(#{login.password.tooltip.hide})]');
     });
+
+    els = document.querySelectorAll(".possibly-scaled");
+    for (let el of els) {
+        let xScale = el.clientWidth / el.scrollWidth;
+        if (xScale < 1) {
+            el.style.transform = "scaleX(" + xScale + ")";
+        }
+    }
 
     // username group
     $(document).on('keypress', '.userGroup', function (e) {
