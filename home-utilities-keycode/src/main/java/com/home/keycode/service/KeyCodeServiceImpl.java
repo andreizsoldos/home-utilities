@@ -3,6 +3,7 @@ package com.home.keycode.service;
 import ij.ImagePlus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -134,10 +135,10 @@ public class KeyCodeServiceImpl implements KeyCodeService {
 /*
         final var path = sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME))).getParent());
 */
-        final var path = "/app/keycode1.jpg";
-        
-        System.out.println("Path: -> " + path);
-        final var file = new File(path);
+        final var file = new ClassPathResource(sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat("keycode1.jpg"))).getParent())).getFile();
+
+        System.out.println("Path: -> " + file.getPath());
+        //final var file = new File(path);
         final var createdStatus = file.createNewFile();
         System.out.println(createdStatus ? "File created at: -> " + file.getPath() : "File not created!");
         return file;
