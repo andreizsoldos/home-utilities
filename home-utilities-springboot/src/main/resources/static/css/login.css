@@ -62,14 +62,6 @@
   color: rgba(255,255,255,40%);
 }
 
-#login-section input:-internal-autofill-selected,
-#login-section input:-internal-autofill-preview,
-#login-section input:-internal-autofill-selected:focus,
-#login-section input:-internal-autofill-preview:focus,
-#login-section input:autofill,
-#login-section input:autofill:hover,
-#login-section input:autofill:focus,
-#login-section input:autofill:active,
 #login-section input:-webkit-autofill,
 #login-section input:-webkit-autofill:hover,
 #login-section input:-webkit-autofill:focus,
