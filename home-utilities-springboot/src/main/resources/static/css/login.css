@@ -85,10 +85,6 @@
   box-shadow: 0 0 0 0 white;
 }
 
-#login-section .form-control:-webkit-autofill {
-  -webkit-background-clip: text;
-}
-
 #login-section .form-floating>.form-control:focus~label, #login-section .form-floating>.form-control:not(:placeholder-shown)~label, #login-section .form-floating>.form-select~label {
   transform: scale(.85) translateY(-25px) translateX(.15rem);
   color: white;
@@ -201,6 +197,18 @@
 #login-section button span {
   position: absolute;
   display: block;
+}
+
+input:-webkit-autofill {
+    -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
+@-webkit-keyframes autofill {
+    0%,100% {
+        background: transparent;
+    }
 }
 
 #login-section button span:nth-child(1) {
