@@ -135,8 +135,8 @@ public class KeyCodeServiceImpl implements KeyCodeService {
 /*
         final var path = sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME))).getParent());
 */
-        final var file = new ClassPathResource(sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat("keycode1.jpg"))).getParent())).getFile();
-
+        final var path = new ClassPathResource(sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH)).getParent()));
+        final var file = new File(path + "keycode1.jpg");
         System.out.println("Path: -> " + file.getPath());
         //final var file = new File(path);
         final var createdStatus = file.createNewFile();
