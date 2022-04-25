@@ -199,16 +199,26 @@
   display: block;
 }
 
-input:-webkit-autofill {
-    -webkit-animation-delay: 600s; /* Safari support - any positive time runs instantly */
-    -webkit-animation-name: autofill;
-    -webkit-animation-fill-mode: both;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-animation: autofill 0s forwards;
+  animation: autofill 0s forwards;
+}
+
+@keyframes autofill {
+  100% {
+    background: transparent;
+    color: inherit;
+  }
 }
 
 @-webkit-keyframes autofill {
-    0%,100% {
-        background: transparent;
-    }
+  100% {
+    background: transparent;
+    color: inherit;
+  }
 }
 
 #login-section button span:nth-child(1) {
