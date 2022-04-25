@@ -62,6 +62,10 @@
   color: rgba(255,255,255,40%);
 }
 
+#login-section input:-internal-autofill-selected,
+#login-section input:-internal-autofill-preview,
+#login-section input:-internal-autofill-selected:focus,
+#login-section input:-internal-autofill-preview:focus,
 #login-section input:autofill,
 #login-section input:autofill:hover,
 #login-section input:autofill:focus,
@@ -70,11 +74,9 @@
 #login-section input:-webkit-autofill:hover,
 #login-section input:-webkit-autofill:focus,
 #login-section input:-webkit-autofill:active {
-  transition: background-color 600000s 0s, color 600000s 0s;
-  -webkit-transition: background-color 600000s 0s, color 600000s 0s;
-}
-input[data-autocompleted] {
-  background-color: transparent !important;
+  -webkit-box-shadow:0 0 0 50px linear-gradient(#141e30, #243b55) inset;
+  -webkit-text-fill-color: white !important;
+  font-size: 20px;
 }
 
 #login-section input[type="password"]::-ms-reveal, #login-section input[type="password"]::-ms-clear {
