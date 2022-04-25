@@ -63,6 +63,7 @@
 }
 
 #login-section .possibly-scaled {
+  white-space: nowrap;
   display: block;
   transform-origin: 0 0;
 }
