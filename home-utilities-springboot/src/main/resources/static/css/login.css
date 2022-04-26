@@ -19,8 +19,7 @@
 #login-section div.card .card-title {
   text-align: center;
   color: white;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  white-space: nowrap;
   width: 100%;
 }
 
@@ -60,6 +59,19 @@
 
 #login-section input:focus::placeholder {
   color: rgba(255,255,255,40%);
+}
+
+#login-section .possibly-scaled {
+  display: block;
+  transform-origin: 0 0;
+}
+
+#login-section input:-webkit-autofill,
+#login-section input:-webkit-autofill:hover,
+#login-section input:-webkit-autofill:focus,
+#login-section input:-webkit-autofill:active {
+  -webkit-box-shadow:inset 0px 80px 50px -50px #141E30, inset 0px 140px 50px -50px #243B55;
+  -webkit-text-fill-color: white !important;
 }
 
 #login-section input[type="password"]::-ms-reveal, #login-section input[type="password"]::-ms-clear {

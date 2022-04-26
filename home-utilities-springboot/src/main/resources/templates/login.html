@@ -12,7 +12,7 @@
     <div class="card">
         <img class="mt-3 mb-3 card-img-top px-5" th:src="@{/images/login/login-logo.png}" src="../static/images/login/login-logo.png" alt="" width="50" height="150">
 
-        <div class="card-title no-select" th:text="#{login.content.title(1)}">Please enter credentials</div>
+        <div class="card-title no-select possibly-scaled" th:text="#{login.content.title(1)}">Please enter credentials</div>
 
         <div class="card-body">
             <form th:action="@{/login}" th:method="post" th:id="loginForm">
@@ -25,7 +25,7 @@
                             <span class="input-group-text bi-person-fill"></span>
                         </div>
                         <div class="form-floating col">
-                            <input type="text" class="form-control userGroup" id="email" th:name="#{login.email.name}" th:placeholder="#{email.placeholder}" placeholder="name@example.com" autofocus>
+                            <input type="text" class="form-control userGroup" id="email" th:name="#{login.email.name}" th:placeholder="#{email.placeholder}" placeholder="name@example.com" autofocus autocomplete="off">
                             <label for="email" th:text="#{login.email.label}">EM</label>
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         </div>
@@ -41,7 +41,7 @@
                             <span class="input-group-text bi-shield-lock-fill"></span>
                         </div>
                         <div class="form-floating col">
-                            <input type="password" class="form-control passGroup" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********">
+                            <input type="password" class="form-control passGroup" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********" autocomplete="off">
                             <label for="password" th:text="#{login.password.label}">PW</label>
                         </div>
                         <span class="px-2 m-auto bi-eye-slash-fill" id="togglePassword" th:title="#{login.password.tooltip.show}" data-bs-placement="right"></span>
@@ -54,14 +54,14 @@
 
                 <div class="mb-2 keyCodeGroup">
                     <div class="mb-4 text-center">
-                        <img class="img-keyCode" th:src="@{/images/keyCode/keyCode.jpg}" src="../static/images/keyCode/keyCode.jpg" th:alt="#{login.keycode.image.alt}">
+                        <img class="img-keyCode" th:src="@{/images/keycode/keycode.jpg}" src="../static/images/keycode/keycode.jpg" th:alt="#{login.keycode.image.alt}">
                     </div>
 
                     <div class="p-0">
                         <div class="mb-3 d-flex">
                             <img class="keyCodeIcon" th:src="@{/images/login/keycode-icon.png}" src="../static/images/login/keycode-icon.png" alt="" width="61" height="49">
                             <div class="form-floating col">
-                                <input type="text" class="me-2 form-control keyGroup" id="keyCode" th:placeholder="#{keycode.placeholder}" placeholder="code ->">
+                                <input type="text" class="me-2 form-control keyGroup" id="keyCode" th:placeholder="#{keycode.placeholder}" placeholder="code ->" autocomplete="off">
                                 <label for="keyCode" th:text="#{login.keycode.label}">EM</label>
                             </div>
                         </div>
@@ -110,6 +110,14 @@ $(document).ready(function () {
         $(this).toggleClass('bi-eye bi-eye-slash-fill');
         $(this).attr('data-bs-original-title', $(this).attr('data-bs-original-title') === '[(#{login.password.tooltip.hide})]' ? '[(#{login.password.tooltip.show})]' : '[(#{login.password.tooltip.hide})]');
     });
+
+    els = document.querySelectorAll(".possibly-scaled");
+    for (let el of els) {
+        let xScale = el.clientWidth / el.scrollWidth;
+        if (xScale < 1) {
+            el.style.transform = "scaleX(" + xScale + ")";
+        }
+    }
 
     // username group
     $(document).on('keypress', '.userGroup', function (e) {

@@ -13,10 +13,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -27,8 +27,10 @@ public class KeyCodeServiceImpl implements KeyCodeService {
     private static final String JPG = "jpg";
     private static final String COLOR = "#0D6EFD";
     private static final String KEYCODE_TITLE = "KeyCode";
-    private static final String ORIGINAL_KEYCODE_PATH = "images/keycode/";
+    private static final String PATH_TO_REPLACE = "home-utilities-springboot-1.0.0-exec.jar!/BOOT-INF/lib";
+    private static final String ORIGINAL_KEYCODE_PATH = "static/images/keycode/";
     private static final String ORIGINAL_KEYCODE_FILE_NAME = "keycode-background.jpg";
+    private static final String GENERATED_KEYCODE_PATH = "classes/static/images/keycode/";
     private static final String GENERATED_KEYCODE_FILE_NAME = "keycode.jpg";
     private static final long KEYCODE_SECURITY_CHARACTER_LENGTH = 10L;
     private static final double ANGLE = 0;
@@ -46,10 +48,11 @@ public class KeyCodeServiceImpl implements KeyCodeService {
 
     @Override
     public void generateKeyCode() throws IOException {
-        new ImagePlus(KEYCODE_TITLE, writeToKeyCode(saveOutputFile()));
+        new ImagePlus(KEYCODE_TITLE, writeToKeyCode());
     }
 
-    private BufferedImage writeToKeyCode(final File outputFile) throws IOException {
+    private BufferedImage writeToKeyCode() throws IOException {
+        System.out.println("Output file: -> " + saveOutputFile());
         final var image = ImageIO.read(getInputFile());
         final var font = new Font("Arial Bold", Font.ITALIC, textSize);
 
@@ -65,7 +68,7 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         image.setData(dest);
 
         // Write the new file
-        ImageIO.write(image, JPG, outputFile);
+        ImageIO.write(image, JPG, saveOutputFile());
 
         return image;
     }
@@ -85,9 +88,9 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         positionX = (image.getWidth() - metrics.stringWidth(keyCodeString)) / 2;
         graphics.drawString(keyCodeString, positionX, ((image.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent());
 
-        final var demoKeyCodeBtootmString = String.join(" ", randomKeyCodeText(KEYCODE_SECURITY_CHARACTER_LENGTH));
-        positionX = (image.getWidth() - metrics.stringWidth(demoKeyCodeBtootmString)) / 2;
-        graphics.drawString(demoKeyCodeBtootmString, positionX, image.getHeight() - (metrics.getAscent() / 2));
+        final var demoKeyCodeBottomString = String.join(" ", randomKeyCodeText(KEYCODE_SECURITY_CHARACTER_LENGTH));
+        positionX = (image.getWidth() - metrics.stringWidth(demoKeyCodeBottomString)) / 2;
+        graphics.drawString(demoKeyCodeBottomString, positionX, image.getHeight() - (metrics.getAscent() / 2));
 
         graphics.dispose();
 
@@ -120,14 +123,19 @@ public class KeyCodeServiceImpl implements KeyCodeService {
         return dest;
     }
 
-    private File getInputFile() throws IOException {
-        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
-        return new ClassPathResource(sanitizePath(path).concat(ORIGINAL_KEYCODE_FILE_NAME)).getFile();
+    private URL getInputFile() {
+        return this.getClass().getResource("/".concat(sanitizePath(ORIGINAL_KEYCODE_PATH.concat(ORIGINAL_KEYCODE_FILE_NAME))));
     }
 
-    private File saveOutputFile() {
-        final var path = Objects.requireNonNull(this.getClass().getResource("/".concat(ORIGINAL_KEYCODE_PATH))).getPath();
-        return new File(sanitizePath(path), GENERATED_KEYCODE_FILE_NAME);
+    private File saveOutputFile() throws IOException {
+        return new ClassPathResource("/".concat(ORIGINAL_KEYCODE_PATH).concat(GENERATED_KEYCODE_FILE_NAME)).getFile();
+/*
+        return new ClassPathResource(sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME))).getParent())).getFile();
+*/
+
+/*
+        final var path = sanitizePath(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replace(PATH_TO_REPLACE, GENERATED_KEYCODE_PATH.concat(GENERATED_KEYCODE_FILE_NAME))).getParent());
+*/
     }
 
     private String sanitizePath(final String path) {
