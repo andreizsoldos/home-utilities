@@ -1,10 +1,10 @@
 $(window).on("load", function() {
-  var progressBar = document.getElementById("progressBar");
-  $(".check-icon").hide();
-  setTimeout(function () {
-    $(".check-icon").show();
-    smoothProgress(progressBar);
-  }, 1000);
+    var progressBar = document.getElementById("progressBar");
+    $(".check-icon").hide();
+    setTimeout(function () {
+        $(".check-icon").show();
+        smoothProgress(progressBar);
+    }, 1000);
 });
 
 function smoothProgress(e) {
