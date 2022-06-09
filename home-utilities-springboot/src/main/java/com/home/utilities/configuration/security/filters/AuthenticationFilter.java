@@ -4,12 +4,14 @@ import com.home.utilities.configuration.userdetails.service.BruteForceProtection
 import com.home.utilities.entities.AccountStatus;
 import com.home.utilities.entities.IpInfo;
 import com.home.utilities.entities.User;
+import com.home.utilities.exceptions.KeyCodeException;
 import com.home.utilities.services.IpInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private static final String POST = "POST";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
+    private static final String INVALID_KEYCODE = "login.invalidKeycode.message";
 
     @Autowired
     private BruteForceProtectionService bruteForceService;
@@ -33,6 +36,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         if (!request.getMethod().equals(POST)) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
+        }
+
+        final var securityMessage = (String) request.getSession()
+              .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+
+        if (securityMessage != null && securityMessage.equals(INVALID_KEYCODE)) {
+            throw new KeyCodeException(INVALID_KEYCODE);
         }
 
         final var email = request.getParameter(USERNAME);

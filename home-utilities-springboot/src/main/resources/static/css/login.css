@@ -112,11 +112,11 @@
   height: 44px;
   line-height: 49px;
   cursor: pointer;
-  color: #0D6EFD;
+  color: white;
 }
 
 #login-section #togglePassword:hover {
-  color: white;
+  color: #0D6EFD;
 }
 
 #login-section .no-select {
@@ -139,7 +139,7 @@
   color: red;
   font-size: 15px;
   padding: 0;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   border-radius: 5px;
 }
 
@@ -163,15 +163,61 @@
   border: 1px solid #ced4da;
 }
 
+#login-section .img-keyCode {
+  box-shadow: 2px 2px 0 0 #383e46;
+  transition: all 0.2s ease;
+  color: white;
+  height: 100px;
+  cursor: pointer;
+}
+
+#login-section .img-keyCode:hover, #login-section .img-keyCode:active {
+  background: #357bd8;
+}
+
+#login-section #rippleBox {
+  width: max-content;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 6px 7px 40px -4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#login-section #rippleBox:active, #login-section #rippleBox:focus {
+  transform: scale(1.05);
+}
+
+#login-section #rippleEffect {
+  width: 100%;
+  height: 75px;
+  cursor: pointer;
+  color: white;
+}
+
+#login-section span.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 600ms linear;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+#login-section .scaleHover:hover {
+  transform: scale(1.05);
+}
+
 #login-section .keyCodeGroup {
   height: 100%;
   font-size: 20px;
-}
-
-#login-section .img-keyCode {
-  color: white;
-  height: 98px;
-  width: 100%;
+  place-items: center;
 }
 
 #login-section .passwordGroup, #login-section .keyCodeGroup {
@@ -188,10 +234,6 @@
 
 #login-section #backPassword, #login-section #backKeyCode {
   width: 35%;
-}
-
-#login-section .scaleHover:hover {
-  transform: scale(1.05);
 }
 
 #login-section button {

@@ -1,76 +1,143 @@
-const event = document.createEvent('Event');
-event.initEvent('input', true, true);
-var pass = document.getElementById("password");
-var togglePass = document.getElementById("togglePassword");
+$(document).ready(function () {
+    $(window).on('load', function() {
+        $('[title]').each(function() {
+            $(this).attr('data-bs-toggle', 'tooltip');
+        });
 
-pass.addEventListener('input', function() {
-    if (pass.value.length > 0) {
-        togglePass.style.display = "block";
-    } else {
-        togglePass.style.display = "none";
-    }
-}, false);
-pass.dispatchEvent(event);
+        $('[data-bs-toggle=tooltip]').tooltip('dispose').tooltip();
 
-$(window).on("load", function() {
-    $('[title]').each(function() {
-        $(this).attr('data-bs-toggle', 'tooltip');
+        $('#nextUsername').attr('disabled', true);
+        $('#nextPassword').attr('disabled', true);
+        $('#submitKeyCode').attr('disabled', true);
+
+        refreshImage($('.img-keyCode'));
     });
 
-    $('[data-bs-toggle=tooltip]').tooltip('dispose').tooltip();
-
-    var exceptionErrorId = document.getElementById("exceptionError");
-    if (exceptionErrorId != null) {
-        var counterErrorId = document.getElementById("counterError");
-        var countDownDate = null;
-        if (counterErrorId != null) {
-            if (counterErrorId.getAttribute("data-counter") != null) {
-                countDownDate = counterErrorId.getAttribute("data-counter");
-            } else {
-                countDownDate = new Date().getTime();
-            }
-            countDownFailedLogin(counterErrorId, exceptionErrorId, countDownDate);
-        } else {
-            countDownDate = new Date().getTime();
-            countDownFailedLogin(counterErrorId, exceptionErrorId, countDownDate);
+    els = document.querySelectorAll(".possibly-scaled");
+    for (let el of els) {
+        let xScale = el.clientWidth / el.scrollWidth;
+        if (xScale < 1) {
+            el.style.transform = "scaleX(" + xScale + ")";
         }
     }
+
+    $(document).on('input', '#email', function (e) {
+        if ($(this).val().length > 0) {
+            $(this).css('border', '');
+            $('<span /><span /><span /><span />').appendTo('.usernameGroup .animated-border');
+            $('#nextUsername').removeAttr('disabled');
+        } else {
+            $('.usernameGroup .animated-border span').remove();
+            $('#nextUsername').attr('disabled', true);
+        }
+    });
+
+    $(document).on('input', '#password', function (e) {
+        if ($(this).val().length > 0) {
+            $('<span /><span /><span /><span />').appendTo('.passwordGroup .animated-border');
+            $('#nextPassword').removeAttr('disabled');
+            $('#togglePassword').show();
+        } else {
+            $('.passwordGroup .animated-border span').remove();
+            $('#nextPassword').attr('disabled', true);
+            $('#togglePassword').hide();
+        }
+    });
+
+    $(document).on('input', '#keyCode', function (e) {
+        if ($(this).val().length > 0) {
+            $('<span /><span /><span /><span />').appendTo('.keyCodeGroup .animated-border');
+            $('#submitKeyCode').removeAttr('disabled');
+        } else {
+            $('.keyCodeGroup .animated-border span').remove();
+            $('#submitKeyCode').attr('disabled', true);
+        }
+    });
+
+    // username group
+    $(document).on('keypress', '.userGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            e.preventDefault();
+            if (!$('#nextUsername').attr('disabled')) {
+                $("#nextUsername").click();
+            }
+        }
+    });
+
+    // password group
+    $(document).on('keyup', '.passGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '27') {
+            $("#backPassword").click();
+        }
+    });
+    $(document).on('keypress', '.passGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            e.preventDefault();
+            if (!$('#nextPassword').attr('disabled')) {
+                $("#nextPassword").click();
+            }
+        }
+    });
+
+    // keycode group
+    $(document).on('keyup', '.keyGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '27') {
+            $("#backKeyCode").click();
+        }
+    });
+    $(document).on('keypress', '.keyGroup', function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            if ($('#submitKeyCode').attr('disabled')) {
+                e.preventDefault();
+            }
+        }
+    });
+
+    $('#rippleBox').on('click', createRipple);
 })
 
-function countDownFailedLogin(counterErrorId, exceptionErrorId, countDownDate) {
-    if (countDownDate != null && counterErrorId != null) {
-        var hideCount = 0;
-        var updateCount = setInterval(function() {
-            var now = new Date().getTime();
-            var distance = countDownDate - now;
+function getNewKeyCode(output) {
+    $.get("/login", function(result, status) {
+        if(status === 'success') {
+            refreshImage(output);
+        };
+    });
+}
 
-            // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+function refreshImage(output) {
+    $.get("/images/keycode", function(result) {
+        output.attr('src', "data:image/png;base64," + result);
+    });
+}
 
-            counterErrorId.innerHTML = (hours <= 9 ? "0" + hours : hours) + ":"
-                         + (minutes <= 9 ? "0" + minutes : minutes) + ":"
-                         + (seconds <= 9 ? "0" + seconds : seconds);
+function createRipple(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    const img = document.getElementsByClassName("img-keyCode")[0];
 
-            hideCount++;
-            if (hideCount > 10 || distance < 0) {
-                clearInterval(updateCount);
-                counterErrorId.innerHTML = "";
-                counterErrorId.style.display = "none";
-                exceptionErrorId.innerHTML = "";
-                exceptionErrorId.style.display = "none";
-            }
-        }, 1000);
-    } else if (exceptionErrorId.innerHTML == "* E-mail or Password are incorrect" || exceptionErrorId.innerHTML == "* E-mail sau Parola sunt greșite") {
-        var hideCount = 0;
-        var updateCount = setInterval(function() {
-            hideCount++;
-            if (hideCount > 10) {
-                clearInterval(updateCount);
-                exceptionErrorId.innerHTML = "";
-                exceptionErrorId.style.display = "none";
-            }
-        }, 1000);
+    const circle = document.createElement("span");
+    const diameter = img.clientHeight / 2;
+    const radius = diameter / 2;
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${event.clientX - button.offsetLeft - diameter}px`;
+    circle.style.top = `${event.clientY - button.offsetTop - diameter - radius/4}px`;
+    circle.classList.add("ripple");
+
+    const ripple = button.getElementsByClassName("ripple")[0];
+
+    if (ripple) {
+        ripple.remove();
     }
+
+    button.appendChild(circle);
+
+    getNewKeyCode($('.img-keyCode'));
+
+    $('#keyCode').focus();
 }

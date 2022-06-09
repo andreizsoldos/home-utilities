@@ -17,7 +17,7 @@
         <div class="card-body">
             <form th:action="@{/login}" th:method="post" th:id="loginForm">
                 <div class="errors" th:id="exceptionError" th:classappend="${session[LOCK_DURATION] != null ? 'mb-0' : ''}" th:if="${param.error}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
-                <div class="errors" th:id="counterError" th:if="${param.error} and ${session[LOCK_DURATION] != null}" th:data-counter="${session[LOCK_DURATION]}"></div>
+                <div class="mb-3 errors" th:id="counterError" th:if="${param.error} and ${session[LOCK_DURATION] != null}" th:data-counter="${session[LOCK_DURATION]}"></div>
 
                 <div class="mb-3 usernameGroup">
                     <div class="mb-3 d-flex">
@@ -44,7 +44,7 @@
                             <input type="password" class="form-control passGroup" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********" autocomplete="off">
                             <label for="password" th:text="#{login.password.label}">PW</label>
                         </div>
-                        <span class="px-2 m-auto bi-eye-slash-fill" id="togglePassword" th:title="#{login.password.tooltip.show}" data-bs-placement="right"></span>
+                        <span class="px-2 m-auto bi-eye" id="togglePassword" th:title="#{login.password.tooltip.show}" data-bs-placement="right"></span>
                     </div>
                     <div class="d-flex justify-content-between">
                         <button type="button" class="btn scaleHover" th:id="backPassword" th:text="#{login.submit.back.value}">Back</button>
@@ -53,15 +53,17 @@
                 </div>
 
                 <div class="mb-2 keyCodeGroup">
-                    <div class="mb-4 text-center">
-                        <img class="img-keyCode" th:src="@{/images/keycode/keycode.jpg}" src="../static/images/keycode/keycode.jpg" th:alt="#{login.keycode.image.alt}">
+                    <div class="mb-4 text-center box">
+                        <div id="rippleBox">
+                            <img class="img-keyCode" th:src="@{/images/keycode}" src="#" th:alt="#{login.keycode.image.alt}" >
+                        </div>
                     </div>
 
                     <div class="p-0">
                         <div class="mb-3 d-flex">
                             <img class="keyCodeIcon" th:src="@{/images/login/keycode-icon.png}" src="../static/images/login/keycode-icon.png" alt="" width="61" height="49">
                             <div class="form-floating col">
-                                <input type="text" class="me-2 form-control keyGroup" id="keyCode" th:placeholder="#{keycode.placeholder}" placeholder="code ->" autocomplete="off">
+                                <input type="text" class="me-2 form-control keyGroup" id="keyCode" th:name="#{login.keycode.name}" th:placeholder="#{keycode.placeholder}" placeholder="code ->" autocomplete="off">
                                 <label for="keyCode" th:text="#{login.keycode.label}">EM</label>
                             </div>
                         </div>
@@ -100,80 +102,131 @@
 
 <script type="text/javascript" th:inline="javascript">
 $(document).ready(function () {
-    $(window).on('load', function() {
-        var span = $('<span /><span /><span /><span />').appendTo('.animated-border');
-    });
 
     $("#togglePassword").click(function() {
         $(this).tooltip('dispose').tooltip();
-        pass.setAttribute('type', pass.getAttribute("type") === "password" ? "text" : "password");
+        $('#password').attr('type', $('#password').attr('type') === 'password' ? 'text' : 'password');
         $(this).toggleClass('bi-eye bi-eye-slash-fill');
         $(this).attr('data-bs-original-title', $(this).attr('data-bs-original-title') === '[(#{login.password.tooltip.hide})]' ? '[(#{login.password.tooltip.show})]' : '[(#{login.password.tooltip.hide})]');
     });
 
-    els = document.querySelectorAll(".possibly-scaled");
-    for (let el of els) {
-        let xScale = el.clientWidth / el.scrollWidth;
-        if (xScale < 1) {
-            el.style.transform = "scaleX(" + xScale + ")";
-        }
-    }
-
-    // username group
-    $(document).on('keypress', '.userGroup', function (e) {
-        var keycode = (e.keyCode ? e.keyCode : e.which);
-        if (keycode == '13') {
-            e.preventDefault();
-            $("#nextUsername").click();
-        }
-    });
     $("#nextUsername").click(function() {
-        $(".usernameGroup").attr('style', 'display: none');
-        $(".passwordGroup").attr('style', 'display: block');
-        $(".card-title").html('[(#{login.content.title(2)})]');
-        $(".passGroup").focus();
+        if (emailValidation($('#email'))) {
+            $(".usernameGroup").hide();
+            $(".passwordGroup").show();
+            $(".card-title").html('[(#{login.content.title(2)})]');
+            $(".passGroup").focus();
+        }
     });
 
-    // password group
-    $(document).on('keyup', '.passGroup', function (e) {
-        var keycode = (e.keyCode ? e.keyCode : e.which);
-        if (keycode == '27') {
-            $("#backPassword").click();
-        }
-    });
-    $(document).on('keypress', '.passGroup', function (e) {
-        var keycode = (e.keyCode ? e.keyCode : e.which);
-        if (keycode == '13') {
-            e.preventDefault();
-            $("#nextPassword").click();
-        }
-    });
     $("#backPassword").click(function() {
-        $(".usernameGroup").attr('style', 'display: block');
-        $(".passwordGroup").attr('style', 'display: none');
+        $(".usernameGroup").show();
+        $(".passwordGroup").hide();
         $(".card-title").html('[(#{login.content.title(1)})]');
         $(".userGroup").focus();
     });
     $("#nextPassword").click(function() {
-        $(".passwordGroup").attr('style', 'display: none');
-        $(".keyCodeGroup").attr('style', 'display: block');
+        $(".passwordGroup").hide();
+        $(".keyCodeGroup").show();
         $(".card-title").html('[(#{login.content.title(3)})]');
         $(".keyGroup").focus();
     });
 
-    // keycode group
-    $(document).on('keyup', '.keyGroup', function (e) {
-        var keycode = (e.keyCode ? e.keyCode : e.which);
-        if (keycode == '27') {
-            $("#backKeyCode").click();
-        }
-    });
     $("#backKeyCode").click(function() {
-        $(".passwordGroup").attr('style', 'display: block');
-        $(".keyCodeGroup").attr('style', 'display: none');
+        $(".passwordGroup").show();
+        $(".keyCodeGroup").hide();
         $(".card-title").html('[(#{login.content.title(2)})]');
         $(".passGroup").focus();
     });
+
+    var exceptionErrorId = document.getElementById("exceptionError");
+    if (exceptionErrorId != null) {
+        var counterErrorId = document.getElementById("counterError");
+        var countDownDate = null;
+        if (counterErrorId != null) {
+            if (counterErrorId.getAttribute("data-counter") != null) {
+                countDownDate = counterErrorId.getAttribute("data-counter");
+            } else {
+                countDownDate = new Date().getTime();
+            }
+            countDownFailedLogin(counterErrorId, exceptionErrorId, countDownDate, 10);
+        } else {
+            countDownDate = new Date().getTime();
+            countDownFailedLogin(counterErrorId, exceptionErrorId, countDownDate, 7);
+        }
+    }
+
+    function emailValidation(enteredEmail) {
+        const firstLetter = "^[a-zA-Z].*";
+        const validDomain = "^(?=[^@]*@[a-zA-Z]{2,}).*(?:\\.[a-zA-Z]{2,8})(?=$)";
+        const invalidSpace = "^(?=[\\S]*\\s).*";
+        const duplicateSymbol = "^(?=(?:[^@]*@){2,}).*";
+        const consecutiveDots = "^(?=[^\\.]*\\.\\.).*";
+
+        if (!enteredEmail.val().match(firstLetter) ||
+            !enteredEmail.val().match(validDomain) ||
+            enteredEmail.val().match(invalidSpace) ||
+            enteredEmail.val().match(duplicateSymbol) ||
+            enteredEmail.val().match(consecutiveDots)) {
+
+            $('#exceptionError').remove();
+            $('<div class="errors" id="exceptionError"></div>').insertBefore('.usernameGroup');
+            $('#exceptionError').html('[(#{login.email.format.invalid})]');
+            $('#exceptionError').addClass('mb-4');
+            $('#exceptionError').show();
+            $('#email').css('border', '1px solid red');
+            $('#email').focus();
+            var exceptionErrorId = document.getElementById('exceptionError');
+            countDownFailedLogin(null, exceptionErrorId, new Date().getTime(), 5);
+            return false;
+        }
+
+        $('#exceptionError').html("");
+        $('#exceptionError').removeClass('mb-4');
+        $('#exceptionError').hide();
+        $('#email').css('border', '');
+        return true;
+    }
+
+    function countDownFailedLogin(counterErrorId, exceptionErrorId, countDownDate, durationInterval) {
+        if (countDownDate != null && counterErrorId != null) {
+            var hideCount = 0;
+            var updateCount = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+
+                // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                counterErrorId.innerHTML = (hours <= 9 ? "0" + hours : hours) + ":"
+                             + (minutes <= 9 ? "0" + minutes : minutes) + ":"
+                             + (seconds <= 9 ? "0" + seconds : seconds);
+
+                hideCount++;
+                if (hideCount > durationInterval || distance < 0) {
+                    clearInterval(updateCount);
+                    counterErrorId.innerHTML = "";
+                    counterErrorId.remove();
+                    exceptionErrorId.innerHTML = "";
+                    exceptionErrorId.remove();
+                }
+            }, 1000);
+        } else if (exceptionErrorId.innerHTML == '[(#{login.email.format.invalid})]' || exceptionErrorId.innerHTML == '[(#{login.badCredentials.message})]' || exceptionErrorId.innerHTML == '[(#{login.invalidKeycode.message})]') {
+            exceptionErrorId.classList.add('mb-4');
+            var hideCount = 0;
+            var updateCount = setInterval(function() {
+                hideCount++;
+                if (hideCount > durationInterval) {
+                    clearInterval(updateCount);
+                    $('#email').css('border', '');
+                    exceptionErrorId.innerHTML = "";
+                    exceptionErrorId.remove();
+                }
+            }, 1000);
+        }
+    }
 })
 </script>
 </body>

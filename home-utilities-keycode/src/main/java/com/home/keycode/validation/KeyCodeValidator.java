@@ -2,5 +2,5 @@ package com.home.keycode.validation;
 
 public interface KeyCodeValidator {
 
-    void validate();
+    boolean validate(String answer);
 }

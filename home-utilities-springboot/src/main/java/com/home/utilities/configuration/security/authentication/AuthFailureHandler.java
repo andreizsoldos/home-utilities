@@ -25,6 +25,7 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     private static final String ACCOUNT_LOCKED = "login.locked.account.message";
     private static final String IP_LOCKED = "login.locked.ip.message";
     private static final String BAD_CREDENTIALS = "login.badCredentials.message";
+    private static final String INVALID_KEYCODE = "login.invalidKeycode.message";
     private static final String LOCK_DURATION = "LOCK_DURATION";
     private static final String USERNAME = "username";
     private static final String DEFAULT_FAILURE_URL = "/login?error";
@@ -56,8 +57,19 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         final var maxUserFailedAttempts = bruteForceService.getMaximumUserFailedAttempts();
         final var maxIpFailedAttempts = bruteForceService.getMaximumIpFailedAttempts();
         final var locale = localeResolver.resolveLocale(request);
+        final var securityMessage = exception.getMessage();
 
-        var errorMessage = translation.getMessage(BAD_CREDENTIALS, locale);
+        var errorMessage = "";
+        if (securityMessage == null) {
+            errorMessage = translation.getMessage(BAD_CREDENTIALS, locale);
+        } else {
+            if (securityMessage.equals(INVALID_KEYCODE)) {
+                errorMessage = translation.getMessage(INVALID_KEYCODE, locale);
+            } else {
+                errorMessage = translation.getMessage(securityMessage, locale);
+            }
+        }
+
         request.getSession()
               .setAttribute(LOCK_DURATION, null);
 
