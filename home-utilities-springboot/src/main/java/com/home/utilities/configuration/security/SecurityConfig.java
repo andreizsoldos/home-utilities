@@ -1,5 +1,6 @@
 package com.home.utilities.configuration.security;
 
+import com.home.keycode.filters.KeyCodeFilter;
 import com.home.utilities.configuration.security.authentication.AuthFailureHandler;
 import com.home.utilities.configuration.security.authentication.AuthSuccessHandler;
 import com.home.utilities.configuration.security.filters.AuthenticationFilter;
@@ -34,11 +35,12 @@ import org.springframework.web.filter.GenericFilterBean;
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] VIEW_MAPPING = {"/", "/#", "/register", "/login/**", "/register/account/activate/**", "/terms-and-conditions", "/privacy-policy", "/support/**", "/contact"};
+    private static final String[] VIEW_MAPPING = {"/", "/#", "/register", "/login/**", "/images/keycode", "/register/account/activate/**", "/terms-and-conditions", "/privacy-policy", "/support/**", "/contact"};
     private static final String[] STATIC_CONTENT = {"/appIcon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js"};
 
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final UserDetailsService userDetailsService;
+    private final KeyCodeFilter keyCodeFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -120,6 +122,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
               .logoutSuccessUrl("/?logout").permitAll()
               .and()
+
+              // Add KeyCodeFilter before attempting authentication
+              .addFilterBefore(keyCodeFilter, UsernamePasswordAuthenticationFilter.class)
 
               // Unlock account if lock duration time has expired due to multiple failed login attempts
               .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)

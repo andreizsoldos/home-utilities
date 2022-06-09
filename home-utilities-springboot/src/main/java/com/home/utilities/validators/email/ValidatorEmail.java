@@ -10,7 +10,7 @@ public class ValidatorEmail implements ConstraintValidator<ValidateEmail, String
     private static final String DUPLICATE_AT_SYMBOL = "^(?=(?:[^@]*@){2,}).*";
     private static final String SPACE_FOUND = "^(?=[\\S]*\\s).*";
     private static final String FIRST_LETTER_VALID = "^[a-zA-Z].*";
-    private static final String DOMAIN_VALID = "^(?=[^@]*@[a-zA-Z0-9]{2,}).*(?:\\.[a-zA-Z]{2,8})(?=$)";
+    private static final String DOMAIN_VALID = "^(?=[^@]*@[a-zA-Z]{2,}).*(?:\\.[a-zA-Z]{2,8})(?=$)";
     private static final String ILLEGAL_CONSECUTIVE_DOTS = "^(?=[^\\.]*\\.\\.).*";
     private static final int MAX_LENGTH = 50;
 
