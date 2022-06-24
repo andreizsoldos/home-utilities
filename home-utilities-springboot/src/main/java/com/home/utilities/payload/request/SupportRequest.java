@@ -1,6 +1,6 @@
 package com.home.utilities.payload.request;
 
-import com.home.utilities.validators.email.ValidateEmail;
+import com.home.utilities.validator.email.ValidateEmail;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

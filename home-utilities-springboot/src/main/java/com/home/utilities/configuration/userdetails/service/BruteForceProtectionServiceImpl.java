@@ -1,8 +1,8 @@
 package com.home.utilities.configuration.userdetails.service;
 
-import com.home.utilities.entities.AccountStatus;
-import com.home.utilities.entities.IpInfo;
-import com.home.utilities.entities.User;
+import com.home.utilities.entity.AccountStatus;
+import com.home.utilities.entity.IpInfo;
+import com.home.utilities.entity.User;
 import com.home.utilities.repository.IpInfoRepository;
 import com.home.utilities.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

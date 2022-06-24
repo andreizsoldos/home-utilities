@@ -2,8 +2,8 @@ package com.home.utilities.configuration.security.authentication;
 
 import com.home.utilities.configuration.userdetails.UserPrincipal;
 import com.home.utilities.configuration.userdetails.service.BruteForceProtectionService;
-import com.home.utilities.services.IpInfoService;
-import com.home.utilities.services.util.Translation;
+import com.home.utilities.service.IpInfoService;
+import com.home.utilities.service.util.Translation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;

@@ -1,6 +1,6 @@
 package com.home.utilities.payload.dto;
 
-import com.home.utilities.entities.Branch;
+import com.home.utilities.entity.Branch;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

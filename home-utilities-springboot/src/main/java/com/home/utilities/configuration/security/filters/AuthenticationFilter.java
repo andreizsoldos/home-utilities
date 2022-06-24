@@ -1,11 +1,11 @@
 package com.home.utilities.configuration.security.filters;
 
 import com.home.utilities.configuration.userdetails.service.BruteForceProtectionService;
-import com.home.utilities.entities.AccountStatus;
-import com.home.utilities.entities.IpInfo;
-import com.home.utilities.entities.User;
-import com.home.utilities.exceptions.KeyCodeException;
-import com.home.utilities.services.IpInfoService;
+import com.home.utilities.entity.AccountStatus;
+import com.home.utilities.entity.IpInfo;
+import com.home.utilities.entity.User;
+import com.home.utilities.exception.KeyCodeException;
+import com.home.utilities.service.IpInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

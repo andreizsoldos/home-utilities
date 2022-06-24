@@ -1,7 +1,7 @@
 package com.home.utilities.repository;
 
-import com.home.utilities.entities.Branch;
-import com.home.utilities.entities.Index;
+import com.home.utilities.entity.Branch;
+import com.home.utilities.entity.Index;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

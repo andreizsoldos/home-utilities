@@ -1,6 +1,6 @@
 package com.home.utilities.repository;
 
-import com.home.utilities.entities.ConfirmationToken;
+import com.home.utilities.entity.ConfirmationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

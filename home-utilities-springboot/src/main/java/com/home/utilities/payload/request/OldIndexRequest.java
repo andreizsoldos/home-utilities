@@ -1,7 +1,7 @@
 package com.home.utilities.payload.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.home.utilities.validators.index.NewValueGreaterThanOldValue;
+import com.home.utilities.validator.index.NewValueGreaterThanOldValue;
 import lombok.Getter;
 import lombok.Setter;
 

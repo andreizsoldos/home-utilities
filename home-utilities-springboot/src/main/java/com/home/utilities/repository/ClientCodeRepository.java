@@ -1,7 +1,7 @@
 package com.home.utilities.repository;
 
-import com.home.utilities.entities.Branch;
-import com.home.utilities.entities.ClientCode;
+import com.home.utilities.entity.Branch;
+import com.home.utilities.entity.ClientCode;
 import com.home.utilities.payload.dto.ClientCodeDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,10 +1,10 @@
 package com.home.utilities.payload.request;
 
-import com.home.utilities.validators.email.EmailExists;
-import com.home.utilities.validators.email.ValidateEmail;
-import com.home.utilities.validators.password.RepeatPassword;
-import com.home.utilities.validators.password.ValidatePassword;
-import com.home.utilities.entities.Gender;
+import com.home.utilities.validator.email.EmailExists;
+import com.home.utilities.validator.email.ValidateEmail;
+import com.home.utilities.validator.password.RepeatPassword;
+import com.home.utilities.validator.password.ValidatePassword;
+import com.home.utilities.entity.Gender;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,9 +1,9 @@
 package com.home.utilities.configuration.userdetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.home.utilities.entities.AccountStatus;
-import com.home.utilities.entities.Gender;
-import com.home.utilities.entities.User;
+import com.home.utilities.entity.AccountStatus;
+import com.home.utilities.entity.Gender;
+import com.home.utilities.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

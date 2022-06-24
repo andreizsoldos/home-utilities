@@ -1,6 +1,6 @@
 package com.home.utilities.payload.dto;
 
-import com.home.utilities.services.util.DateTimeConverter;
+import com.home.utilities.service.util.DateTimeConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

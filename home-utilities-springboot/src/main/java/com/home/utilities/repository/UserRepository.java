@@ -1,6 +1,6 @@
 package com.home.utilities.repository;
 
-import com.home.utilities.entities.User;
+import com.home.utilities.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package com.home.utilities.payload.request;
 
-import com.home.utilities.entities.Branch;
-import com.home.utilities.validators.index.NewValueGreaterThanOldValue;
-import com.home.utilities.validators.index.OncePerDay;
+import com.home.utilities.entity.Branch;
+import com.home.utilities.validator.index.NewValueGreaterThanOldValue;
+import com.home.utilities.validator.index.OncePerDay;
 import lombok.Getter;
 import lombok.Setter;
 

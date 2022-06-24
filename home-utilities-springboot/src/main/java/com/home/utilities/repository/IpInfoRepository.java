@@ -1,6 +1,6 @@
 package com.home.utilities.repository;
 
-import com.home.utilities.entities.IpInfo;
+import com.home.utilities.entity.IpInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

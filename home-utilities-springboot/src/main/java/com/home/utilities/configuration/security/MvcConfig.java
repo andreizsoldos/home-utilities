@@ -1,6 +1,6 @@
 package com.home.utilities.configuration.security;
 
-import com.home.utilities.services.util.Translation;
+import com.home.utilities.service.util.Translation;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
