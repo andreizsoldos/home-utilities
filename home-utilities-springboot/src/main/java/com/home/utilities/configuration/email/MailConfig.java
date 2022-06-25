@@ -7,6 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -48,7 +49,8 @@ public class MailConfig {
     @Bean
     public TemplateEngine emailTemplateEngine() {
         final var templateEngine = new SpringTemplateEngine();
-        templateEngine.addTemplateResolver(htmlTemplateResolver());
+        templateEngine.addDialect(new Java8TimeDialect());
+        templateEngine.setTemplateResolver(htmlTemplateResolver());
         return templateEngine;
     }
 
