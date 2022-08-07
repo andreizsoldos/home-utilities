@@ -44,7 +44,7 @@
                             <input type="password" class="form-control passGroup" id="password" th:name="#{login.password.name}" th:placeholder="#{password.placeholder}" placeholder="********" autocomplete="off">
                             <label for="password" th:text="#{login.password.label}">PW</label>
                         </div>
-                        <span class="px-2 m-auto bi-eye" id="togglePassword" th:title="#{login.password.tooltip.show}" data-bs-placement="right"></span>
+                        <span class="bi-eye" id="togglePassword" th:title="#{login.password.tooltip.show}" data-bs-placement="right"></span>
                     </div>
                     <div class="d-flex justify-content-between">
                         <button type="button" class="btn scaleHover" th:id="backPassword" th:text="#{login.submit.back.value}">Back</button>
