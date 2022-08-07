@@ -24,15 +24,20 @@
   border-top-right-radius: calc(0.3rem - 1px);
 }
 
-#client-section form {
+#client-section .card form {
   padding: 10px;
   padding-right: 0;
   margin: 25px;
   flex-direction: row;
 }
 
-#client-section .form-control {
+#client-section .card form .form-control {
   margin-bottom: 3px;
+}
+
+#client-section .card form #saveButton {
+  background: linear-gradient(#141e30, #243b55);
+  color: white;
 }
 
 #client-section input[type="text"], #client-section input[type="password"] {

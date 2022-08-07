@@ -20,13 +20,19 @@
   margin-top: 35px;
 }
 
-.feature {
+#home-section .feature {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 4rem;
   width: 4rem;
   font-size: 2rem;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+#home-section #getStarted {
+  background: linear-gradient(#141e30, #243b55);
+  color: white;
 }
 
 #home-section .scaleHover:hover, #home-section .feature:hover {
