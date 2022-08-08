@@ -11,13 +11,21 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfig {
 
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
+  @Value("${spring.datasource.url}")
+  private String dbUrl;
 
-    @Bean
-    public DataSource dataSource() {
-        final var config = new HikariConfig();
-        config.setJdbcUrl(dbUrl);
-        return new HikariDataSource(config);
-    }
+  @Value("${spring.datasource.username}")
+  private String username;
+
+  @Value("${spring.datasource.password}")
+  private String password;
+
+  @Bean
+  public DataSource dataSource() {
+    final var config = new HikariConfig();
+    config.setJdbcUrl(dbUrl);
+    config.setUsername(username);
+    config.setPassword(password);
+    return new HikariDataSource(config);
+  }
 }
