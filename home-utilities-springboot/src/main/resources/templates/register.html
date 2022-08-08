@@ -9,88 +9,290 @@
 <body>
 <header th:replace="~{fragments/layout :: sidebar}"></header>
 <section th:id="register-section" id="register-section">
-    <div class="card">
-        <h1 class="py-2 text-center no-select" th:text="#{register.content.title}">Create account</h1>
-        <form class="row card" th:action="@{/register}" th:method="post" id="registerForm" th:object="${userRegisterRequest}">
-            <div class="col-md-4 mx-3">
-                <label for="email" th:text="#{register.email.label}">EM</label>
-                <input type="text" class="form-control" id="email" placeholder="name@email.com" th:placeholder="#{email.placeholder}" th:field="*{email}" autofocus/>
-                <div class="alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">* Eroare</div>
-            </div>
+    <div class="m-auto container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+                <div class="card px-3 pt-4 pb-0 mt-3 mb-3">
+                    <h4 class="no-select possibly-scaled" id="heading" th:text="#{register.content.title}">Sign Up Your User Account</h4>
+                    <p class="no-select possibly-scaled" th:text="#{register.content.subtitle}">Fill all form field to go to next step</p>
+                    <form id="msform" th:action="@{/register}" th:method="post" th:object="${userRegisterRequest}">
+                        <!-- progressbar -->
+                        <ul class="p-0" id="progressbar">
+                            <li class="active bi bi-key-fill" id="account" th:id="account" th:text="#{register.content.progressbar.account.title}"><strong>Account</strong></li>
+                            <li class="bi bi-person-circle" id="personal" th:id="personal" th:text="#{register.content.progressbar.personal.title}"><strong>Personal</strong></li>
+                            <li class="bi bi-hand-thumbs-up" id="policy" th:id="policy" th:text="#{register.content.progressbar.agreement.title}"><strong>Policy agreement</strong></li>
+                            <li class="bi bi-check-circle-fill" id="confirm" th:id="confirm" th:text="#{register.content.progressbar.confirm.title}"><strong>Finish</strong></li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <br> <!-- fieldsets -->
+                        <fieldset>
+                            <div class="form-card field1">
+                                <div class="row mb-2">
+                                    <div class="col-7">
+                                        <h2 class="fs-title possibly-scaled" th:text="#{register.content.step.account.title}">Account Information:</h2>
+                                    </div>
+                                    <div class="col-5">
+                                        <h2 class="steps" th:text="#{register.content.steps(1, 4)}">Step 1 - 4</h2>
+                                    </div>
+                                </div>
 
-            <div class="col-md-3 mx-3">
-                <label for="password" th:text="#{register.password.label}">PW</label>
-                <input type="password" class="form-control" id="password" placeholder="********" th:placeholder="#{password.placeholder}" th:field="*{password}"/>
-                <div class="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">* Eroare</div>
-            </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="email" placeholder="name@email.com" th:placeholder="#{email.placeholder}" th:field="*{email}" autofocus />
+                                    <label for="email" class="fieldlabels" th:text="#{register.email.label}">Email:</label>
+                                    <div class="errors" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">* Eroare</div>
+                                </div>
 
-            <div class="col-md-3 mx-3">
-                <label for="repeatPassword" th:text="#{register.repeatPassword.label}">CPW</label>
-                <input type="password" class="form-control" id="repeatPassword" placeholder="********" th:placeholder="#{password.placeholder}" th:field="*{repeatPassword}"/>
-                <div class="alert" th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">* Eroare</div>
-            </div>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" placeholder="********" th:placeholder="#{password.placeholder}" th:field="*{password}" />
+                                    <label for="password" class="fieldlabels" th:text="#{register.password.label}">Password: *</label>
+                                    <div class="errors" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">* Eroare</div>
+                                </div>
 
-            <div class="col-md-4 mx-3">
-                <label for="firstName" th:text="#{register.firstName.label}">FN</label>
-                <input type="text" class="form-control" id="firstName" placeholder="John" th:field="*{firstName}"/>
-                <div class="alert" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">* Eroare</div>
-            </div>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="repeatPassword" placeholder="********" th:placeholder="#{password.placeholder}" th:field="*{repeatPassword}" />
+                                    <label for="repeatPassword" class="fieldlabels" th:text="#{register.repeatPassword.label}">Repeat Password:</label>
+                                    <div class="errors" th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">* Eroare</div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn next action-button animated-border" th:text="#{register.submit.next.value}">Next</button>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-card field2">
+                                <div class="row mb-2">
+                                    <div class="col-7">
+                                        <h2 class="fs-title possibly-scaled" th:text="#{register.content.step.personal.title}">Personal Information:</h2>
+                                    </div>
+                                    <div class="col-5">
+                                        <h2 class="steps" th:text="#{register.content.steps(2, 4)}">Step 2 - 4</h2>
+                                    </div>
+                                </div>
 
-            <div class="col-md-4 mx-3">
-                <label for="lastName" th:text="#{register.lastName.label}">LN</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Doe" th:field="*{lastName}"/>
-                <div class="alert" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">* Eroare</div>
-            </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="firstName" placeholder="John" th:placeholder="#{firstname.placeholder}" th:field="*{firstName}" />
+                                    <label for="firstName" class="fieldlabels" th:text="#{register.firstName.label}">First Name:</label>
+                                    <div class="errors" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">* Eroare</div>
+                                </div>
 
-            <div class="row">
-                <label class="form-check-label mb-2" th:text="#{register.gender.label}">GEN</label>
-                <div class="col-md-3">
-                    <input type="radio" class="form-check-input" th:name="gender" id="gender-male" th:value="#{register.gender.male.value}" th:field="*{gender}"/>
-                    <label class="form-check-label" for="gender-male" th:text="#{register.gender.male.label}">M</label>
+                                <div class="mb-3 form-floating">
+                                    <input type="text" class="form-control" id="lastName" placeholder="Doe" th:placeholder="#{lastname.placeholder}" th:field="*{lastName}" />
+                                    <label for="lastName" class="fieldlabels" th:text="#{register.lastName.label}">Last Name:</label>
+                                    <div class="errors" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">* Eroare</div>
+                                </div>
+
+                                <div class="row optionGroup">
+                                    <label class="mb-0 fieldlabels" th:text="#{register.gender.label}">Gen</label>
+                                    <div class="col-auto d-flex">
+                                        <input type="radio" class="form-control form-check-input" th:name="gender" id="gender-male" th:value="#{register.gender.male.value}" th:field="*{gender}"/>
+                                        <label class="form-check-label no-select" for="gender-male" th:text="#{register.gender.male.label}">M</label>
+                                    </div>
+                                    <div class="col-auto d-flex">
+                                        <input type="radio" class="form-control form-check-input" th:name="gender" id="gender-female" th:value="#{register.gender.female.value}" th:field="*{gender}"/>
+                                        <label class="form-check-label no-select" for="gender-female" th:text="#{register.gender.female.label}">F</label>
+                                    </div>
+                                    <div class="col-auto d-flex">
+                                        <input type="radio" class="form-control form-check-input" th:name="gender" id="gender-other" th:value="#{register.gender.other.value}" th:field="*{gender}"/>
+                                        <label class="form-check-label no-select" for="gender-other" th:text="#{register.gender.other.label}">O</label>
+                                    </div>
+                                    <div class="p-0 d-block">
+                                        <div class="errors" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">* Eroare</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn next action-button animated-border" th:text="#{register.submit.next.value}">Next</button>
+                            <button type="button" class="btn previous action-button scaleHover" th:text="#{register.submit.back.value}">Previous</button>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-card field3">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h2 class="fs-title possibly-scaled" th:text="#{register.content.step.agreement.title}">Policy Agreement Information:</h2>
+                                    </div>
+                                    <div class="col-5">
+                                        <h2 class="steps" th:text="#{register.content.steps(3, 4)}">Step 3 - 4</h2>
+                                    </div>
+                                </div>
+
+                                <div class="optionGroup">
+                                    <div class="mt-2 ms-2 mb-2">
+                                        <input type="checkbox" class="checkBox" th:name="terms" id="terms" th:field="*{terms}"/>
+                                        <label for="terms" class="fieldlabels form-check-label" th:text="#{register.terms.label}">T&A</label>
+                                        <a th:href="@{/terms-and-conditions}" th:text="#{register.terms.link.label}">terms link</a>
+                                        <div class="errors" th:if="${#fields.hasErrors('terms')}" th:errors="*{terms}">* Eroare</div>
+                                    </div>
+
+                                    <div class="ms-2">
+                                        <input type="checkbox" class="checkBox" th:name="gdpr" id="gdpr" th:field="*{gdpr}"/>
+                                        <label for="gdpr" class="fieldlabels form-check-label" th:text="#{register.gdpr.label}">GDPR</label>
+                                        <a th:href="@{/privacy-policy}" th:text="#{register.gdpr.link.label}">gdpr link</a>
+                                        <div class="errors" th:if="${#fields.hasErrors('gdpr')}" th:errors="*{gdpr}">* Eroare</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn next action-button animated-border submit" th:text="#{register.submit.finish.value}">Finish</button>
+                            <button type="button" class="btn previous action-button scaleHover" th:text="#{register.submit.back.value}">Previous</button>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-card field4">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h2 class="fs-title possibly-scaled" th:text="#{register.content.step.confirm.title}">Finish:</h2>
+                                    </div>
+                                    <div class="col-5">
+                                        <h2 class="steps" th:text="#{register.content.steps(4, 4)}">Step 4 - 4</h2>
+                                    </div>
+                                </div>
+                                <div class="pb-3 row justify-content-center">
+                                    <div class="p-0 loading-spinner1">
+                                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
-                <div class="col-md-3">
-                    <input type="radio" class="form-check-input" th:name="gender" id="gender-female" th:value="#{register.gender.female.value}" th:field="*{gender}"/>
-                    <label class="form-check-label" for="gender-female" th:text="#{register.gender.female.label}">F</label>
-                </div>
-                <div class="col md-3">
-                    <input type="radio" class="form-check-input" th:name="gender" id="gender-other" th:value="#{register.gender.other.value}" th:field="*{gender}"/>
-                    <label class="form-check-label" for="gender-other" th:text="#{register.gender.other.label}">O</label>
-                </div>
-                <div class="d-block">
-                    <div class="alert errors" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">* Eroare</div>
-                </div>
             </div>
-
-            <div class="col mt-2 mb-3 mx-3">
-                <input type="checkbox" class="form-check-input" th:name="terms" id="terms" th:field="*{terms}"/>
-                <label class="form-check-label" for="terms" th:text="#{register.terms.label}">T&A</label>
-                <div class="alert" th:if="${#fields.hasErrors('terms')}" th:errors="*{terms}">* Eroare</div>
-            </div>
-
-            <div class="col mt-2 mb-3 mx-3">
-                <input type="checkbox" class="form-check-input" th:name="gdpr" id="gdpr" th:field="*{gdpr}"/>
-                <label class="form-check-label" for="gdpr" th:text="#{register.gdpr.label}">GDPR</label>
-                <div class="alert" th:if="${#fields.hasErrors('gdpr')}" th:errors="*{gdpr}">* Eroare</div>
-            </div>
-
-            <div class="mb-2 d-block text-center">
-                <a href="#" th:href="@{/login}" class="btn btn-secondary text-decoration-none scaleHover" th:text="#{register.cancel.value}">Cancel</a>
-                <button type="submit" class="btn btn-primary scaleHover" th:text="#{register.submit.value}">Submit</button>
-            </div>
-
-            <div class="d-block text-center scaleHover">
-                <a href="#" th:href="@{/terms-and-conditions}" class="text-decoration-none" th:text="#{register.submit.terms.label}">Terms and conditions</a>
-            </div>
-
-            <div class="d-block text-center scaleHover">
-                <a href="#" th:href="@{/privacy-policy}" class="text-decoration-none" th:text="#{register.submit.gdpr.label}">Privacy policy</a>
-            </div>
-        </form>
+        </div>
     </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
+
+<script th:src="@{/scripts/register.js}" src="../static/scripts/register.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
+        var current = 1;
+
+        setProgressBar(current);
+
+        $(".next").click(function () {
+
+            let validFields = false;
+            switch (current) {
+                case 1: validFields = validateFieldset1(); break;
+                case 2: validFields = validateFieldset2(); break;
+                default: validFields = true; break;
+            }
+
+            if (validFields) {
+
+                current_fs = $(this).parent();
+                next_fs = $(this).parent().next();
+
+                //Add Class Active
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                //show the next fieldset
+                next_fs.show();
+
+                if (typeof next_fs.find(".form-card input[type!='hidden']")[0] !== "undefined") {
+                    next_fs.find(".form-card input[type!='hidden']")[0].focus();
+                }
+
+                //hide the current fieldset with style
+                current_fs.animate({opacity: 0}, {
+                    step: function (now) {
+
+                        // for making fielset appear animation
+                        opacity = 1 - now;
+
+                        current_fs.css({
+                            'display': 'none',
+                            'position': 'relative'
+                        });
+                        next_fs.css({'opacity': opacity});
+                    },
+                    duration: 500
+                });
+                setProgressBar(++current);
+            }
+        });
+
+        $(".previous").click(function () {
+
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //Remove class active
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+            previous_fs.find(".form-card input[type!='hidden']")[0].focus();
+
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function (now) {
+
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({'opacity': opacity});
+                },
+                duration: 500
+            });
+            setProgressBar(--current);
+        });
+
+        function validateFieldset1() {
+            const validFirstLetter = "^[a-zA-Z].*";
+            const validDomain = "^(?=[^@]*@[a-zA-Z]{2,}).*(?:\\.[a-zA-Z]{2,8})(?=$)";
+            const invalidSpace = "^(?=[\\S]*\\s).*";
+            const invalidDuplicateSymbol = "^(?=(?:[^@]*@){2,}).*";
+            const invalidConsecutiveDots = "^(?=[^\\.]*\\.\\.).*";
+
+            const emailMaxLength = 50;
+            const passwordMinLength = 6;
+
+            let enteredEmail = $('#email');
+            let enteredPassword = $('#password');
+            let enteredRepeatPassword = $('#repeatPassword');
+
+            let validations = [];
+            validations.push(
+                validateEmail(0, enteredEmail, validFirstLetter, true, "[(#{message.email.illegalFirstLetter})]"),
+                validateEmail(1, enteredEmail, validDomain, true, "[(#{message.email.illegalDomain})]"),
+                validateEmail(2, enteredEmail, invalidSpace, false, "[(#{message.email.spaceNotAllowed})]"),
+                validateEmail(3, enteredEmail, invalidDuplicateSymbol, false, "[(#{message.email.duplicateAtSymbol})]"),
+                validateEmail(4, enteredEmail, invalidConsecutiveDots, false, "[(#{message.email.illegalConsecutiveDots})]"),
+                validateMaxLength(5, enteredEmail, emailMaxLength, "[(#{size.max.registerRequest.email(emailMaxLength)})]".replace("emailMaxLength", emailMaxLength)),
+                validateMinLength(6, enteredPassword, passwordMinLength, "[(#{size.min.registerRequest.password(passwordMinLength)})]".replace("passwordMinLength", passwordMinLength)),
+                validateEquality(7, enteredRepeatPassword, enteredPassword, "[(#{message.repeatPassword.different})]")
+            );
+
+            return validations.every(condition => condition === true);
+        }
+
+        function validateFieldset2() {
+            const firstNameMaxLength = 30;
+            const lastNameMaxLength = 30;
+
+            let enteredFirstName = $('#firstName');
+            let enteredLastName = $('#lastName');
+
+            let validations = [];
+            validations.push(
+                    validateMaxLength(0, enteredFirstName, firstNameMaxLength, "[(#{size.max.registerRequest.firstName(firstNameMaxLength)})]".replace("firstNameMaxLength", firstNameMaxLength)),
+                    validateMaxLength(1, enteredLastName, lastNameMaxLength, "[(#{size.max.registerRequest.lastName(lastNameMaxLength)})]".replace("lastNameMaxLength", lastNameMaxLength))
+            );
+
+            return validations.every(condition => condition === true);
+        }
+    })
+</script>
 </body>
 </html>
