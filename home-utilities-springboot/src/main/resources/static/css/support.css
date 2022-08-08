@@ -18,24 +18,24 @@
   height: max-content;
   padding: 20px;
   justify-content: space-evenly;
+  width: 250px;
 }
 
 #support-section div.card-group a {
   text-decoration: none;
   color: black;
+  margin: auto;
 }
 
 #support-section div.card-group .pwd {
   width: max-content;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 }
 
 #support-section div.card-group .account {
   width: max-content;
   padding: 3px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 }
 
 #support-section div.card-group .card-body {

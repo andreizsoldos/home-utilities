@@ -57,6 +57,11 @@
   box-shadow: 0 3px 0 -2px blue;
 }
 
+#index-section .modalPopUp form .modal-footer #saveButton {
+  background: linear-gradient(#141e30, #243b55);
+  color: white;
+}
+
 #index-section .modalPopUp .form-control {
   margin-bottom: 3px;
 }

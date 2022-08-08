@@ -50,7 +50,7 @@
 
                         <div class="modal-footer d-block pb-0 text-center">
                             <a class="btn btn-secondary scaleHover" href="#" th:href="@{/user/dashboard/__${branch}__}" th:text="#{clientCode.cancel.value}">Cancel</a>
-                            <button type="submit" class="btn btn-primary scaleHover" th:text="#{clientCode.submit.value}">Save</button>
+                            <button type="submit" th:id="saveButton" id="saveButton" class="btn scaleHover" th:text="#{clientCode.submit.value}">Save</button>
                         </div>
                     </form>
                 </div>

@@ -7,7 +7,7 @@
 }
 
 #login-section div.card {
-  max-width: 330px;
+  max-width: 310px;
   min-width: 301px;
   margin: auto;
   border-top-left-radius: 20px;
@@ -54,11 +54,11 @@
 }
 
 #login-section input::placeholder {
-  color: none;
+  color: transparent;
 }
 
 #login-section input:focus::placeholder {
-  color: rgba(255,255,255,40%);
+  color: rgba(255,255,255,0.4);
 }
 
 #login-section .possibly-scaled {
@@ -80,7 +80,7 @@
 
 #login-section input#email.form-control, #login-section input#password.form-control, #login-section input#keyCode.form-control {
   height: 49px;
-  font-size: 20px;
+  font-size: 16px;
   color: white;
   background: linear-gradient(#141e30, #243b55);
   border: 0;
@@ -109,10 +109,11 @@
   display: none;
   text-align: center;
   font-size: 30px;
-  height: 44px;
-  line-height: 49px;
+  height: 49px;
+  line-height: 53px;
   cursor: pointer;
   color: white;
+  padding-left: 10px;
 }
 
 #login-section #togglePassword:hover {
@@ -199,7 +200,7 @@
   position: absolute;
   border-radius: 50%;
   transform: scale(0);
-  animation: ripple 600ms linear;
+  animation: ripple 300ms linear;
   background-color: rgba(255, 255, 255, 0.7);
 }
 
@@ -233,7 +234,7 @@
 }
 
 #login-section #backPassword, #login-section #backKeyCode {
-  width: 35%;
+  width: 36%;
 }
 
 #login-section button {

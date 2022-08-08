@@ -21,30 +21,30 @@
   align-items: center;
   text-align: center;
   font-size: 30px;
-  color: #0d6efd;
+  color: #243b55;
 }
 
 #utility-section div.noClient .goBack {
   align-self: baseline;
-  color: #0d6efd;
+  color: #243b55;
   background: none;
   border: 0;
   font-size: 30px;
 }
 
 #utility-section div.noClient .goBack:hover {
-  color: #009B6D;
+  color: #0d6efd;
 }
 
 #utility-section div.top-buttons .goDashboard {
-  color: #0d6efd;
+  color: #243b55;
   background: none;
   border: 0;
   font-size: 30px;
 }
 
 #utility-section div.top-buttons .goDashboard:hover {
-  color: #009B6D;
+  color: #0d6efd;
 }
 
 #utility-section div.noClient .d-flex-inline {
@@ -61,6 +61,7 @@
   font-size: 50px;
   text-align: center;
   border-radius: 100px;
+  color: #243b55;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -86,7 +87,7 @@
 }
 
 #utility-section .utilityTitleText {
-  color: #0d6efd;
+  color: #243b55;
   font-family: "Serif";
   font-weight: bold;
   font-size: 65px;
@@ -131,7 +132,7 @@
 }
 
 #utility-section .colored {
-  color: #0d6efd;
+  color: #243b55;
 }
 
 #utility-section .card-group {
@@ -139,6 +140,17 @@
   margin: auto;
   width: 100%;
   height: 100%;
+}
+
+#utility-section .card-group .tab-content .tab-pane .charts .graphInfo .btn-group label {
+  color: #243b55;
+  border-color: #243b55;
+}
+
+#utility-section .card-group .tab-content .tab-pane .charts .graphInfo .btn-group label:hover {
+  color: white;
+  border: none;
+  background: linear-gradient(#141e30, #243b55);
 }
 
 #utility-section div.row {
@@ -167,6 +179,8 @@
 }
 
 #utility-section .addNewIndexButton {
+  background: linear-gradient(#141e30, #243b55);
+  color: white;
   height: 100%;
 }
 
@@ -224,6 +238,8 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  background: linear-gradient(#141e30, #243b55);
+  color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -333,7 +349,7 @@
 }
 
 #utility-section .editMode:hover a {
-  color: #0a79df;
+  color: #243b55;
 }
 
 #utility-section .buttonCancelEdit {
@@ -365,7 +381,7 @@
 }
 
 #utility-section .saveMode:hover a {
-  color: #0a79df;
+  color: #243b55;
 }
 
 #utility-section .alert {
@@ -378,9 +394,9 @@
 }
 
 #utility-section .consumption-label, #utility-section .index-label {
-  border-top: solid 1px #0a79df;
-  border-left: solid 1px #0a79df;
-  border-right: solid 1px #0a79df;
+  border-top: solid 1px #243b55;
+  border-left: solid 1px #243b55;
+  border-right: solid 1px #243b55;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }

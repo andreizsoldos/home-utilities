@@ -8,7 +8,14 @@
   width: 100%;
 }
 
-#client-code-edit-section .modal-header {
+#client-code-edit-section .modalPopUp .modal-content {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#client-code-edit-section .modalPopUp .modal-content .modal-header {
   display: block;
   flex-shrink: 0;
   align-items: center;
@@ -19,21 +26,19 @@
   border-top-right-radius: calc(0.3rem - 1px);
 }
 
-.modalPopUp .modal-content {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  background: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#client-code-edit-section form {
+#client-code-edit-section .modalPopUp .modal-content .modal-body form {
   padding: 10px;
   margin: 10px;
   flex-direction: row;
 }
 
-#client-code-edit-section .form-control {
+#client-code-edit-section .modalPopUp .modal-content .modal-body form .form-control {
   margin-bottom: 3px;
+}
+
+#client-code-edit-section .modalPopUp .modal-content .modal-body form .modal-footer #saveButton {
+  background: linear-gradient(#141e30, #243b55);
+  color: white;
 }
 
 #client-code-edit-section input[type="text"], #client-section input[type="password"] {

@@ -1,42 +1,306 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+#register-section p {
+  color: grey;
+}
+
 #register-section {
-  display: flex;
-  margin: auto;
-  padding: 35px;
+  display: contents;
 }
 
-#register-section div.card {
+#register-section #heading {
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+#register-section .possibly-scaled {
+  display: block;
+  transform-origin: 0 0;
+}
+
+#register-section #msform {
+  text-align: center;
+  position: relative;
+}
+
+#register-section #msform fieldset {
+  border: 0 none;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
   width: 100%;
-  padding-top: 10px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 30px;
-  margin: auto;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 0;
+  padding-bottom: 5px;
+  position: relative;
 }
 
-#register-section form {
-  padding-top: 20px;
-  flex-direction: row;
+#register-section .form-card {
+  text-align: left;
 }
 
-#register-section .form-control {
-  margin-bottom: 3px;
-}
-
-#register-section input[type="text"], #register-section input[type="password"] {
-  border-top: none;
-  border-left: none;
-  border-right: none;
-}
-
-#register-section input[type="password"]::-ms-reveal, #register-section input[type="password"]::-ms-clear {
+#register-section #msform fieldset:not(:first-of-type) {
   display: none;
 }
 
-#register-section input[type="text"]:focus, #register-section input[type="password"]:focus {
-  box-shadow: 0 3px 0 -2px blue;
+#register-section #msform input,
+#register-section #msform textarea {
+  padding: 15px 5px 8px 15px;
+  border: 0;
+  border-radius: 0;
+  margin-top: 20px;
+  width: 100%;
+  height: 35px;
+  color: white;
+  background: linear-gradient(#141e30, #243b55);
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+#register-section #msform input:focus,
+#register-section #msform textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: 0 0 0 0 white;
+  outline-width: 0;
+}
+
+#register-section #msform input::placeholder {
+  color: transparent;
+}
+
+#register-section #msform input:focus::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+#register-section #msform .form-control:focus {
+  box-shadow: 0 0 0 0 white;
+}
+
+#register-section #msform input[type="password"]::-ms-reveal, #register-section #msform input[type="password"]::-ms-clear {
+  display: none;
+}
+
+#register-section #msform label {
+  height: 35px;
+  line-height: 35px;
+  opacity: 1;
+  color: white;
+  background: none;
+  font-size: 20px;
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 1s;
+}
+
+#register-section #msform .form-floating>.form-control:focus~label, #register-section #msform .form-floating>.form-control:not(:placeholder-shown)~label, #register-section #msform .form-floating>.form-select~label {
+  transform: scale(.85) translateY(-20px) translateX(.15rem);
+  color: white;
+  width: auto;
+  height: auto;
+  transition: .5s;
+}
+
+#register-section #msform .optionGroup {
+  background: linear-gradient(#243b55, #141e30);
+  margin: auto;
+}
+
+#register-section #msform #terms ~ a, #register-section #msform #gdpr ~ a {
+  text-decoration: none;
+}
+
+#register-section #msform .form-check-input {
+  width: 1rem !important;
+  height: 1rem !important;
+  border-radius: 50%;
+  padding: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  background: white;
+}
+
+#register-section #msform .form-check-label {
+  font-size: 16px;
+  padding-left: 7px;
+}
+
+#register-section #msform .checkBox {
+  width: 1rem !important;
+  height: 1rem !important;
+  border-radius: 10%;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+#register-section #msform .form-check-input[type=radio]:checked {
+  background: #0D6EFD;
+}
+
+#register-section #msform .form-check-input[type=checkbox]:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+
+#register-section #msform .form-check-input[type=radio]:checked ~ label {
+  color: white;
+}
+
+#register-section #msform .next {
+  float: right;
+  width: 150px;
+}
+
+#register-section #msform .previous {
+  float: left;
+  width: 100px;
+}
+
+#register-section #msform .action-button {
+  position: relative;
+  background: linear-gradient(#243b55, #141e30);
+  font-weight: bold;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  padding: 10px 5px;
+  margin: 10px 0 10px 0;
+  transition: .3s;
+}
+
+#register-section #msform .action-button:hover,
+#register-section #msform .action-button:focus {
+  background-color: #311b92;
+}
+
+#register-section .card {
+  z-index: 0;
+  border: none;
+  position: relative;
+  background: linear-gradient(#141e30, #243b55);
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+}
+
+#register-section .fs-title {
+  font-size: 20px;
+  color: white;
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+}
+
+#register-section .steps {
+  font-size: 20px;
+  color: white;
+  font-weight: normal;
+  text-align: right;
+}
+
+#register-section .errors {
+  color: white;
+  background-color: red;
+  font-size: 14px;
+  padding: 0 0 0 5px;
+  margin: 0;
+  border: none;
+}
+
+#register-section .errors:after {
+  display: inline-block;
+  transform: translateY(30px);
+}
+
+#register-section .fieldlabels {
+  color: gray;
+  text-align: left;
+}
+
+#register-section #progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  color: lightgrey;
+}
+
+#register-section #progressbar .active {
+  color: #0D6EFD;
+}
+
+#register-section #progressbar li {
+  list-style-type: none;
+  font-size: 15px;
+  width: 25%;
+  float: left;
+  position: relative;
+  font-weight: 400;
+}
+
+#register-section #progressbar li:before {
+  width: 50px;
+  height: 50px;
+  line-height: 45px;
+  display: block;
+  font-size: 30px;
+  color: #000;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  padding: 2px;
+}
+
+#register-section #progressbar li:after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: lightgray;
+  position: absolute;
+  left: 0;
+  top: 25px;
+  z-index: -1;
+}
+
+#register-section #progressbar li.active:before,
+#register-section #progressbar li.active:after {
+  background: #0D6EFD;
+  color: white;
+}
+
+#register-section .progress {
+  height: 20px;
+}
+
+#register-section .progress-bar {
+  background-color: #0D6EFD;
+}
+
+#register-section .fit-image {
+  width: 50%;
+  object-fit: cover;
+}
+
+#register-section .spinner-grow {
+  width: 50%;
+  height: 50%;
+  text-align: center;
+  animation-duration: 1.5s;
+  animation-timing-function: step-start;
+  background: transparent;
+}
+
+#register-section .scaleHover:hover {
+  transform: scale(1.05);
 }
 
 #register-section .no-select {
@@ -49,102 +313,176 @@
   user-select: none;
 }
 
-#register-section div.row {
-  margin-left: 5px;
+#register-section #msform .action-button span {
+  position: absolute;
+  display: block;
 }
 
-#register-section .alert {
-  color: red;
-  font-size: 15px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 5px;
-  padding-right: 10px;
+#register-section #msform .action-button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0D6EFD);
+  animation: btn-anim1 1s linear infinite;
 }
 
-#register-section .errors {
-  margin-top: 5px;
-  width: auto;
-}
-
-#register-section button.btn {
-  width: auto;
-}
-
-#register-section .scaleHover:hover {
-  transform: scale(1.05);
-}
-
-#register-section div a {
-  cursor: pointer;
-}
-
-@media screen and (max-width: 414px) {
-  #register-section {
-    padding: 5px !important;
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
   }
-
-  #register-section div.card {
-    padding-left: 10px;
-    padding-right: 20px;
-    padding-bottom: 10px;
-    margin-top: 5px !important;
-    margin-bottom: 5px !important;
-    border-top-left-radius: 70px !important;
-  }
-
-  #register-section form div {
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  #register-section form div.row {
-    padding-left: 0;
-  }
-
-  #register-section form div.row div {
-    padding-left: 20px;
-  }
-
-  #register-section form {
-    width: 100%;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding-bottom: 10px;
+  50%,100% {
+    left: 100%;
   }
 }
 
-@media screen and (min-width: 414px) and (max-width: 500px) {
-  #register-section {
-    padding: 15px;
-  }
+#register-section #msform .action-button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #0D6EFD);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
 
-  #register-section div.card {
-    padding-left: 10px;
-    padding-right: 20px;
-    padding-bottom: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-top-left-radius: 70px !important;
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
   }
-
-  #register-section form div {
-    margin-left: auto !important;
-    margin-right: auto !important;
+  50%,100% {
+    top: 100%;
   }
+}
 
-  #register-section form div.row {
-    padding-left: 0;
+#register-section #msform .action-button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #0D6EFD);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
   }
-
-  #register-section form div.row div {
-    padding-left: 20px;
+  50%,100% {
+    right: 100%;
   }
+}
 
-  #register-section form {
-    width: 100%;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding-bottom: 10px;
+#register-section #msform .action-button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #0D6EFD);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+#register-section #msform .loading-spinner1 {
+  color: gray;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 100px;
+}
+
+#register-section #msform .loading-spinner1 div {
+  transform-origin: 40px 40px;
+  animation: loading-spinner 1.2s linear infinite;
+}
+
+#register-section #msform .loading-spinner1 div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: white;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+
+#register-section #msform .loading-spinner1 div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+
+@keyframes loading-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

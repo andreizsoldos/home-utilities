@@ -2,7 +2,7 @@ body {
   display: flex;
   min-height: 100vh;
   background-color: lavender!important;
-  font-family: "Serif"!important;
+  font-family: "Serif", serif !important;
 }
 
 #sidebar div ul li:hover, #sidebar div.languages a img:hover {
@@ -52,6 +52,10 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+#sidebar .toggleMenuButton:hover {
+  transform: scale(1.05);
+}
+
 #sidebar .menuJustify {
   display: block !important;
   font-size: 35px;
@@ -60,18 +64,20 @@ body {
   color: white;
 }
 
-#sidebar .toggleMenuButton:hover {
-  transform: scale(1.05);
+#sidebar .closeMenu:hover {
+  color: #0d6efd;
 }
 
 #sidebar .btn-close {
   position: absolute;
   background: transparent;
+  color: white;
   font-size: 25px;
   line-height: normal;
   right: 5px;
   border-radius: 50px;
   box-shadow: none;
+  opacity: 0.7;
 }
 
 #sidebar .btn-close:focus {
@@ -86,35 +92,6 @@ body {
 
 #sidebar .offcanvas-body {
   padding: 0;
-}
-
-#sidebar .overlay {
-  display: block;
-  position: fixed;
-  /* full screen */
-  width: 100vw;
-  height: 100vh;
-  /* transparent black */
-  background: rgba(0, 0, 0, 0.7);
-  /* middle layer, i.e. appears below the sidebar */
-  z-index: 998;
-  opacity: 0;
-  /* animate the transition */
-  transition: all 0.5s ease-in-out;
-}
-/* display .overlay when it has the .active class */
-#sidebar .overlay.active {
-  display: block;
-  opacity: 1;
-}
-
-#sidebar #dismiss {
-  width: 35px;
-  height: 35px;
-  position: absolute;
-  /* top right corner of the sidebar */
-  top: 10px;
-  right: 10px;
 }
 
 @media screen and (max-width: 414px) {

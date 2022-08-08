@@ -44,7 +44,7 @@
 
             <div class="mb-2 d-block text-center">
                 <a href="#" th:href="@{/user/dashboard/__${branch}__}" class="me-1 btn btn-secondary text-decoration-none scaleHover" th:text="#{clientCode.cancel.value}">Cancel</a>
-                <button type="submit" class="ms-1 btn btn-primary scaleHover" th:text="#{clientCode.submit.value}">Submit</button>
+                <button type="submit" th:id="saveButton" id="saveButton" class="ms-1 btn scaleHover" th:text="#{clientCode.submit.value}">Submit</button>
             </div>
         </form>
     </div>

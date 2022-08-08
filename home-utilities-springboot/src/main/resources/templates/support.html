@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments/layout :: title(#{support.title}, ~{::link})}">
     <link type="text/css" rel="stylesheet" th:href="@{/css/support.css}" href="../static/css/support.css">
@@ -11,23 +12,23 @@
 <section th:id="support-section" id="support-section">
   <div class="card">
     <div class="card-group">
-      <a href="#" th:href="@{/support/reset-password}">
+      <div sec:authorize="isAnonymous()">
         <div class="card pwd">
-          <img th:src="@{/images/support/reset-pwd.png}" src="../static/images/support/reset-pwd.png" alt="" width="128" height="128">
+          <a href="#" th:href="@{/support/reset-password}">
+            <img th:src="@{/images/support/reset-pwd.png}" src="../static/images/support/reset-pwd.png" alt="" width="128" height="128">
+          </a>
         </div>
-        <div class="card-body p-0">
-          <h5 class="card-title" th:text="#{support.reset.password.title}">Reset password</h5>
-        </div>
-      </a>
+        <h5 class="card-title" th:text="#{support.reset.password.title}">Reset password</h5>
+      </div>
 
-      <a href="#" th:href="@{/support/account/activate/link}">
+      <div sec:authorize="isAnonymous()">
         <div class="card account">
-          <img th:src="@{/images/support/activate-account-link.png}" src="../static/images/support/activate-account-link.png" alt="" width="125" height="125">
+          <a href="#" th:href="@{/support/account/activate/link}">
+            <img th:src="@{/images/support/activate-account-link.png}" src="../static/images/support/activate-account-link.png" alt="" width="125" height="125">
+          </a>
         </div>
-        <div class="card-body p-0">
-          <h5 class="card-title" th:text="#{support.activate.account.link.title}">Reset password</h5>
-        </div>
-      </a>
+        <h5 class="card-title" th:text="#{support.activate.account.link.title}">Reset password</h5>
+      </div>
     </div>
   </div>
 </section>
