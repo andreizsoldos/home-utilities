@@ -10,14 +10,6 @@ $(document).ready(function () {
     $('#register-section .next').attr('disabled', true);
   });
 
-  let els = document.querySelectorAll(".possibly-scaled");
-  for (let el of els) {
-    let xScale = el.clientWidth / el.scrollWidth;
-    if (xScale < 1) {
-      el.style.transform = "scaleX(" + xScale + ")";
-    }
-  }
-
   $(document).on('input', '#email, #password, #repeatPassword', function (e) {
     if ($('#email').val().length > 0 && $('#password').val().length > 0 && $('#repeatPassword').val().length > 0) {
       $('<span /><span /><span /><span />').appendTo('#register-section .field1 ~ .animated-border');
