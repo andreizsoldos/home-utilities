@@ -13,8 +13,8 @@
         <div class="row justify-content-center">
             <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
                 <div class="card px-3 pt-4 pb-0 mt-3 mb-3">
-                    <h4 class="no-select possibly-scaled" id="heading" th:text="#{register.content.title}">Sign Up Your User Account</h4>
-                    <p class="no-select possibly-scaled" th:text="#{register.content.subtitle}">Fill all form field to go to next step</p>
+                    <h4 class="no-select" id="heading" th:text="#{register.content.title}">Sign Up Your User Account</h4>
+                    <p class="no-select" th:text="#{register.content.subtitle}">Fill all form field to go to next step</p>
                     <form id="msform" th:action="@{/register}" th:method="post" th:object="${userRegisterRequest}">
                         <!-- progressbar -->
                         <ul class="p-0" id="progressbar">
@@ -31,7 +31,7 @@
                             <div class="form-card field1">
                                 <div class="row mb-2">
                                     <div class="col-7">
-                                        <h2 class="fs-title possibly-scaled" th:text="#{register.content.step.account.title}">Account Information:</h2>
+                                        <h2 class="fs-title" th:text="#{register.content.step.account.title}">Account Information:</h2>
                                     </div>
                                     <div class="col-5">
                                         <h2 class="steps" th:text="#{register.content.steps(1, 4)}">Step 1 - 4</h2>
@@ -62,7 +62,7 @@
                             <div class="form-card field2">
                                 <div class="row mb-2">
                                     <div class="col-7">
-                                        <h2 class="fs-title possibly-scaled" th:text="#{register.content.step.personal.title}">Personal Information:</h2>
+                                        <h2 class="fs-title" th:text="#{register.content.step.personal.title}">Personal Information:</h2>
                                     </div>
                                     <div class="col-5">
                                         <h2 class="steps" th:text="#{register.content.steps(2, 4)}">Step 2 - 4</h2>
@@ -107,7 +107,7 @@
                             <div class="form-card field3">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title possibly-scaled" th:text="#{register.content.step.agreement.title}">Policy Agreement Information:</h2>
+                                        <h2 class="fs-title" th:text="#{register.content.step.agreement.title}">Policy Agreement Information:</h2>
                                     </div>
                                     <div class="col-5">
                                         <h2 class="steps" th:text="#{register.content.steps(3, 4)}">Step 3 - 4</h2>
@@ -137,7 +137,7 @@
                             <div class="form-card field4">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title possibly-scaled" th:text="#{register.content.step.confirm.title}">Finish:</h2>
+                                        <h2 class="fs-title" th:text="#{register.content.step.confirm.title}">Finish:</h2>
                                     </div>
                                     <div class="col-5">
                                         <h2 class="steps" th:text="#{register.content.steps(4, 4)}">Step 4 - 4</h2>

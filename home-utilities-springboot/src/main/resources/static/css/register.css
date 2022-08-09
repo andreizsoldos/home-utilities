@@ -19,7 +19,6 @@ html {
   text-transform: uppercase;
   color: #fff;
   font-weight: normal;
-  white-space: nowrap;
 }
 
 #register-section .possibly-scaled {
@@ -199,7 +198,6 @@ html {
   color: white;
   font-weight: normal;
   text-align: left;
-  white-space: nowrap;
 }
 
 #register-section .steps {
